@@ -25,8 +25,8 @@ ng version
    Primero, clona el repositorio de este proyecto en tu máquina local:
 
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd <directorio_del_repositorio>
+   git clone https://github.com/edisonrmedina2024/frontBank.git
+   cd frontBank
    ```
 
 2. **Instalar las dependencias**  
