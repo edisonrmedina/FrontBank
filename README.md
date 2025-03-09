@@ -1,5 +1,5 @@
 
-# Proyecto Bancaria
+# Proyecto Banco
 
 Este proyecto es una aplicación basada en Angular que involucra varios módulos y pasos de construcción. A continuación, te guiaré a través de los pasos necesarios para preparar y ejecutar la aplicación.
 
