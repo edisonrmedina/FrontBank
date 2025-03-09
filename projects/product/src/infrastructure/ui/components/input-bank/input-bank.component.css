@@ -1,0 +1,15 @@
+input[type="text"], lib-input-bank {
+    width: 250px;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(25, 25, 26, 0.1);
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(64, 66, 68, 0.1);
+  }
