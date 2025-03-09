@@ -1,59 +1,87 @@
-# NewfrontAppBancaria
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.1.
+# Proyecto Bancaria
 
-## Development server
+Este proyecto es una aplicación basada en Angular que involucra varios módulos y pasos de construcción. A continuación, te guiaré a través de los pasos necesarios para preparar y ejecutar la aplicación.
 
-To start a local development server, run:
+## Requisitos previos
 
-```bash
-ng serve
-```
+Asegúrate de tener las siguientes herramientas instaladas en tu máquina antes de comenzar:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Node.js** (versión 14 o superior)
+- **npm** (v6 o superior)
+- **Angular CLI**
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Puedes verificar si tienes estas herramientas instaladas utilizando los siguientes comandos:
 
 ```bash
-ng generate component component-name
+node -v
+npm -v
+ng version
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Pasos de Instalación
 
-```bash
-ng generate --help
-```
+1. **Clonar el repositorio**  
+   Primero, clona el repositorio de este proyecto en tu máquina local:
 
-## Building
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd <directorio_del_repositorio>
+   ```
 
-To build the project run:
+2. **Instalar las dependencias**  
+   A continuación, instala todas las dependencias del proyecto utilizando npm:
 
-```bash
-ng build
-```
+   ```bash
+   npm install -f
+   ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+3. **Compilar los módulos compartidos**  
+   Compila el módulo compartido de la aplicación (`shared`) utilizando el siguiente comando:
 
-## Running unit tests
+   ```bash
+   ng build shared
+   ```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+4. **Compilar el módulo de productos**  
+   Después, construye el módulo de productos de la siguiente forma:
 
-```bash
-ng test
-```
+   ```bash
+   ng build products
+   ```
 
-## Running end-to-end tests
+5. **Compilar la aplicación bancaria**  
+   A continuación, compila la aplicación específica bancaria:
 
-For end-to-end (e2e) testing, run:
+   ```bash
+   ng build app-bancaria
+   ```
 
-```bash
-ng e2e
-```
+6. **Ejecutar el servidor de desarrollo**  
+   Ahora que todo está listo, ejecuta el servidor de desarrollo de Angular para levantar la aplicación:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+   ```bash
+   ng serve
+   ```
 
-## Additional Resources
+7. **Acceder a la aplicación**  
+   Abre tu navegador y ve a `http://localhost:4200` para ver la aplicación en funcionamiento.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Notas adicionales
+
+- **`ng build`**: Este comando compila y empaqueta la aplicación o módulo Angular para producción.
+- **`ng serve`**: Levanta un servidor de desarrollo y recompila los cambios en tiempo real mientras trabajas en el proyecto.
+
+## Contribuciones
+
+Si deseas contribuir a este proyecto, sigue estos pasos:
+
+1. Realiza un fork del repositorio.
+2. Crea una rama para tu nueva característica (`git checkout -b feature-nueva-caracteristica`).
+3. Haz tus cambios y realiza un commit.
+4. Haz un push de tus cambios a tu fork (`git push origin feature-nueva-caracteristica`).
+5. Crea un Pull Request.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para más detalles.
