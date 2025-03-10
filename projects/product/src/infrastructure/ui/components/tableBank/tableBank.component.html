@@ -2,33 +2,39 @@
   <thead>
     <tr>
       @for (header of headers; track header) {
-        <th>{{ header }}</th>
+      <th>{{ header }}</th>
       }
       @if (actions && actions.length > 0) {
-        <th>Acciones</th>
+      <th>Acciones</th>
       }
     </tr>
   </thead>
   <tbody>
     @for (item of data; track item) {
-      <tr>
-        @for (header of headers; track header) {
-          @if (header === 'Logo') {
+    <tr>
+      @for (header of headers; track header) {
+
+        @if (header === 'Logo') {
+          <td>{{ item[headerKeyMap[header]]}}
             <img [src]="'assets/' + item[headerKeyMap[header]]" alt="Logo" class="logo-img" />
-          }
+          </td>
+        }@else{
           <td>{{ item[headerKeyMap[header]]}}</td>
         }
         
-        @if (actions && actions.length > 0) {
-          <td>
-            <div class="dropdown">
-              <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                ...
+      }
+
+      @if (actions && actions.length > 0) {
+        <td>
+          <div class="dropdown">
+            <div class="dropdown-container">
+              <button class="dropdown-toggle-btn" (click)="toggleVisibility()">
+                ⋮
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" [class.show]="showActions">
                 @for (action of actions; track action) {
                   <li>
-                    <a class="dropdown-item" href="#" (click)="action.onClick(item)">
+                    <a class="dropdown-item" (click)="showModal(item); $event.preventDefault()">
                       @if (action.icon) {
                         <i class="{{ action.icon }}"></i>
                       }
@@ -38,9 +44,17 @@
                 }
               </ul>
             </div>
-          </td>
-        }
-      </tr>
+          </div>
+        </td>
+      }
+      
+    </tr>
     }
   </tbody>
 </table>
+
+<lib-delete-bank
+[isVisible]="modalIsVisible"
+[item]="selectedItem"
+(close)="closeModal($event)"
+></lib-delete-bank>

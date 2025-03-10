@@ -1,94 +1,99 @@
-<form [formGroup]="productForm" (ngSubmit)="submitForm()">
-    <div>
-      <label for="id">ID:</label>
-      <input id="id" type="text" formControlName="id">
-      @if (productForm.controls['id'].invalid && productForm.controls['id'].touched) {
-        <div class="error">
-          @if (productForm.controls['id'].errors?.['required']) {
-            <span>ID is required</span>
-          }
-          @if (productForm.controls['id'].errors?.['minlength']) {
-            <span>ID must be at least 3 characters</span>
-          }
-          @if (productForm.controls['id'].errors?.['maxlength']) {
-            <span>ID cannot exceed 10 characters</span>
-          }
-        </div>
-      }
-    </div>
-  
-    <div>
-      <label for="name">Name:</label>
-      <input id="name" type="text" formControlName="name">
-      @if (productForm.controls['name'].invalid && productForm.controls['name'].touched) {
-        <div class="error">
-          @if (productForm.controls['name'].errors?.['required']) {
-            <span>Name is required</span>
-          }
-          @if (productForm.controls['name'].errors?.['minlength']) {
-            <span>Name must be at least 5 characters</span>
-          }
-          @if (productForm.controls['name'].errors?.['maxlength']) {
-            <span>Name cannot exceed 100 characters</span>
-          }
-        </div>
-      }
-    </div>
-  
-    <div>
-      <label for="description">Description:</label>
-      <textarea id="description" formControlName="description"></textarea>
-      @if (productForm.controls['description'].invalid && productForm.controls['description'].touched) {
-        <div class="error">
-          @if (productForm.controls['description'].errors?.['required']) {
-            <span>Description is required</span>
-          }
-          @if (productForm.controls['description'].errors?.['minlength']) {
-            <span>Description must be at least 10 characters</span>
-          }
-          @if (productForm.controls['description'].errors?.['maxlength']) {
-            <span>Description cannot exceed 200 characters</span>
-          }
-        </div>
-      }
-    </div>
-  
-    <div>
-      <label for="logo">Logo URL:</label>
-      <input id="logo" type="text" formControlName="logo">
-      @if (productForm.controls['logo'].invalid && productForm.controls['logo'].touched) {
-        <div class="error">
-          <span>Logo URL is required</span>
-        </div>
-      }
-    </div>
-  
-    <div>
-      <label for="date_release">Release Date:</label>
-      <input id="date_release" type="date" formControlName="date_release" [min] = "today" >
-      @if (productForm.controls['date_release'].invalid && productForm.controls['date_release'].touched) {
-        <div class="error">
-          @if (productForm.controls['date_release'].errors?.['required']) {
-            <span>Release date is required</span>
-          }
-          @if (productForm.controls['date_release'].errors?.['invalidDate']) {
-            <span>Release date must be today or later</span>
-          }
-        </div>
-      }
-    </div>
-  
-    <div>
-      <label for="date_revision">Review Date:</label>
-      <input id="date_revision" type="date" formControlName="date_revision">
-    </div>
-  
-    <div class="buttons">
-      <button type="submit">Submit</button>
-      <button type="button" (click)="resetForm()">Reset</button>
-    </div>
+<div class="modal-container">
+  <h2>Formulario de Registro</h2>
+  <div class="division-line"></div>
+  <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+    <div class="form-grid">
+      <div>
+        <label for="id">ID </label>
+        <input id="id" type="text" formControlName="id">
+        @if (productForm.controls['id'].invalid && productForm.controls['id'].touched) {
+          <div class="error">
+            @if (productForm.controls['id'].errors?.['required']) {
+              <span>ID is required</span>
+            }
+            @if (productForm.controls['id'].errors?.['minlength']) {
+              <span>ID must be at least 3 characters</span>
+            }
+            @if (productForm.controls['id'].errors?.['maxlength']) {
+              <span>ID cannot exceed 10 characters</span>
+            }
+          </div>
+        }
+      </div>
     
+      <div>
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name">
+        @if (productForm.controls['name'].invalid && productForm.controls['name'].touched) {
+          <div class="error">
+            @if (productForm.controls['name'].errors?.['required']) {
+              <span>Name is required</span>
+            }
+            @if (productForm.controls['name'].errors?.['minlength']) {
+              <span>Name must be at least 5 characters</span>
+            }
+            @if (productForm.controls['name'].errors?.['maxlength']) {
+              <span>Name cannot exceed 100 characters</span>
+            }
+          </div>
+        }
+      </div>
+    
+      <div>
+        <label for="description">Descripción</label>
+        <input id="description" formControlName="description">
+        @if (productForm.controls['description'].invalid && productForm.controls['description'].touched) {
+          <div class="error">
+            @if (productForm.controls['description'].errors?.['required']) {
+              <span>Description is required</span>
+            }
+            @if (productForm.controls['description'].errors?.['minlength']) {
+              <span>Description must be at least 10 characters</span>
+            }
+            @if (productForm.controls['description'].errors?.['maxlength']) {
+              <span>Description cannot exceed 200 characters</span>
+            }
+          </div>
+        }
+      </div>
+    
+      <div>
+        <label for="logo">Logo </label>
+        <input id="logo" type="text" formControlName="logo">
+        @if (productForm.controls['logo'].invalid && productForm.controls['logo'].touched) {
+          <div class="error">
+            <span>Logo URL is required</span>
+          </div>
+        }
+      </div>
+    
+      <div>
+        <label for="date_release">Fecha Liberación</label>
+        <input id="date_release" type="date" formControlName="date_release" [min] = "today" >
+        @if (productForm.controls['date_release'].invalid && productForm.controls['date_release'].touched) {
+          <div class="error">
+            @if (productForm.controls['date_release'].errors?.['required']) {
+              <span>Release date is required</span>
+            }
+            @if (productForm.controls['date_release'].errors?.['invalidDate']) {
+              <span>Release date must be today or later</span>
+            }
+          </div>
+        }
+      </div>
+    
+      <div>
+        <label for="date_revision">Fecha Revisión </label>
+        <input id="date_revision" type="date" formControlName="date_revision">
+      </div>
+      
+    </div>
+
+    <div class="buttons">
+      <button type="button" (click)="resetForm()">Reiniciar</button>
+      <button type="submit">Enviar</button>
+    </div>
+
   </form>
 
-<button (click)="closeModalBank()">Cerrar</button>
-
+</div>

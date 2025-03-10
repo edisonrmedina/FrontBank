@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, map, of, Subscription } from 'rxjs';
+import { DeleteProductUseCase } from '../../../../application/delete.product.use.case';
 import { GetAllProductsUseCase } from '../../../../application/get.products.use.case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ProductQuery } from '../../../../domain/state/product.query';
@@ -28,6 +29,9 @@ export class DesignOneContainerComponent implements OnInit {
   private readonly _getAllProducts = inject(ProductQuery);
   private readonly _route = inject(ActivatedRoute);
   private readonly _subscription = new Subscription();
+  private readonly _router = inject(Router);
+  private readonly _deleteProductUseCase = inject(DeleteProductUseCase);
+  
 
   data: IProduct[] = [];
   filteredData: IProduct[] = [];
@@ -53,15 +57,35 @@ export class DesignOneContainerComponent implements OnInit {
       'Fecha Restructuracion',
     ];
 
-    this.actions = [];
+    this.actions = [
+      {
+        label: 'Eliminar',
+        icon: 'bi bi-trash', // Usa Bootstrap Icons si estás usando Bootstrap
+        onClick: (item: any) => this.deleteItem(item),
+      },
+    ];
     this._subscription.add(
       this._getAllProducts.selectAll().subscribe((products) => {
         this.data = products;
         this.filteredData = [...this.data];
+        this.paginatedData = this.filteredData;
+        this.updatePagination();
       })
     );
 
     this.updatePagination();
+  }
+  deleteItem(item: any): void {
+    debugger;
+    const index = this.data.indexOf(item);
+    if (index > -1) {
+      this._deleteProductUseCase.execute(item.value).pipe(
+            map(response => {
+              this.ngOnInit();
+            }), 
+            catchError(() => of(null)) 
+          );
+    }
   }
 
   constructor() {
@@ -129,19 +153,14 @@ export class DesignOneContainerComponent implements OnInit {
   }
 
   showCreateModal() {
-    this.isModalOpen = true;
+    this._router.navigate(['/create']);
   }
 
   closeCreateModal() {
     this.isModalOpen = false;
   }
 
-  // onCreateProduct(product: IProduct)  {
-  //   this._getProductsUseCase.execute(product);
-  // }
-
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
-  
 }

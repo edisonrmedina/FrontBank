@@ -77,7 +77,6 @@ export class ModalBankComponent {
     });
 
     this.productForm.controls['date_release'].valueChanges.subscribe((value) => {
-      debugger;
       if (value) {
         const releaseDate = new Date(value);
         releaseDate.setFullYear(releaseDate.getFullYear() + 1);
@@ -95,18 +94,16 @@ export class ModalBankComponent {
 
   submitForm(): void {
     if (this.productForm.valid) {
-      debugger;
       this._createProductUseCase.execute(this.productForm.value)
-      .pipe(takeUntil(this._destroy$)) // Esto asegurará que el observable se cancele cuando el componente se destruya.
+      .pipe(takeUntil(this._destroy$)) 
       .subscribe({
         next: (response) => {
-          console.log('Producto creado correctamente', response);
           this.resetForm();
           this.closeModal.emit(); 
         },
         error: (error) => {
           console.error('Error al crear el producto', error);
-          // Maneja el error si es necesario, p.ej., mostrar un mensaje al usuario
+          
         }
       })
     } else {
@@ -122,15 +119,14 @@ export class ModalBankComponent {
     if (!control.value) return of(null); 
   
     return this._validateIdUseCase.execute(control.value).pipe(
-      map(response => (response.exists ? { idExists: true } : null)), 
-      catchError(() => of(null)) 
+      takeUntil(this._destroy$),
+      map(response => (response.exists ? { idExists: true } : null)),
+      catchError(() => of(null))
     );
   }
   
-
   closeModalBank() {
     this.closeModal.emit();
   }
   
 }
-

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ButtonBankComponent } from './button.component';
 
+import { ModalDeleteBankComponent } from './modal.delete.bank.component';
 
-describe('ButtonComponent', () => {
-  let component: ButtonBankComponent;
-  let fixture: ComponentFixture<ButtonBankComponent>;
+describe('ModalDeleteBankComponent', () => {
+  let component: ModalDeleteBankComponent;
+  let fixture: ComponentFixture<ModalDeleteBankComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ButtonBankComponent]
+      imports: [ModalDeleteBankComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ButtonBankComponent);
+    fixture = TestBed.createComponent(ModalDeleteBankComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

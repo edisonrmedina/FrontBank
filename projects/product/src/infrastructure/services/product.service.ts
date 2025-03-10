@@ -52,6 +52,7 @@ export class ProductApiService {
   }
 
   deleteProduct(id: string): Observable<IDeleteProductResponse> {
+    debugger;
     return this.http.delete<IDeleteProductResponse>(`${this.apiUrl}/${id}`, {
       headers: this.getHeaders(),
     });

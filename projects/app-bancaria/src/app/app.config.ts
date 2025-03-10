@@ -5,14 +5,14 @@ import { enableAkitaProdMode, persistState } from '@datorama/akita';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { routes } from './app.routes';
 
-// Configure Akita for production mode
+
 if (!isDevMode()) {
   enableAkitaProdMode();
 }
 
-// Configure persistence for Akita stores
+
 const persistStorage = persistState({
-  include: ['product'], // Store names you want to persist
+  include: ['product'], 
   key: 'akitaStore',
   storage: sessionStorage
 });

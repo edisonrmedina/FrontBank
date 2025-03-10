@@ -3,5 +3,5 @@
  */
 
 export * from './infrastructure/services/auth.service';
-export * from './infrastructure/ui/routes/user.routes';
+export * from './infrastructure/ui/routes/products.routes';
 

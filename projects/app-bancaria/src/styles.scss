@@ -1,5 +1,4 @@
 body {
-    font-family: "preloslab-semibold", sanssans-serif;
     color: var(--text-color);
     background-color: var(--light-bg);
     margin: 0;
@@ -13,4 +12,8 @@ body {
     --border-color: #e0e0e0; /* Light border color */
     --text-color: #333; /* Main text color */
     --hover-bg: #f0f4f8; /* Light hover background */
+  }
+
+  html{
+    font-family: "preloslab-book", sans-serif !important
   }

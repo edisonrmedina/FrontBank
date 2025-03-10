@@ -7,7 +7,7 @@
     <div class="search-container">
         <lib-input-bank (searchChange)="searchChange($event)"></lib-input-bank>
         @if(isButtonActive){
-        <lib-button class="create-button" label="Crear" (buttonClick)="showCreateModal()">Crear</lib-button>
+        <lib-button class="create-button" label="Agregar" (buttonClick)="showCreateModal()">Agregar</lib-button>
         }
     </div>
     <lib-table [data]="paginatedData" [headers]="headers" [actions]="actions">

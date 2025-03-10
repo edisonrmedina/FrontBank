@@ -1,6 +1,7 @@
 lib-button, button.create-button {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--color);
+    font-weight: bolder;
     border: none;
     padding: 10px 15px;
     border-radius: 4px;

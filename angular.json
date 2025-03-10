@@ -7,105 +7,7 @@
     "@datorama/akita-ngdevtools"
   ],
   "projects": {
-    "core": {
-      "projectType": "library",
-      "root": "projects/core",
-      "sourceRoot": "projects/core/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/core/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/core/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/core/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/core/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "shared": {
-      "projectType": "library",
-      "root": "projects/shared",
-      "sourceRoot": "projects/shared/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/shared/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/shared/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/shared/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/shared/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "auth": {
-      "projectType": "library",
-      "root": "projects/auth",
-      "sourceRoot": "projects/auth/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/auth/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/auth/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/auth/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/auth/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
+  
     "product": {
       "projectType": "library",
       "root": "projects/product",
@@ -131,72 +33,6 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/product/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "account": {
-      "projectType": "library",
-      "root": "projects/account",
-      "sourceRoot": "projects/account/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/account/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/account/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/account/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/account/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
-    },
-    "transaction": {
-      "projectType": "library",
-      "root": "projects/transaction",
-      "sourceRoot": "projects/transaction/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/transaction/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/transaction/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/transaction/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/transaction/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -299,6 +135,31 @@
           }
         }
       }
+    },
+    "shared": {
+      "projectType": "library",
+      "root": "projects/shared",
+      "sourceRoot": "projects/shared/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "projects/shared/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+        
+      }
     }
+    
   }
 }
