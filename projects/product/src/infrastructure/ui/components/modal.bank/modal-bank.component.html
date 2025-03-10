@@ -1,5 +1,5 @@
 <div class="modal-container">
-  <h2>Formulario de Registro</h2>
+  <h2>{{ isEditMode ? 'Editar Producto' : 'Formulario de Registro' }}</h2>
   <div class="division-line"></div>
   <form [formGroup]="productForm" (ngSubmit)="submitForm()">
     <div class="form-grid">
@@ -91,7 +91,7 @@
 
     <div class="buttons">
       <button type="button" (click)="resetForm()">Reiniciar</button>
-      <button type="submit">Enviar</button>
+      <button type="button-secondario" (click)="resetForm()">{{ isEditMode ? 'Actualizar' : 'Enviar' }}</button>
     </div>
 
   </form>

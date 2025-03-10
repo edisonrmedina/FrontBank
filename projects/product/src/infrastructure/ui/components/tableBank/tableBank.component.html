@@ -34,7 +34,7 @@
               <ul class="dropdown-menu" [class.show]="showActions">
                 @for (action of actions; track action) {
                   <li>
-                    <a class="dropdown-item" (click)="showModal(item); $event.preventDefault()">
+                    <a class="dropdown-item" (click)="showModal(action,item); $event.preventDefault()">
                       @if (action.icon) {
                         <i class="{{ action.icon }}"></i>
                       }
@@ -47,7 +47,7 @@
           </div>
         </td>
       }
-      
+
     </tr>
     }
   </tbody>

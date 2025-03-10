@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
 import { ModalBankComponent } from '../modal.bank/modal-bank.component';
@@ -15,7 +16,7 @@ export class tableBankComponent {
   @Input() data: IProduct[] = [];
   @Input() actions: ITableBankAction[] = [];
   @Output() modalItem = new EventEmitter<IProduct>();
-
+  private readonly _router = inject(Router);
   showActions: boolean = false;
   modalIsVisible: boolean = false;
   headerKeyMap: { [key: string]: string } = {
@@ -31,11 +32,21 @@ export class tableBankComponent {
 
   constructor() {}
 
-  showModal(item: IProduct) {
+  showModal(action: ITableBankAction, item: IProduct) {
     debugger;
     this.selectedItem = item;
-    this.modalIsVisible = true;
-    this.modalItem.emit(item);
+    
+    if (action.label.toLowerCase() === 'editar') {
+      this._router.navigate(['/create'], { queryParams: { product: JSON.stringify(item) } });
+    } else {
+
+      this.modalIsVisible = true;
+      this.modalItem.emit(item);
+    }
+    
+    if (action.onClick) {
+      action.onClick(item);
+    }
   }
 
   closeModal($event: Event) {

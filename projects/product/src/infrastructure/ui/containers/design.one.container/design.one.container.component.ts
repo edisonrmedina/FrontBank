@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, map, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DeleteProductUseCase } from '../../../../application/delete.product.use.case';
 import { GetAllProductsUseCase } from '../../../../application/get.products.use.case';
 import { IProduct } from '../../../../domain/model/IProduct';
@@ -60,8 +60,13 @@ export class DesignOneContainerComponent implements OnInit {
     this.actions = [
       {
         label: 'Eliminar',
-        icon: 'bi bi-trash', // Usa Bootstrap Icons si estás usando Bootstrap
-        onClick: (item: any) => this.deleteItem(item),
+        icon: '',
+        onClick: undefined,
+      },
+      {
+        label: 'Editar',
+        icon: '', 
+        onClick: undefined,
       },
     ];
     this._subscription.add(
@@ -75,19 +80,7 @@ export class DesignOneContainerComponent implements OnInit {
 
     this.updatePagination();
   }
-  deleteItem(item: any): void {
-    debugger;
-    const index = this.data.indexOf(item);
-    if (index > -1) {
-      this._deleteProductUseCase.execute(item.value).pipe(
-            map(response => {
-              this.ngOnInit();
-            }), 
-            catchError(() => of(null)) 
-          );
-    }
-  }
-
+  
   constructor() {
     this._getProductsUseCase.execute();
   }
