@@ -1,13 +1,6 @@
-import { IProduct } from "../model/IProduct";
+import { IProductState } from "../model/iProductState";
 
-export interface ProductState {
-    products: IProduct[];
-    selectedProduct: IProduct | null;
-    loading: boolean;
-    error: string | null;
-  }
-  
-  export function createInitialState(): ProductState {
+export function createInitialState(): IProductState {
     return {
       products: [],
       selectedProduct: null,

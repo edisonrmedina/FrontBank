@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
+import { IProductState } from '../model/iProductState';
 import { ProductStore } from './product.store';
-import { ProductState } from './state';
 
 
 @Injectable({ providedIn: 'root' })
-export class ProductQuery extends Query<ProductState> {
+export class ProductQuery extends Query<IProductState> {
   constructor(protected override store: ProductStore) {
     super(store);
   }
   selectAll() {
     return this.select(state => state.products);
+  }
+
+  selectSelectedProduct() {
+    return this.select(state => state.selectedProduct);
   }
   
 }

@@ -12,7 +12,7 @@ export class UpdateProductUseCase {
   private readonly _service = inject(ProductApiService);
   private readonly _store = inject(ProductStoreService);
 
-  //#region Public Methods
+  
   execute(id: string, product: IUpdateProductRequest): Observable<IUpdateProductResponse> {
     return this._service.updateProduct(id, product).pipe(
       tap(response => {

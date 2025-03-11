@@ -1,5 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { SelectProductCase } from '../../../../application/select-product-use-case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
 import { ModalBankComponent } from '../modal.bank/modal-bank.component';
@@ -17,6 +18,7 @@ export class tableBankComponent {
   @Input() actions: ITableBankAction[] = [];
   @Output() modalItem = new EventEmitter<IProduct>();
   private readonly _router = inject(Router);
+  private _setSelectProductCase = inject(SelectProductCase)
   showActions: boolean = false;
   modalIsVisible: boolean = false;
   headerKeyMap: { [key: string]: string } = {
@@ -37,13 +39,17 @@ export class tableBankComponent {
     this.selectedItem = item;
     
     if (action.label.toLowerCase() === 'editar') {
-      this._router.navigate(['/create'], { queryParams: { product: JSON.stringify(item) } });
-    } else {
-
+      this._setSelectProductCase.execute(item);
+      this._router.navigate(['/create'], { queryParams: { mode: 'edit' } });
+    } 
+    else {
       this.modalIsVisible = true;
       this.modalItem.emit(item);
     }
     
+    this.modalIsVisible = true;
+      this.modalItem.emit(item);
+
     if (action.onClick) {
       action.onClick(item);
     }

@@ -13,21 +13,17 @@ export class GetAllProductsUseCase {
   private readonly _store = inject(ProductStoreService);
   private readonly _query = inject(ProductQuery);
 
-  //#region Observables
   products$(): Observable<IProduct[]> {
     return this._query.selectAll();
   }
-  //#endregion
 
-  //#region Public Methods
   execute(): void {
     this._service.getAllProducts()
       .pipe(
         tap(response => {
-          this._store.setProducts(response.data); // Almacena los productos en Akita Store
+          this._store.setProducts(response.data);
         })
       )
       .subscribe();
   }
-  //#endregion
 }

@@ -13,7 +13,9 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { CreateProductUseCase } from '../../../../application/create.product.use.case';
+import { GetSelectedProductCase } from '../../../../application/getSelectedProductCase';
 import { ProductExistsUseCase } from '../../../../application/product.exists.use.case';
+import { UpdateProductUseCase } from '../../../../application/update.product.use.case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ButtonBankComponent } from '../button.Bank/button.component';
 import { InputBankComponent } from '../input-bank/input-bank.component';
@@ -37,9 +39,11 @@ export class ModalBankComponent {
 
   private fb = inject(FormBuilder);
   private _validateIdUseCase = inject(ProductExistsUseCase);
-  private _createProductUseCase = inject(CreateProductUseCase)
+  private _createProductUseCase = inject(CreateProductUseCase);
+  private _editProductUseCase = inject(UpdateProductUseCase);
+  private _getSelectedProductUseCase = inject(GetSelectedProductCase);
   private readonly _destroy$ = new Subject<void>();
-  private readonly _router = inject(Router)
+  private readonly _router = inject(Router);
   private readonly _route = inject(ActivatedRoute);
 
   productForm!: FormGroup;
@@ -47,40 +51,41 @@ export class ModalBankComponent {
   isEditMode: boolean = false;
 
   ngOnInit(): void {
-    debugger;
-    this._route.queryParams.subscribe(params => {
-      const productJson = params['product']; 
-      if (productJson) {
-        try {
-          this.productToEdit = JSON.parse(productJson);
-        } catch (error) {
-          console.error('Error al parsear el producto:', error);
-        }
-      }
-  
-      this.initForm();
-      this.today = new Date().toISOString().split('T')[0];
-  
-      if (this.productToEdit) {
+    this.initForm();
+    this.today = new Date().toISOString().split('T')[0];
+
+    this._route.queryParams.subscribe((params) => {
+      const isEditMode = params['mode'] === 'edit';
+
+      if (isEditMode) {
         this.isEditMode = true;
-        this.populateFormForEditing();
+        this._getSelectedProductUseCase.execute().subscribe((product) => {
+          this.productToEdit = product;
+        });
+
+        if (this.productToEdit) {
+          this.populateFormForEditing();
+        } else {
+          console.warn('No hay producto seleccionado en el store para editar.');
+        }
       }
     });
   }
 
   private populateFormForEditing(): void {
     if (!this.productToEdit) return;
-      
+
     this.productForm.get('id')?.disable();
-    
+
     this.productForm.patchValue({
       id: this.productToEdit.id,
       name: this.productToEdit.name,
       description: this.productToEdit.description,
       logo: this.productToEdit.logo,
       date_release: this.formatDateForInput(this.productToEdit.date_release),
-      date_revision: this.formatDateForInput(this.productToEdit.date_revision)
+      date_revision: this.formatDateForInput(this.productToEdit.date_revision),
     });
+
   }
 
   private formatDateForInput(dateString: string): string {
@@ -117,18 +122,20 @@ export class ModalBankComponent {
       ],
       logo: ['', Validators.required],
       date_release: ['', [Validators.required, this.validateReleaseDate]],
-      date_revision: ['',[ Validators.required]],
+      date_revision: ['', [Validators.required]],
     });
 
-    this.productForm.controls['date_release'].valueChanges.subscribe((value) => {
-      if (value) {
-        const releaseDate = new Date(value);
-        releaseDate.setFullYear(releaseDate.getFullYear() + 1);
-        this.productForm.controls['date_revision'].setValue(
-          releaseDate.toISOString().split('T')[0]
-        );
+    this.productForm.controls['date_release'].valueChanges.subscribe(
+      (value) => {
+        if (value) {
+          const releaseDate = new Date(value);
+          releaseDate.setFullYear(releaseDate.getFullYear() + 1);
+          this.productForm.controls['date_revision'].setValue(
+            releaseDate.toISOString().split('T')[0]
+          );
+        }
       }
-    });
+    );
   }
 
   validateReleaseDate(control: FormControl) {
@@ -137,23 +144,39 @@ export class ModalBankComponent {
   }
 
   submitForm(): void {
+    debugger;
     if (this.productForm.valid) {
+      const productData = this.productForm.value;
+
       if (this.isEditMode) {
         this.productForm.get('id')?.enable();
-      }
 
-      this._createProductUseCase.execute(this.productForm.value)
-      .pipe(takeUntil(this._destroy$)) 
-      .subscribe({
-        next: (response) => {
-          this.resetForm();
-          this.closeModal.emit(); 
-        },
-        error: (error) => {
-          console.error('Error al crear el producto', error);
-          
-        }
-      })
+        this._editProductUseCase
+          .execute(this.productForm.get('id').value, productData)
+          .pipe(takeUntil(this._destroy$))
+          .subscribe({
+            next: (response) => {
+              this.resetForm();
+              this.closeModal.emit();
+            },
+            error: (error) => {
+              console.error('Error al editar el producto', error);
+            },
+          });
+      } else {
+        this._createProductUseCase
+          .execute(productData)
+          .pipe(takeUntil(this._destroy$))
+          .subscribe({
+            next: (response) => {
+              this.resetForm();
+              this.closeModal.emit();
+            },
+            error: (error) => {
+              console.error('Error al crear el producto', error);
+            },
+          });
+      }
     } else {
       this.productForm.markAllAsTouched();
     }
@@ -163,23 +186,19 @@ export class ModalBankComponent {
     this.productForm.reset();
   }
 
-  validateIdExistAsync(control: AbstractControl): Observable<ValidationErrors | null> {
-    if (!control.value) return of(null); 
-  
+  validateIdExistAsync(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    if (!control.value) return of(null);
+
     return this._validateIdUseCase.execute(control.value).pipe(
       takeUntil(this._destroy$),
-      map(response => (response.exists ? { idExists: true } : null)),
+      map((response) => (response.exists ? { idExists: true } : null)),
       catchError(() => of(null))
     );
   }
-  
+
   closeModalBank() {
     this.closeModal.emit();
   }
-  
-  action(){
-    if(this._is)
-    this.populateFormForEditing();
-  }
-  
 }

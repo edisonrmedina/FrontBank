@@ -1,19 +1,19 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IDeleteProductResponse } from '../domain/model/IDeleteProductResponse';
+import { Observable, of } from 'rxjs';
+import { IProduct } from '../domain/model/IProduct';
 import { ProductApiService } from '../infrastructure/services/product.service';
 import { ProductStoreService } from '../infrastructure/services/product.store.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeleteProductUseCase {
+export class SelectProductCase {
   private readonly _service = inject(ProductApiService);
   private readonly _store = inject(ProductStoreService);
 
-  execute(id: string): Observable<IDeleteProductResponse> {
-    this._store.deleteProduct(id);
-    return this._service.deleteProduct(id);
+  execute(product: IProduct): Observable<boolean> {
+    this._store.setSelectedProduct(product);
+    return of(true);
   }
 
 }
