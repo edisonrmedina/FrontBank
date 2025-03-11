@@ -22,6 +22,7 @@ import { InputBankComponent } from '../input-bank/input-bank.component';
 
 @Component({
   selector: 'lib-modal-bank',
+  standalone:true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

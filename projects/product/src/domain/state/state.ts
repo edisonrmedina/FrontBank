@@ -1,4 +1,4 @@
-import { IProductState } from "../model/iProductState";
+import { IProductState } from "../model/iProductState"; 
 
 export function createInitialState(): IProductState {
     return {
