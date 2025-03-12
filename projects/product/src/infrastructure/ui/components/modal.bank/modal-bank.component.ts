@@ -73,7 +73,7 @@ export class ModalBankComponent {
     });
   }
 
-  private populateFormForEditing(): void {
+  public populateFormForEditing(): void {
     if (!this.productToEdit) return;
 
     this.productForm.get('id')?.disable();
