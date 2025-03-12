@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { IErrorMessage } from '../../application/error.mesage';
+import { IErrorMessage } from '../../domain/model/error.mesage';
 import { ProductStoreService } from './product.store.service';
 
 @Injectable({

@@ -62,21 +62,29 @@ describe('DeleteProductUseCase', () => {
       status: 500,
       statusText: 'Internal Server Error'
     });
+  
+    const mockErrorMessage: any = { // Define mockErrorMessage
+      code: 'SERVER_ERROR_500',
+      message: 'Server error. Please try again later.',
+      details: 'API Error',
+      originalError: 'API Error',
+    };
+  
     productApiServiceSpy.deleteProduct.and.returnValue(throwError(() => mockError));
-    errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
-
+    errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockErrorMessage)); // Simulate returning mockErrorMessage
+  
     // Act
     useCase.execute(productId).subscribe({
       error: (error) => {
         // Assert
-        expect(error).toBe(mockError);
+        expect(error).toEqual(mockErrorMessage); // Check against mockErrorMessage
       }
     });
-
+  
     // Assert
     expect(errorHandlingServiceSpy.handleError).toHaveBeenCalledWith(
       mockError,
-      `Error deleting product with ID OPP-QQ` // Ajusta el mensaje de error
+      `Product deletion failed: OPP-QQ`
     );
   });
 
