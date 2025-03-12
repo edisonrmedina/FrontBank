@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalDeleteBankComponent } from './modal.delete.bank.component';
 
@@ -7,9 +9,13 @@ describe('ModalDeleteBankComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModalDeleteBankComponent], // Usa declarations, no imports
+      imports: [ModalDeleteBankComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
-    .compileComponents(); // Compila el componente y sus dependencias
+    .compileComponents();
 
     fixture = TestBed.createComponent(ModalDeleteBankComponent);
     component = fixture.componentInstance;
