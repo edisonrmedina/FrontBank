@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { IProduct } from '../../domain/model/IProduct';
@@ -54,27 +55,33 @@ describe('GetSelectedProductCase', () => {
 
   it('should handle error when the query fails and set loading to false', (done) => {
     // Arrange
-    const mockError = new Error('Failed to get selected product');
+    const mockError = new HttpErrorResponse({ // Usa HttpErrorResponse
+      error: 'Query Error',
+      status: 500,
+      statusText: 'Internal Server Error'
+    });
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
     productQuerySpy.selectSelectedProduct.and.returnValue(throwError(() => mockError));
 
     // Act
     useCase.execute().subscribe({
-      next: () => {
-        fail('Expected an error, but got a value');
-        done();
-      },
-      error: (error) => {
-        expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
-        expect(productQuerySpy.selectSelectedProduct).toHaveBeenCalled();
-        expect(errorHandlingServiceSpy.handleError).toHaveBeenCalledWith(mockError, 'Error getting selected product');
-        expect(error).toEqual(mockError);
-        done();
-      },
-      complete: () => {
-        fail('Expected an error, but got complete');
-        done();
-      }
+        next: () => {
+          fail('Expected an error, but got a value');
+          done();
+        },
+        error: (error) => {
+          expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
+          expect(productQuerySpy.selectSelectedProduct).toHaveBeenCalled();
+          expect(errorHandlingServiceSpy.handleError).toHaveBeenCalledWith(mockError, 'Error getting selected product');
+          expect(error).toEqual(mockError); // Verifica que el error sea HttpErrorResponse
+          done();
+        },
+        complete: () => {
+          fail('Expected an error, but got complete');
+          done();
+        }
+      });
     });
-  });
+
+  
 });
