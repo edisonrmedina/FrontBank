@@ -7,9 +7,8 @@
     "types": [
       "jasmine","node"
     ]
-  },
-  "files": [
-    "src/**/*.spec.ts",
+  },"files": [
+    "src/test.ts" 
   ],
   "include": [
     "**/*.spec.ts",

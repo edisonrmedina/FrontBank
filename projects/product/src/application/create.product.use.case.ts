@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { catchError, finalize, Observable, tap } from 'rxjs';
 import { ICreateProductRequest } from '../domain/model/ICreateProductRequest';
 import { ICreateProductResponse } from '../domain/model/ICreateProductResponse';
 import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
@@ -15,27 +15,13 @@ export class CreateProductUseCase {
   private readonly errorHandlingService = inject(ErrorHandlingService);
 
   execute(product: ICreateProductRequest): Observable<ICreateProductResponse> {
-    debugger;
-    return this.productApiService.createProduct(product);
+    this.productStoreService.setLoading(true);
+    return this.productApiService.createProduct(product).pipe(
+      tap((response) => this.productStoreService.addProduct(response.data)),
+      catchError((error) => this.errorHandlingService.handleError(error, `Product creation failed: ${product.name}`)),
+      finalize(() => this.productStoreService.setLoading(false))
+    );
   }
   
   
 }
-
-
-// debugger;
-//     console.log('Ejecutando creación de producto...');
-//     return this.productApiService.createProduct(product).pipe(
-//       tap((response) => {
-//         console.log('Producto creado exitosamente', response);
-//         this.productStoreService.addProduct(response.data); 
-//       }),
-//       catchError((error) => {
-//         console.error('Error en la creación del producto:', error);
-//         return this.errorHandlingService.handleError(error, `Product creation failed: ${product.name}`);
-//       }),
-//       finalize(() => {
-//         console.log('Proceso finalizado');
-//         this.productStoreService.setLoading(false);
-//       })
-//     );
