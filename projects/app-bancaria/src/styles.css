@@ -1,0 +1,11 @@
+body {
+    color: var(--text-color);
+    background-color: var(--light-bg);
+    margin: 0;
+    padding: 20px;
+  }
+
+
+  html{
+    font-family: "preloslab-book", sans-serif !important
+  }
