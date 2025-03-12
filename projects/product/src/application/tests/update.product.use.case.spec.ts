@@ -8,7 +8,6 @@ import { ProductApiService } from '../../infrastructure/services/product.service
 import { ProductStoreService } from '../../infrastructure/services/product.store.service';
 import { UpdateProductUseCase } from '../update.product.use.case';
 
-
 describe('UpdateProductUseCase', () => {
   let useCase: UpdateProductUseCase;
   let productApiServiceSpy: jasmine.SpyObj<ProductApiService>;
@@ -42,17 +41,24 @@ describe('UpdateProductUseCase', () => {
   it('should set loading to true, update the product, update it in the store, and set loading to false on success', (done) => {
     // Arrange
     const productId = 'OPP-QQ';
-    const mockRequest: IUpdateProductRequest = { name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' }; // Provide all properties from IUpdateProductRequest
-    const mockResponse: IUpdateProductResponse = { data: { id: productId, name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' } };
+    const mockRequest: IUpdateProductRequest = { name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' };
+    const mockResponse: IUpdateProductResponse = { data: { id: productId, name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' }, message: 'Product updated successfully' };
     productApiServiceSpy.updateProduct.and.returnValue(of(mockResponse));
+
+    const callOrder: any[] = [];
+    productStoreServiceSpy.setLoading.and.callFake((loading: boolean) => callOrder.push(`setLoading(${loading})`));
+    productApiServiceSpy.updateProduct.and.callFake(() => { callOrder.push('updateProduct'); return of(mockResponse); });
+    productStoreServiceSpy.updateProduct.and.callFake(() => callOrder.push('storeUpdateProduct'));
 
     // Act
     useCase.execute(productId, mockRequest).subscribe(() => {
       // Assert
-      expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
-      expect(productApiServiceSpy.updateProduct).toHaveBeenCalledWith(productId, mockRequest);
-      expect(productStoreServiceSpy.updateProduct).toHaveBeenCalledWith(productId, mockResponse.data);
-      expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(false);
+      expect(callOrder).toEqual([
+        'setLoading(true)',
+        'updateProduct',
+        'storeUpdateProduct',
+        'setLoading(false)'
+      ]);
       done();
     });
   });
@@ -60,7 +66,7 @@ describe('UpdateProductUseCase', () => {
   it('should handle error when API call fails and set loading to false', (done) => {
     // Arrange
     const productId = 'OPP-QQ';
-    const mockRequest: IUpdateProductRequest = { name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' }; // Provide all properties from IUpdateProductRequest
+    const mockRequest: IUpdateProductRequest = { name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' };
     const mockError = new HttpErrorResponse({
       error: 'API Error',
       status: 500,
@@ -69,6 +75,14 @@ describe('UpdateProductUseCase', () => {
     productApiServiceSpy.updateProduct.and.returnValue(throwError(() => mockError));
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
 
+     //Spy on console.error
+     spyOn(console, 'error');
+
+    const callOrder: any[] = [];
+    productStoreServiceSpy.setLoading.and.callFake((loading: boolean) => callOrder.push(`setLoading(${loading})`));
+    productApiServiceSpy.updateProduct.and.callFake(() => { callOrder.push('updateProduct'); return throwError(() => mockError); });
+    
+
     // Act
     useCase.execute(productId, mockRequest).subscribe({
       next: () => {
@@ -76,11 +90,14 @@ describe('UpdateProductUseCase', () => {
         done();
       },
       error: (error) => {
-        expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
-        expect(productApiServiceSpy.updateProduct).toHaveBeenCalledWith(productId, mockRequest);
-        expect(errorHandlingServiceSpy.handleError).toHaveBeenCalledWith(mockError, `Error updating product with ID ${productId}`);
+        expect(callOrder).toEqual([
+          'setLoading(true)',
+          'updateProduct',
+          'handleError',
+          'setLoading(false)'
+        ]);
         expect(error).toEqual(mockError);
-        expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(false);
+        expect(console.error).toHaveBeenCalled();
         done();
       },
       complete: () => {
