@@ -37,29 +37,20 @@ export class tableBankComponent {
   showModal(action: ITableBankAction, item: IProduct) {
     debugger;
     this.selectedItem = item;
-    
+    this._setSelectProductCase.execute(item);
     if (action.label.toLowerCase() === 'editar') {
-      this._setSelectProductCase.execute(item);
       this._router.navigate(['/create'], { queryParams: { mode: 'edit' } });
     } 
     else {
       this.modalIsVisible = true;
-      this.modalItem.emit(item);
-    }
-    
-    this.modalIsVisible = true;
-      this.modalItem.emit(item);
-
-    if (action.onClick) {
-      action.onClick(item);
     }
   }
 
-  closeModal($event: Event) {
+  closeModal() {
     this.modalIsVisible = false;
   }
 
-  toggleVisibility(): void {
+  toggleVisibility() {
     this.showActions = !this.showActions;
   }
 

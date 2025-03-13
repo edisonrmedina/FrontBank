@@ -71,7 +71,8 @@
 </table>
 
 <lib-delete-bank
-[isVisible]="modalIsVisible"
-[item]="selectedItem"
-(close)="closeModal($event)"
+  [isVisible]="modalIsVisible"
+  [item]="selectedItem"
+  (confirm)="closeModal()"
+  (cancel)="closeModal()"
 ></lib-delete-bank>
