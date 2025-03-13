@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { IProductExistsResponse } from '../domain/model/IProductExistsResponse';
 import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../infrastructure/services/product.service';
 import { ProductStoreService } from '../infrastructure/services/product.store.service';
@@ -14,7 +13,7 @@ export class ProductExistsUseCase {
   private readonly _store = inject(ProductStoreService);
   private readonly _errorHandler = inject(ErrorHandlingService);
 
-  execute(id: string): Observable<IProductExistsResponse> {
+  execute(id: string): Observable<boolean> {
     this._store.setLoading(true);
     return this._service.productExists(id).pipe(
       catchError((error) => {

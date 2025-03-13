@@ -17,10 +17,13 @@ export class tableBankComponent {
   @Input() data: IProduct[] = [];
   @Input() actions: ITableBankAction[] = [];
   @Output() modalItem = new EventEmitter<IProduct>();
+
   private readonly _router = inject(Router);
-  private _setSelectProductCase = inject(SelectProductCase)
+  private _setSelectProductCase = inject(SelectProductCase);
+
   showActions: boolean = false;
   modalIsVisible: boolean = false;
+  dropdownStates: { [itemId: string]: boolean } = {};
   headerKeyMap: { [key: string]: string } = {
     Logo: 'logo',
     'Nombre Producto': 'name',
@@ -28,7 +31,6 @@ export class tableBankComponent {
     'Fecha de Liberación': 'date_release',
     'Fecha de Reestructuración': 'date_revision',
   };
-
 
   selectedItem: IProduct;
 
@@ -50,8 +52,11 @@ export class tableBankComponent {
     this.modalIsVisible = false;
   }
 
-  toggleVisibility() {
-    this.showActions = !this.showActions;
+  toggleVisibility(item: IProduct): void {
+    this.dropdownStates[item.id] = !this.dropdownStates[item.id]; 
   }
+  getDropdownState(item: IProduct): boolean {
+        return this.dropdownStates[item.id] || false; 
+    }
 
 }

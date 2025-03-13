@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DeleteProductUseCase } from '../../../../application/delete.product.use.case';
+import { GetSelectedProductCase } from '../../../../application/getSelectedProductCase';
 import { IProduct } from '../../../../domain/model/IProduct';
 
 @Component({
@@ -15,17 +16,19 @@ export class ModalDeleteBankComponent implements OnInit {
   @Output() cancel = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
 
-  productTitle: string = '';
+  private readonly _getSelectedProduct = inject(GetSelectedProductCase)
+  productToDelete : IProduct;
 
   private _deleteProductUseCase = inject(DeleteProductUseCase);
   private _destroy$ = new Subject<void>();
   ngOnInit(): void {
-    debugger
-    this.productTitle = this.item?.name?? '';
+    this._getSelectedProduct.execute().subscribe((product) => {
+      this.productToDelete = product;
+    });
   }
 
   deleteItem(item: IProduct): void {
-    this._deleteProductUseCase.execute(item.id)
+    this._deleteProductUseCase.execute(this.productToDelete.id)
     .pipe(takeUntil(this._destroy$))
     .subscribe({
       next: (data) => {

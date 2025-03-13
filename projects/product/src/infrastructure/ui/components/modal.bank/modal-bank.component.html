@@ -32,6 +32,9 @@
             @if (productForm.controls['id'].errors?.['maxlength']) {
               <span>ID cannot exceed 10 characters</span>
             }
+            @if (productForm.controls['id'].errors?.['idExists']) {
+              <span>This ID already exists</span>
+            }
           </div>
         }
       </div>
@@ -99,7 +102,7 @@
     
       <div>
         <label for="date_revision">Fecha Revisión </label>
-        <input id="date_revision" type="date" formControlName="date_revision">
+        <input id="date_revision" type="date" formControlName="date_revision" [disabled]="true">
       </div>
       
     </div>

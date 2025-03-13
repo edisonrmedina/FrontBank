@@ -7,7 +7,8 @@
     color: #0A126D;
     font-weight: 600;
     font-size: 24px;
-    margin-top: 2%;
+    margin-top: 1%;
+    text-transform: uppercase;
   }
   
   .bank-header img {
@@ -19,7 +20,7 @@
 .modal-container {
     background-color: var(--background-color);
     min-height: 100vh;
-    padding: 4.4% 20%;
+    padding: 2.8% 20%;
     border-radius: 2px;
     margin: auto;
     display: flex;

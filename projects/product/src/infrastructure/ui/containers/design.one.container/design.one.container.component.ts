@@ -90,6 +90,7 @@ export class DesignOneContainerComponent implements OnInit {
   }
 
   searchChange(searchTerm: string) {
+    debugger;
     if (!searchTerm.trim()) {
       this.filteredData = [...this.data];
       this.paginatedData = this.filteredData;
@@ -120,9 +121,9 @@ export class DesignOneContainerComponent implements OnInit {
     const headerMap: { [key: string]: string } = {
       Logo: 'logo',
       'Nombre Producto': 'name',
-      Descripcion: 'description',
-      'Fecha Liberacion': 'date_release',
-      'Fecha Restructuracion': 'date_revision',
+      "Descripción": 'description',
+      'Fecha de Liberación': 'date_release',
+      'Fecha de Reestructuración': 'date_revision',
     };
 
     return headerMap[header] || null;

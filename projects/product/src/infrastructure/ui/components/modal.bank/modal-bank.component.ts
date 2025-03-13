@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -46,6 +46,7 @@ export class ModalBankComponent {
   private readonly _destroy$ = new Subject<void>();
   private readonly _router = inject(Router);
   private readonly _route = inject(ActivatedRoute);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   productForm!: FormGroup;
   today: string = '';
@@ -123,7 +124,7 @@ export class ModalBankComponent {
       ],
       logo: ['', Validators.required],
       date_release: ['', [Validators.required, this.validateReleaseDate]],
-      date_revision: ['', [Validators.required], ],
+      date_revision: [{ value: '', disabled: true }, [Validators.required] ],
     });
 
     this.productForm.controls['date_release'].valueChanges.subscribe(
@@ -145,7 +146,10 @@ export class ModalBankComponent {
   }
 
   submitForm(): void {
+    debugger;
     if (this.productForm.valid) {
+      
+      this.productForm.controls['date_revision'].enable();
       const productData = this.productForm.value;
 
       if (this.isEditMode) {
@@ -195,12 +199,23 @@ export class ModalBankComponent {
   validateIdExistAsync(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
+    console.log("validateIdExistAsync is running!");
     if (!control.value) return of(null);
-
+  
     return this._validateIdUseCase.execute(control.value).pipe(
       takeUntil(this._destroy$),
-      map((response) => (response.exists ? { idExists: true } : null)),
-      catchError(() => of(null))
+      map((exists: boolean) => {
+        console.log("validateIdExistAsync - Response from use case:", exists);
+        const result = exists ? { idExists: true } : null;
+        console.log("validateIdExistAsync - Result:", result); // Agrega esta línea
+        this.cdr.detectChanges();
+        debugger;
+        return result;
+      }),
+      catchError(() => {
+        this.cdr.detectChanges();
+        return of(null);
+      })
     );
   }
 

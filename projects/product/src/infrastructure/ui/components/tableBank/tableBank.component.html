@@ -45,13 +45,16 @@
         <td>
           <div class="dropdown">
             <div class="dropdown-container">
-              <button class="dropdown-toggle-btn" (click)="toggleVisibility()">
+              <button class="dropdown-toggle-btn" (click)="toggleVisibility(item)">
                 ⋮
               </button>
-              <ul class="dropdown-menu" [class.show]="showActions">
+              <ul class="dropdown-menu" [class.show]="getDropdownState(item)">
                 @for (action of actions; track action) {
                   <li>
-                    <a class="dropdown-item" (click)="showModal(action,item); $event.preventDefault()">
+                    <a
+                      class="dropdown-item"
+                      (click)="showModal(action,item); $event.preventDefault()"
+                    >
                       @if (action.icon) {
                         <i class="{{ action.icon }}"></i>
                       }

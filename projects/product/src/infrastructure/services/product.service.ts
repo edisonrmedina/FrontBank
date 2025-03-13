@@ -5,7 +5,6 @@ import { ICreateProductRequest } from '../../domain/model/ICreateProductRequest'
 import { ICreateProductResponse } from '../../domain/model/ICreateProductResponse';
 import { IDeleteProductResponse } from '../../domain/model/IDeleteProductResponse';
 import { IGetProductsResponse } from '../../domain/model/IGetProductsResponse';
-import { IProductExistsResponse } from '../../domain/model/IProductExistsResponse';
 import { IUpdateProductRequest } from '../../domain/model/IUpdateProductRequest';
 import { IUpdateProductResponse } from '../../domain/model/IUpdateProductResponse';
 
@@ -57,8 +56,8 @@ export class ProductApiService {
     });
   }
 
-  productExists(id: string): Observable<IProductExistsResponse> {
-    return this.http.get<IProductExistsResponse>(
+  productExists(id: string): Observable<boolean> {
+    return this.http.get<boolean>(
       `${this.apiUrl}/verification/${id}`,
       {
         headers: this.getHeaders(),
