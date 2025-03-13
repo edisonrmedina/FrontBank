@@ -1,13 +1,12 @@
 import {
-    HttpClientTestingModule,
-    HttpTestingController,
+  HttpClientTestingModule,
+  HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ICreateProductRequest } from '../../../domain/model/ICreateProductRequest';
 import { ICreateProductResponse } from '../../../domain/model/ICreateProductResponse';
 import { IDeleteProductResponse } from '../../../domain/model/IDeleteProductResponse';
 import { IGetProductsResponse } from '../../../domain/model/IGetProductsResponse';
-import { IProductExistsResponse } from '../../../domain/model/IProductExistsResponse';
 import { IUpdateProductRequest } from '../../../domain/model/IUpdateProductRequest';
 import { IUpdateProductResponse } from '../../../domain/model/IUpdateProductResponse';
 import { ProductApiService } from '../product.service';
@@ -163,7 +162,7 @@ describe('ProductApiService', () => {
   describe('productExists', () => {
     it('should make a GET request to verify if a product exists with correct ID and headers', () => {
       const productId = '1';
-      const mockResponse: IProductExistsResponse = { exists: true };
+      const mockResponse: boolean =false;
 
       service.productExists(productId).subscribe((response) => {
         expect(response).toEqual(mockResponse);

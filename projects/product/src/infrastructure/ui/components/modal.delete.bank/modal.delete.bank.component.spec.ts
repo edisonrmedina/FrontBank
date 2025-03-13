@@ -43,13 +43,13 @@ describe('ModalDeleteBankComponent', () => {
   it('should initialize productTitle with item name on ngOnInit', () => {
     component.item = mockProduct;
     component.ngOnInit();
-    expect(component.productTitle).toBe(mockProduct.name);
+    expect(component.productToDelete.name).toBe(mockProduct.name);
   });
 
   it('should set productTitle to empty string if item is null on ngOnInit', () => {
     component.item = null;
     component.ngOnInit();
-    expect(component.productTitle).toBe('');
+    expect(component.productToDelete.name).toBe('');
   });
 
   it('should call deleteProductUseCase.execute with item id on deleteItem', () => {

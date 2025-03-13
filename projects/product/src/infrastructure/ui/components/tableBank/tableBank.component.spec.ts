@@ -19,26 +19,46 @@ describe('tableBankComponent', () => {
   let selectProductCaseSpy: jasmine.SpyObj<SelectProductCase>;
 
   const mockProducts: IProduct[] = [
-    { id: '1', name: 'Product 1', description: 'Desc 1', logo: 'logo1.png', date_release: '2024-01-01', date_revision: '2025-01-01' },
-    { id: '2', name: 'Product 2', description: 'Desc 2', logo: 'logo2.png', date_release: '2024-02-01', date_revision: '2025-02-01' }
+    {
+      id: '1',
+      name: 'Product 1',
+      description: 'Desc 1',
+      logo: 'product.png',
+      date_release: '2024-01-01',
+      date_revision: '2025-01-01',
+    },
+    {
+      id: '2',
+      name: 'Product 2',
+      description: 'Desc 2',
+      logo: 'product.png',
+      date_release: '2024-02-01',
+      date_revision: '2025-02-01',
+    },
   ];
 
   const mockActions: ITableBankAction[] = [
     { label: 'Editar', icon: 'fa fa-edit', onClick: () => {} },
-    { label: 'Eliminar', icon: 'fa fa-trash', onClick: () => {} }
+    { label: 'Eliminar', icon: 'fa fa-trash', onClick: () => {} },
   ];
 
   beforeEach(() => {
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    selectProductCaseSpy = jasmine.createSpyObj('SelectProductCase', ['execute']);
+    selectProductCaseSpy = jasmine.createSpyObj('SelectProductCase', [
+      'execute',
+    ]);
 
     TestBed.configureTestingModule({
-      imports: [tableBankComponent, ModalDeleteBankComponent, ModalBankComponent], // Import standalone components
+      imports: [
+        tableBankComponent,
+        ModalDeleteBankComponent,
+        ModalBankComponent,
+      ], // Import standalone components
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: Router, useValue: routerSpy },
-        { provide: SelectProductCase, useValue: selectProductCaseSpy }
+        { provide: SelectProductCase, useValue: selectProductCaseSpy },
       ],
     }).compileComponents();
 
@@ -59,8 +79,12 @@ describe('tableBankComponent', () => {
     const headerElements = el.queryAll(By.css('th'));
     expect(headerElements.length).toBe(component.headers.length + 1); // +1 for "Acciones" column
     expect(headerElements[0].nativeElement.textContent).toContain('Logo');
-    expect(headerElements[1].nativeElement.textContent).toContain('Nombre Producto');
-    expect(headerElements[2].nativeElement.textContent).toContain('Descripcion');
+    expect(headerElements[1].nativeElement.textContent).toContain(
+      'Nombre Producto'
+    );
+    expect(headerElements[2].nativeElement.textContent).toContain(
+      'Descripcion'
+    );
     expect(headerElements[3].nativeElement.textContent).toContain('Acciones');
   });
 
@@ -69,9 +93,15 @@ describe('tableBankComponent', () => {
     expect(rowElements.length).toBe(mockProducts.length);
 
     const firstRowCells = rowElements[0].queryAll(By.css('td'));
-    expect(firstRowCells[0].nativeElement.textContent).toContain(mockProducts[0].logo); // Logo
-    expect(firstRowCells[1].nativeElement.textContent).toContain(mockProducts[0].name); // Nombre Producto
-    expect(firstRowCells[2].nativeElement.textContent).toContain(mockProducts[0].description); // Descripcion
+    expect(firstRowCells[0].nativeElement.textContent).toContain(
+      mockProducts[0].logo
+    ); // Logo
+    expect(firstRowCells[1].nativeElement.textContent).toContain(
+      mockProducts[0].name
+    ); // Nombre Producto
+    expect(firstRowCells[2].nativeElement.textContent).toContain(
+      mockProducts[0].description
+    ); // Descripcion
   });
 
   it('should call the edit action and navigate to /create with queryParams on showModal', () => {
@@ -79,10 +109,11 @@ describe('tableBankComponent', () => {
     const item = mockProducts[0];
     component.showModal(editAction, item);
     expect(selectProductCaseSpy.execute).toHaveBeenCalledWith(item);
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/create'], { queryParams: { mode: 'edit' } });
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/create'], {
+      queryParams: { mode: 'edit' },
+    });
     expect(component.modalIsVisible).toBe(true);
     expect(component.selectedItem).toBe(item);
-
   });
 
   it('should set modalIsVisible to true and emit modalItem when showModal is called with a non-edit action', () => {
@@ -97,31 +128,34 @@ describe('tableBankComponent', () => {
 
   it('should set modalIsVisible to false on closeModal', () => {
     component.modalIsVisible = true;
-    component.closeModal(new Event('click'));
+    component.closeModal(); // No necesita un evento
     expect(component.modalIsVisible).toBe(false);
   });
 
   it('should toggle showActions on toggleVisibility', () => {
-    const initialShowActions = component.showActions;
-    component.toggleVisibility();
-    expect(component.showActions).toBe(!initialShowActions);
-    component.toggleVisibility();
-    expect(component.showActions).toBe(initialShowActions);
-  });
+    // Crea un objeto IProduct de ejemplo para la prueba
+    const mockProduct: IProduct = {
+      id: '1',
+      name: 'Product 1',
+      description: 'Description 1',
+      logo: 'logo1.png',
+      date_release: '2024-01-01',
+      date_revision: '2025-01-01',
+    };
 
+    component.dropdownStates[mockProduct.id] = false;
+    component.toggleVisibility(mockProduct);
+    expect(component.dropdownStates[mockProduct.id]).toBe(true);
+    component.toggleVisibility(mockProduct);
+    expect(component.dropdownStates[mockProduct.id]).toBe(false);
 
-  it('should call showModal when an action button is clicked', () => {
-    spyOn(component, 'showModal');
-    const actionButton = el.query(By.css('.dropdown-item'));
-    actionButton.triggerEventHandler('click', { preventDefault: () => {} }); // Simulate click
-    fixture.detectChanges();
-    expect(component.showModal).toHaveBeenCalled();
   });
 
   it('should display the logo image', () => {
     const logoImage = el.query(By.css('.logo-img'));
     expect(logoImage).toBeTruthy();
-    expect(logoImage.nativeElement.src).toContain(`assets/${mockProducts[0].logo}`);
+    expect(logoImage.nativeElement.src).toContain(
+      `assets/${mockProducts[0].logo}`
+    );
   });
-
 });

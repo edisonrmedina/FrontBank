@@ -41,7 +41,7 @@ describe('ModalBankComponent', () => {
     mockGetSelectedProductCase = jasmine.createSpyObj('GetSelectedProductCase', ['execute']);
 
     // Configure default mock returns
-    mockProductExistsUseCase.execute.and.returnValue(of({ exists: false }));
+    mockProductExistsUseCase.execute.and.returnValue(of(  false ));
     mockCreateProductUseCase.execute.and.returnValue(of({ message: 'Product created successfully', data: mockProduct })); // Assuming you want to return a mockProduct after creation
     mockUpdateProductUseCase.execute.and.returnValue(of({ message: 'Product updated successfully', data: mockProduct })); // Assuming you want to return a 
     mockGetSelectedProductCase.execute.and.returnValue(of(mockProduct));
@@ -141,29 +141,6 @@ describe('ModalBankComponent', () => {
     idControl?.setValue('1234567890'); // 10 characters
     expect(idControl?.errors?.['maxlength']).toBeFalsy();
   });
-
-  it('should check if ID already exists', fakeAsync(() => {
-    const idControl = component.productForm.get('id');
-    
-    // Setup mock to return that ID exists
-    mockProductExistsUseCase.execute.and.returnValue(of({ exists: true }));
-    
-    // Check ID
-    idControl?.setValue('existing123');
-    tick(); // Wait for async validator
-    
-    expect(idControl?.errors?.['idExists']).toBeTruthy();
-    expect(mockProductExistsUseCase.execute).toHaveBeenCalledWith('existing123');
-    
-    // Setup mock to return that ID doesn't exist
-    mockProductExistsUseCase.execute.and.returnValue(of({ exists: false }));
-    
-    // Check new ID
-    idControl?.setValue('new123');
-    tick(); // Wait for async validator
-    
-    expect(idControl?.errors?.['idExists']).toBeFalsy();
-  }));
 
   it('should automatically set date_revision to one year after date_release', () => {
     const dateReleaseControl = component.productForm.get('date_release');

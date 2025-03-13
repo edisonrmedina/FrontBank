@@ -37,7 +37,6 @@ export class tableBankComponent {
   constructor() {}
 
   showModal(action: ITableBankAction, item: IProduct) {
-    debugger;
     this.selectedItem = item;
     this._setSelectProductCase.execute(item);
     if (action.label.toLowerCase() === 'editar') {
@@ -57,6 +56,23 @@ export class tableBankComponent {
   }
   getDropdownState(item: IProduct): boolean {
         return this.dropdownStates[item.id] || false; 
+    }
+  
+    formatDate(dateString: string | null | undefined): string {
+      if (!dateString) {
+        return ''; // o un valor por defecto, como 'N/A'
+      }
+    
+      const dateParts = dateString.split('-');
+      if (dateParts.length !== 3) {
+        return dateString; // Si no es un formato válido, devuelve la fecha original
+      }
+    
+      const year = dateParts[0];
+      const month = dateParts[1];
+      const day = dateParts[2];
+    
+      return `${day}/${month}/${year}`;
     }
 
 }

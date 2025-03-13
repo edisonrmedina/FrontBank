@@ -35,8 +35,12 @@
           <td>
             <img [src]="item[headerKeyMap[header]]" class="logo-img" />
           </td>
-        }@else{
-          <td>{{ item[headerKeyMap[header]]}}</td>
+        } @else {
+          @if (header === 'Fecha de Liberación' || header === 'Fecha de Reestructuración') {
+            <td>{{ formatDate(item[headerKeyMap[header]]) }}</td>
+          } @else {
+            <td>{{ item[headerKeyMap[header]] }}</td>
+          }
         }
         
       }

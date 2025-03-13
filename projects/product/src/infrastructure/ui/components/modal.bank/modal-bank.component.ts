@@ -146,7 +146,6 @@ export class ModalBankComponent {
   }
 
   submitForm(): void {
-    debugger;
     if (this.productForm.valid) {
       
       this.productForm.controls['date_revision'].enable();
@@ -209,7 +208,6 @@ export class ModalBankComponent {
         const result = exists ? { idExists: true } : null;
         console.log("validateIdExistAsync - Result:", result); // Agrega esta línea
         this.cdr.detectChanges();
-        debugger;
         return result;
       }),
       catchError(() => {

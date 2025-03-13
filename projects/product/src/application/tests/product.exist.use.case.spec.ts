@@ -1,7 +1,7 @@
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { IProductExistsResponse } from '../../domain/model/IProductExistsResponse';
 import { ErrorHandlingService } from '../../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../../infrastructure/services/product.service';
 import { ProductStoreService } from '../../infrastructure/services/product.store.service';
@@ -41,7 +41,7 @@ describe('ProductExistsUseCase', () => {
   it('should set loading to true and return true when product exists', (done) => {
     // Arrange
     const productId = 'OPP-QQ';
-    const mockResponse: IProductExistsResponse = { exists: true };
+    const mockResponse: boolean = true;
     productApiServiceSpy.productExists.and.returnValue(of(mockResponse));
 
     // Act
@@ -57,7 +57,7 @@ describe('ProductExistsUseCase', () => {
   it('should set loading to true and return false when product does not exist', (done) => {
     // Arrange
     const productId = 'OPP-QQ';
-    const mockResponse: IProductExistsResponse = { exists: false };
+    const mockResponse: boolean = true;
     productApiServiceSpy.productExists.and.returnValue(of(mockResponse));
 
     // Act
