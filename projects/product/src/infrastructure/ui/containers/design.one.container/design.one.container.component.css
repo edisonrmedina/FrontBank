@@ -1,11 +1,13 @@
 .bank-header {
   display: flex;
   justify-content: center;
+  gap: 10px;
   align-items: center;
-  margin-bottom: 20px;
-  color: var(--color);
-  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0A126D;
+  font-weight: 600;
   font-size: 24px;
+  margin-top: 0.8%;
 }
 
 .bank-header img {
@@ -14,16 +16,23 @@
   height: 30px;
 }
 
+.main-container { 
+  min-height: 100vh; 
+  background-color: var(--background-color);
+  padding: 4%;
+}
+
 .search-container {
+  background-color: var(--background-color);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.1%;
+  margin-bottom: 20px;
 }
 
-.main-container {
-  background-color: #ffffff;
-  padding: 2%;
+.main-container-table {
+  background-color: white;
+  padding: 1.8%;
 }
 
 lib-modal-bank {
@@ -33,7 +42,6 @@ lib-modal-bank {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;

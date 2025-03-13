@@ -20,7 +20,6 @@ export class ModalDeleteBankComponent implements OnInit {
   private _deleteProductUseCase = inject(DeleteProductUseCase);
   private _destroy$ = new Subject<void>();
   ngOnInit(): void {
-    debugger;
     this.productTitle = this.item?.name?? '';
   }
   deleteItem(item: IProduct): void {
@@ -44,7 +43,6 @@ export class ModalDeleteBankComponent implements OnInit {
   }
 
   onConfirm(): void {
-    debugger;
     this.deleteItem(this.item);
     this.confirm.emit();
   }

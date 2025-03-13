@@ -1,12 +1,12 @@
 lib-button, button.create-button {
     background-color: var(--primary-color);
-    color: var(--color);
+    color: var(--text-color);
     font-weight: bolder;
+    font: var(--font-family);
     border: none;
-    padding: 10px 15px;
+    padding: 17px 20px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
-    margin-bottom: 15px;
     display: inline-block;
   }

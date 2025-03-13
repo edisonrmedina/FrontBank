@@ -1,6 +1,6 @@
 input[type="text"], lib-input-bank {
-    width: 250px;
-    padding: 10px 15px;
+    width: 200px;
+    padding: 12px 15px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
     font-size: 14px;

@@ -15,8 +15,8 @@ export class SelectProductCase {
   private readonly _errorHandler = inject(ErrorHandlingService);
 
   execute(product: IProduct): Observable<boolean> {
-    debugger;
     this._store.setLoading(true);
+    this._store.setSelectedProduct(product)
     return of(true).pipe( // Usamos of(true) para crear un Observable
       tap(() => this._store.setSelectedProduct(product)),
       catchError((error) => {

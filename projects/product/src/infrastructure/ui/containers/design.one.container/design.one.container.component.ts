@@ -52,9 +52,9 @@ export class DesignOneContainerComponent implements OnInit {
     this.headers = [
       'Logo',
       'Nombre Producto',
-      'Descripcion',
-      'Fecha Liberacion',
-      'Fecha Restructuracion',
+      'Descripción',
+      'Fecha de Liberación',
+      'Fecha de Reestructuración',
     ];
 
     this.actions = [

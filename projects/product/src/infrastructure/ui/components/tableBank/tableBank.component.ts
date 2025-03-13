@@ -24,9 +24,9 @@ export class tableBankComponent {
   headerKeyMap: { [key: string]: string } = {
     Logo: 'logo',
     'Nombre Producto': 'name',
-    Descripcion: 'description',
-    'Fecha Liberacion': 'date_release',
-    'Fecha Restructuracion': 'date_revision',
+    'Descripción': 'description',
+    'Fecha de Liberación': 'date_release',
+    'Fecha de Reestructuración': 'date_revision',
   };
 
 

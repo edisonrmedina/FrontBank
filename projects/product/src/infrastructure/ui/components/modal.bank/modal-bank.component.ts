@@ -123,7 +123,7 @@ export class ModalBankComponent {
       ],
       logo: ['', Validators.required],
       date_release: ['', [Validators.required, this.validateReleaseDate]],
-      date_revision: ['', [Validators.required]],
+      date_revision: ['', [Validators.required], ],
     });
 
     this.productForm.controls['date_release'].valueChanges.subscribe(
@@ -145,7 +145,6 @@ export class ModalBankComponent {
   }
 
   submitForm(): void {
-    debugger;
     if (this.productForm.valid) {
       const productData = this.productForm.value;
 
@@ -170,6 +169,7 @@ export class ModalBankComponent {
           .pipe(takeUntil(this._destroy$))
           .subscribe({
             next: (response) => {
+              this._router.navigate(['/design/2']);
               this.resetForm();
               this.closeModal.emit();
             },
@@ -184,7 +184,12 @@ export class ModalBankComponent {
   }
 
   resetForm(): void {
-    this.productForm.reset();
+    if (this.isEditMode) {
+      this._router.navigate(['/design/2']);
+    } else {
+      this.productForm.reset();
+    }
+    
   }
 
   validateIdExistAsync(
