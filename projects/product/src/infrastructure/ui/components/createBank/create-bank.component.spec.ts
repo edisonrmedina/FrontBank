@@ -9,7 +9,7 @@ import { ProductExistsUseCase } from '../../../../application/product.exists.use
 import { UpdateProductUseCase } from '../../../../application/update.product.use.case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { IUpdateProductResponse } from '../../../../domain/model/IUpdateProductResponse';
-import { ModalBankComponent } from './modal-bank.component';
+import { ModalBankComponent } from './create-bank.component';
 
 describe('ModalBankComponent', () => {
   let component: ModalBankComponent;

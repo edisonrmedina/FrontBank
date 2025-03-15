@@ -20,7 +20,7 @@ export class GetAllProductsUseCase {
   }
 
   execute(): void {
-    this._store.setLoading(true); // Indica que la operación está en curso
+    this._store.setLoading(true); 
 
     this._service.getAllProducts().pipe(
       tap(response => {
@@ -28,10 +28,10 @@ export class GetAllProductsUseCase {
       }),
       catchError((error) => {
         console.error('Error al obtener los productos:', error);
-        return this._errorHandlingService.handleError(error, 'Error fetching all products'); // Usa el servicio de manejo de errores
+        return this._errorHandlingService.handleError(error, 'Error fetching all products');
       }),
       finalize(() => {
-        this._store.setLoading(false); // Indica que la operación ha finalizado
+        this._store.setLoading(false);
       })
     ).subscribe();
   }

@@ -30,8 +30,8 @@ import { InputBankComponent } from '../input-bank/input-bank.component';
     InputBankComponent,
     ButtonBankComponent,
   ],
-  templateUrl: './modal-bank.component.html',
-  styleUrl: './modal-bank.component.css',
+  templateUrl: './create-bank.component.html',
+  styleUrl: './create-bank.component.css',
 })
 export class ModalBankComponent {
   @Output() closeModal = new EventEmitter<void>();

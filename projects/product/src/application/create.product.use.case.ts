@@ -10,6 +10,7 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
   providedIn: 'root',
 })
 export class CreateProductUseCase {
+  
   private readonly productApiService = inject(ProductApiService);
   private readonly productStoreService = inject(ProductStoreService);
   private readonly errorHandlingService = inject(ErrorHandlingService);
@@ -22,6 +23,5 @@ export class CreateProductUseCase {
       finalize(() => this.productStoreService.setLoading(false))
     );
   }
-  
   
 }

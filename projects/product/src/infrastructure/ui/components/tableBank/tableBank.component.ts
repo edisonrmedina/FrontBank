@@ -3,12 +3,13 @@ import { Router } from '@angular/router';
 import { SelectProductCase } from '../../../../application/select-product-use-case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
-import { ModalBankComponent } from '../modal.bank/modal-bank.component';
+import { LogoUrlPipe } from "../../pipes/logo.url.pipe";
+import { ModalBankComponent } from '../createBank/create-bank.component';
 import { ModalDeleteBankComponent } from '../modal.delete.bank/modal.delete.bank.component';
 
 @Component({
   selector: 'lib-table',
-  imports: [ModalDeleteBankComponent, ModalBankComponent],
+  imports: [ModalDeleteBankComponent, ModalBankComponent, LogoUrlPipe],
   templateUrl: './tableBank.component.html',
   styleUrl: './tableBank.component.css',
 })
@@ -27,7 +28,7 @@ export class tableBankComponent {
   headerKeyMap: { [key: string]: string } = {
     Logo: 'logo',
     'Nombre Producto': 'name',
-    'Descripción': 'description',
+    Descripción: 'description',
     'Fecha de Liberación': 'date_release',
     'Fecha de Reestructuración': 'date_revision',
   };
@@ -41,8 +42,7 @@ export class tableBankComponent {
     this._setSelectProductCase.execute(item);
     if (action.label.toLowerCase() === 'editar') {
       this._router.navigate(['/create'], { queryParams: { mode: 'edit' } });
-    } 
-    else {
+    } else {
       this.modalIsVisible = true;
     }
   }
@@ -52,27 +52,26 @@ export class tableBankComponent {
   }
 
   toggleVisibility(item: IProduct): void {
-    this.dropdownStates[item.id] = !this.dropdownStates[item.id]; 
+    this.dropdownStates[item.id] = !this.dropdownStates[item.id];
   }
   getDropdownState(item: IProduct): boolean {
-        return this.dropdownStates[item.id] || false; 
-    }
-  
-    formatDate(dateString: string | null | undefined): string {
-      if (!dateString) {
-        return ''; // o un valor por defecto, como 'N/A'
-      }
-    
-      const dateParts = dateString.split('-');
-      if (dateParts.length !== 3) {
-        return dateString; // Si no es un formato válido, devuelve la fecha original
-      }
-    
-      const year = dateParts[0];
-      const month = dateParts[1];
-      const day = dateParts[2];
-    
-      return `${day}/${month}/${year}`;
+    return this.dropdownStates[item.id] || false;
+  }
+
+  formatDate(dateString: string | null | undefined): string {
+    if (!dateString) {
+      return ''; 
     }
 
+    const dateParts = dateString.split('-');
+    if (dateParts.length !== 3) {
+      return dateString; 
+    }
+
+    const year = dateParts[0];
+    const month = dateParts[1];
+    const day = dateParts[2];
+
+    return `${day}/${month}/${year}`;
+  }
 }

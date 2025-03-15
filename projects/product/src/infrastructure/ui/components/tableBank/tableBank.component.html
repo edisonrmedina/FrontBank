@@ -1,85 +1,91 @@
-<table>
-  <thead>
-    <tr>
-      @for (header of headers; track header) {
-        @if (header === 'Descripción') {
-          <th>
-            {{ header }}
-            <img src="info.svg" alt="Descripción" class="header-icon">
-          </th>
-        } @else if (header === 'Fecha de Liberación') {
-          <th>
-            {{ header }}
-            <img src="info.svg" alt="Fecha de Liberación" class="header-icon">
-          </th>
-        } @else if (header === 'Fecha de Reestructuración') {
-          <th>
-            {{ header }}
-            <img src="info.svg" alt="Fecha de Reestructuración" class="header-icon">
-          </th>
-        } @else {
-          <th>{{ header }}</th>
-        }
-      }
-      @if (actions && actions.length > 0) {
-        <th>Acciones</th>
-      }
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of data; track item) {
-    <tr>
-      @for (header of headers; track header) {
-
-        @if (header === 'Logo') {
-          <td>
-            <img [src]="item[headerKeyMap[header]]" class="logo-img" />
-          </td>
-        } @else {
-          @if (header === 'Fecha de Liberación' || header === 'Fecha de Reestructuración') {
-            <td>{{ formatDate(item[headerKeyMap[header]]) }}</td>
+<div class="table-bank-scroll">
+  <table>
+    <thead>
+      <tr>
+        @for (header of headers; track header) {
+          @if (header === 'Descripción') {
+            <th>
+              {{ header }}
+              <img src="info.svg" alt="Descripción" class="header-icon">
+            </th>
+          } @else if (header === 'Fecha de Liberación') {
+            <th>
+              {{ header }}
+              <img src="info.svg" alt="Fecha de Liberación" class="header-icon">
+            </th>
+          } @else if (header === 'Fecha de Reestructuración') {
+            <th>
+              {{ header }}
+              <img src="info.svg" alt="Fecha de Reestructuración" class="header-icon">
+            </th>
           } @else {
-            <td>{{ item[headerKeyMap[header]] }}</td>
+            <th>{{ header }}</th>
           }
         }
-        
-      }
-
-      @if (actions && actions.length > 0) {
-        <td>
-          <div class="dropdown">
-            <div class="dropdown-container">
-              <button class="dropdown-toggle-btn" (click)="toggleVisibility(item)">
-                ⋮
-              </button>
-              <ul class="dropdown-menu" [class.show]="getDropdownState(item)">
-                @for (action of actions; track action) {
-                  <li>
-                    <a
-                      class="dropdown-item"
-                      (click)="showModal(action,item); $event.preventDefault()"
-                    >
-                      @if (action.icon) {
-                        <i class="{{ action.icon }}"></i>
-                      }
-                      {{ action.label }}
-                    </a>
-                  </li>
-                }
-              </ul>
+        @if (actions && actions.length > 0) {
+          <th>Acciones</th>
+        }
+      </tr>
+    </thead>
+    
+    <tbody>
+      @for (item of data; track item) {
+      <tr>
+        @for (header of headers; track header) {
+  
+          @if (header === 'Logo') {
+            <td>
+              <img [src]="item[headerKeyMap[header]] | logoUrl" class="logo-img" alt="Logo" />
+            </td>
+          } @else {
+            @if (header === 'Fecha de Liberación' || header === 'Fecha de Reestructuración') {
+              <td>{{ formatDate(item[headerKeyMap[header]]) }}</td>
+            } @else {
+              <td>{{ item[headerKeyMap[header]] }}</td>
+            }
+          }
+          
+        }
+  
+        @if (actions && actions.length > 0) {
+          <td>
+            <div class="dropdown">
+              <div class="dropdown-container">
+                <button class="dropdown-toggle-btn" (click)="toggleVisibility(item)">
+                  ⋮
+                </button>
+                <ul class="dropdown-menu" [class.show]="getDropdownState(item)">
+                  @for (action of actions; track action) {
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="showModal(action,item); $event.preventDefault()"
+                      >
+                        @if (action.icon) {
+                          <i class="{{ action.icon }}"></i>
+                        }
+                        {{ action.label }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
             </div>
-          </div>
-        </td>
+          </td>
+        }
+  
+      </tr>
       }
-
-    </tr>
-    }
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  
+  
+  
+</div>
 
 <lib-delete-bank
-  [isVisible]="modalIsVisible"
-  [item]="selectedItem"
-  (confirm)="closeModal()"
-  (cancel)="closeModal()"
-></lib-delete-bank>
+    [isVisible]="modalIsVisible"
+    [item]="selectedItem"
+    (confirm)="closeModal()"
+    (cancel)="closeModal()"
+  ></lib-delete-bank>

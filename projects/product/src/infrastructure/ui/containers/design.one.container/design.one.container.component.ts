@@ -6,8 +6,8 @@ import { GetAllProductsUseCase } from '../../../../application/get.products.use.
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ProductQuery } from '../../../../domain/state/product.query';
 import { ButtonBankComponent } from '../../components/button.Bank/button.component';
+import { ModalBankComponent } from '../../components/createBank/create-bank.component';
 import { InputBankComponent } from '../../components/input-bank/input-bank.component';
-import { ModalBankComponent } from '../../components/modal.bank/modal-bank.component';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { tableBankComponent } from '../../components/tableBank/tableBank.component';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
@@ -69,6 +69,7 @@ export class DesignOneContainerComponent implements OnInit {
         onClick: undefined,
       },
     ];
+
     this._subscription.add(
       this._getAllProducts.selectAll().subscribe((products) => {
         this.data = products;
@@ -90,6 +91,7 @@ export class DesignOneContainerComponent implements OnInit {
   }
 
   searchChange(searchTerm: string) {
+    debugger;
     if (!searchTerm.trim()) {
       this.filteredData = [...this.data];
       this.paginatedData = this.filteredData;

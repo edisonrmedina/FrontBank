@@ -6,6 +6,7 @@
     "@datorama/akita",
     "@datorama/akita-ngdevtools"
   ],
+  
   "projects": {
 
     "product": {

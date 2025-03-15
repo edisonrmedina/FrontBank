@@ -1,9 +1,16 @@
-table {
+table,lib-table {
   width: 100%;
   padding: 1%;
   border-collapse: collapse;
   background-color: white;
   border-radius: 2px;
+  z-index: 10000;
+}
+
+.table-bank-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  
 }
 
 thead,
@@ -126,3 +133,4 @@ tbody {
 th {
   white-space: nowrap;
 }
+
