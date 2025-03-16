@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { IProduct } from '../domain/model/IProduct';
@@ -9,9 +9,10 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
   providedIn: 'root',
 })
 export class SelectProductCase {
-  private readonly _store = inject(ProductStoreService);
-  private readonly _errorHandler = inject(ErrorHandlingService);
-
+constructor(
+    private readonly _store: ProductStoreService,
+    private readonly _errorHandler: ErrorHandlingService,
+  ) {}
   execute(product: IProduct): Observable<boolean> {
     this._store.setLoading(true);
     return of(this._store.setSelectedProduct(product)).pipe(

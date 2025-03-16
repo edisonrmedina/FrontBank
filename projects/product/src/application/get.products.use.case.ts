@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { catchError, finalize, Observable, tap } from 'rxjs';
-import { IProduct } from '../domain/model/IProduct';
+import { catchError, finalize, tap } from 'rxjs';
 import { ProductQuery } from '../domain/state/product.query';
 import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../infrastructure/services/product.service';
@@ -10,15 +9,11 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
   providedIn: 'root',
 })
 export class GetAllProductsUseCase {
-  private readonly _service = inject(ProductApiService);
-  private readonly _store = inject(ProductStoreService);
-  private readonly _query = inject(ProductQuery);
-  private readonly _errorHandlingService = inject(ErrorHandlingService);
-
-  products$(): Observable<IProduct[]> {
-    return this._query.selectAll();
-  }
-
+  constructor(
+    private readonly _service: ProductApiService,
+    private readonly _store: ProductStoreService,
+    private readonly _errorHandler: ErrorHandlingService,
+  ) {}
   execute(): void {
     this._store.setLoading(true); 
 
@@ -28,7 +23,7 @@ export class GetAllProductsUseCase {
       }),
       catchError((error) => {
         console.error('Error al obtener los productos:', error);
-        return this._errorHandlingService.handleError(error, 'Error fetching all products');
+        return this._errorHandler.handleError(error, 'Error fetching all products');
       }),
       finalize(() => {
         this._store.setLoading(false);

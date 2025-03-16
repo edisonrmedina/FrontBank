@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { IProduct } from '../domain/model/IProduct';
@@ -10,10 +10,11 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
   providedIn: 'root',
 })
 export class GetSelectedProductCase {
-  private readonly _query = inject(ProductQuery);
-  private readonly _store = inject(ProductStoreService);
-  private readonly _errorHandler = inject(ErrorHandlingService);
-
+constructor(
+    private readonly _query: ProductQuery,
+    private readonly _store: ProductStoreService,
+    private readonly _errorHandler: ErrorHandlingService,
+  ) {}
   execute(): Observable<IProduct | null> {
     this._store.setLoading(true);
     return this._query.selectSelectedProduct().pipe(

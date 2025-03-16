@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { catchError, finalize, Observable, tap } from 'rxjs';
 import { ICreateProductRequest } from '../domain/model/ICreateProductRequest';
 import { ICreateProductResponse } from '../domain/model/ICreateProductResponse';
@@ -10,18 +10,24 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
   providedIn: 'root',
 })
 export class CreateProductUseCase {
-  
-  private readonly productApiService = inject(ProductApiService);
-  private readonly productStoreService = inject(ProductStoreService);
-  private readonly errorHandlingService = inject(ErrorHandlingService);
+  constructor(
+    private readonly _service: ProductApiService,
+    private readonly _store: ProductStoreService,
+    private readonly _errorHandler: ErrorHandlingService,
+  ) {}
 
   execute(product: ICreateProductRequest): Observable<ICreateProductResponse> {
-    this.productStoreService.setLoading(true);
-    return this.productApiService.createProduct(product).pipe(
-      tap((response) => this.productStoreService.addProduct(response.data)),
-      catchError((error) => this.errorHandlingService.handleError(error, `Product creation failed: ${product.name}`)),
-      finalize(() => this.productStoreService.setLoading(false))
+    this._store.setLoading(true);
+    return this._service.createProduct(product).pipe(
+      tap((response) => this._store.addProduct(response.data)),
+      catchError((error) =>
+        this._errorHandler.handleError(
+          error,
+          `Product creation failed: ${product.name}`
+        )
+      ),
+      finalize(() => this._store.setLoading(false))
     );
   }
-  
+
 }

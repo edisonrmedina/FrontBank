@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { IUpdateProductRequest } from '../domain/model/IUpdateProductRequest';
@@ -11,9 +11,12 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
   providedIn: 'root',
 })
 export class UpdateProductUseCase {
-  private readonly _service = inject(ProductApiService);
-  private readonly _store = inject(ProductStoreService);
-  private readonly _errorHandler = inject(ErrorHandlingService);
+  constructor(
+    private readonly _service: ProductApiService,
+    private readonly _store: ProductStoreService,
+    private readonly _errorHandler: ErrorHandlingService,
+  ) {}
+
 
   execute(id: string, product: IUpdateProductRequest): Observable<IUpdateProductResponse> {
     this._store.setLoading(true);
