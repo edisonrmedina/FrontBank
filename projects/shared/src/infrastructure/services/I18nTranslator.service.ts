@@ -1,26 +1,23 @@
-import { Inject, Injectable } from '@angular/core';
-import { ITranslator } from '../../domain/ITransalator';
-import { LANGUAGE } from './../../app.config';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { TranslationStrategy } from '../strategies/translation';
+import { en } from '../ui/i18n/en';
+import { es } from '../ui/i18n/es';
+import { TranslationMapItem } from '../ui/interfaces/TranslationMapItem';
+import { TranslationMap } from '../ui/interfaces/translationsMap';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
-export class I18nTranslatorService implements ITranslator {
-  private translations: { [key: string]: string } = {};
+export class I18nTranslatorService {
+  constructor(private translationStrategy: TranslationStrategy ) {}
 
-  constructor(@Inject(LANGUAGE) private language: string) {
-    console.log("lana:", this.language);
-    
-    this.loadTransalations();
-  }
-
-  loadTransalations(): void {
-    console.log("carga de json");
-    
-    //this.translations = require(`../../../../assets/i18n/${this.language}.json`);
-  }
-
-  translate(key: string, ...args: any[]): string {
-    throw new Error('Method not implemented.');
+  loadTranslations(language?: string): Observable<TranslationMapItem> {
+    debugger;
+    const selectedLanguage =
+      language || localStorage.getItem('language') || 'es';
+    return this.translationStrategy.getTranslations(selectedLanguage);
   }
 }

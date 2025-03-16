@@ -6,5 +6,6 @@ export function createInitialState(): IProductState {
       selectedProduct: null,
       loading: false,
       error: null,
+      translations: {},
     };
   }

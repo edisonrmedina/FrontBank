@@ -5,4 +5,5 @@ export interface IProductState {
     selectedProduct: IProduct | null;
     loading: boolean;
     error: string | null;
-  }
+    translations: { [key: string]: string };
+  } 

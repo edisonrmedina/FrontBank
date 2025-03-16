@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DeleteProductUseCase } from '../../../../application/delete.product.use.case';
+import { RootsharedComponent } from 'shared';
 import { GetAllProductsUseCase } from '../../../../application/get.products.use.case';
+import { LoadTranslationsUseCase } from '../../../../application/translate.use.case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ProductQuery } from '../../../../domain/state/product.query';
 import { ButtonBankComponent } from '../../components/button.Bank/button.component';
@@ -20,6 +21,7 @@ import { ITableBankAction } from '../../interfaces/ITableBankAction';
     PaginationComponent,
     ButtonBankComponent,
     ModalBankComponent,
+    RootsharedComponent
   ],
   templateUrl: './design.one.container.component.html',
   styleUrl: './design.one.container.component.css',
@@ -30,8 +32,7 @@ export class DesignOneContainerComponent implements OnInit {
   private readonly _route = inject(ActivatedRoute);
   private readonly _subscription = new Subscription();
   private readonly _router = inject(Router);
-  private readonly _deleteProductUseCase = inject(DeleteProductUseCase);
-  
+  private readonly _loadTranslationsUseCase = inject(LoadTranslationsUseCase)
 
   data: IProduct[] = [];
   filteredData: IProduct[] = [];
@@ -44,11 +45,18 @@ export class DesignOneContainerComponent implements OnInit {
   itemsPerPage: number = 5;
   isModalOpen: boolean = false;
 
+  constructor(
+  ) {
+    this._loadTranslationsUseCase.execute();
+    this._getProductsUseCase.execute();
+  }
+
   ngOnInit(): void {
     this._route.paramMap.subscribe((params) => {
       this.designId = params.get('id');
       this.isButtonActive = this.designId === '2';
     });
+
     this.headers = [
       'Logo',
       'Nombre Producto',
@@ -82,9 +90,7 @@ export class DesignOneContainerComponent implements OnInit {
     this.updatePagination();
   }
   
-  constructor() {
-    this._getProductsUseCase.execute();
-  }
+  
 
   onClick(id: number) {
     console.log(id);
@@ -158,4 +164,5 @@ export class DesignOneContainerComponent implements OnInit {
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
+  
 }

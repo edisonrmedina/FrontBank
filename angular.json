@@ -68,6 +68,10 @@
               {
                  "glob": "**/*",
                   "input": "projects/product/public"
+              },
+              {
+                 "glob": "**/*",
+                  "input": "projects/shared/public"
               }
             ],
             "styles": ["projects/app-bancaria/src/styles.css"],
@@ -126,6 +130,10 @@
               {
                  "glob": "**/*",
                   "input": "projects/product/public"
+              },
+              {
+                 "glob": "**/*",
+                  "input": "projects/shared/public"
               }
             ],
             "styles": ["projects/app-bancaria/src/styles.css"],

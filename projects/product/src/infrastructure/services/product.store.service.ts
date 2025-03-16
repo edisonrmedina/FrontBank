@@ -41,5 +41,9 @@ export class ProductStoreService {
   setLoading(loading: boolean): void {
     this.productStore.update({ loading });
   }
+
+  setTranslations(translations:{ [key: string]: string }): void {
+    this.productStore.update({ translations });
+  }
   
 }
