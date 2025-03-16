@@ -18,7 +18,7 @@ import { LocalTranslationStrategy } from '../../../strategies/i18n-strategy/loca
       },
     },
     {
-      provide : TranslationStrategy, useClass: LocalTranslationStrategy
+      provide : TranslationStrategy , useClass: LocalTranslationStrategy
     }
   ],
 })

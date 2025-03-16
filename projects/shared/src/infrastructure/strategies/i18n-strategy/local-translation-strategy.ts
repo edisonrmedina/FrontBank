@@ -10,6 +10,7 @@ import { ITranslationsStrategy } from './translation-strategy';
   providedIn: 'root'
 })
 export class LocalTranslationStrategy implements ITranslationsStrategy  {
+  debugger;
   private translationsMap: TranslationMap = { en, es };
 
   getTranslations(language: string): Observable<TranslationMapItem> {

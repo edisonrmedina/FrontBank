@@ -8,7 +8,7 @@ import { ITranslationsStrategy } from './i18n-strategy/translation-strategy';
 
 
 @Injectable({
-  providedIn: 'root'  // ✅ esto es lo que faltaba
+  providedIn: 'root'
 })
 export class  TranslationStrategy implements ITranslationsStrategy {
   private translationsMap: TranslationMap = {
