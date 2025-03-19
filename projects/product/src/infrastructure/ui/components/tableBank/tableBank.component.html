@@ -3,27 +3,27 @@
     <thead>
       <tr>
         @for (header of headers; track header) {
-          @if (header === 'Descripción') {
+          @if (header === 'description') {
             <th>
-              {{ header }}
+              {{ translations[header] }}
               <img src="info.svg" alt="Descripción" class="header-icon">
             </th>
-          } @else if (header === 'Fecha de Liberación') {
+          } @else if (header === 'date_release') {
             <th>
-              {{ header }}
+              {{ translations[header] }}
               <img src="info.svg" alt="Fecha de Liberación" class="header-icon">
             </th>
-          } @else if (header === 'Fecha de Reestructuración') {
+          } @else if (header === 'date_revision') {
             <th>
-              {{ header }}
+              {{ translations[header] }}
               <img src="info.svg" alt="Fecha de Reestructuración" class="header-icon">
             </th>
           } @else {
-            <th>{{ header }}</th>
+            <th>{{ translations[header] }}</th>
           }
         }
         @if (actions && actions.length > 0) {
-          <th>Acciones</th>
+          <th>{{ translations['actions'] }}</th>
         }
       </tr>
     </thead>
@@ -33,7 +33,7 @@
       <tr>
         @for (header of headers; track header) {
   
-          @if (header === 'Logo') {
+          @if (header === 'logo') {
             <td>
               <img [src]="item[headerKeyMap[header]] | logoUrl" class="logo-img" alt="Logo" />
             </td>
@@ -88,4 +88,5 @@
     [item]="selectedItem"
     (confirm)="closeModal()"
     (cancel)="closeModal()"
+    [translations]="translations"
   ></lib-delete-bank>

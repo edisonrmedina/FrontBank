@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { IProductState } from '../model/iProductState';
+import { IProductState } from '../model/IProductState';
 import { ProductStore } from './product.store';
 
 
@@ -16,5 +16,12 @@ export class ProductQuery extends Query<IProductState> {
   selectSelectedProduct() {
     return this.select(state => state.selectedProduct);
   }
-  
+
+  selectTranslations() {
+    return this.select(state => state.translations);
+  }
+
+  selectCurrentLanguage()  {
+    return this.select(state => state.currentLanguage);
+  }
 }

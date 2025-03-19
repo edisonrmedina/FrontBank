@@ -15,4 +15,5 @@ export class I18nTranslatorService {
     const selectedLanguage = language || localStorage.getItem('language') || 'es';
     return this.repository.getTranslations(selectedLanguage);
   }
+  
 }

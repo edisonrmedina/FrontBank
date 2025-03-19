@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ModalBankComponent } from '../components/createBank/create-bank.component';
+import { BankComponent } from '../components/createBank/create-bank.component';
 import { DesignOneContainerComponent } from '../containers/design.one.container/design.one.container.component';
 
 export const productRoutes: Routes = [
@@ -14,7 +14,7 @@ export const productRoutes: Routes = [
   },
   {
     path: 'create',
-    component:ModalBankComponent 
+    component:BankComponent 
   },
   {
     path: '**',

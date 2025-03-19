@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,6 +12,7 @@ export class InputBankComponent {
   searchTerm: string = '';
   
   @Output() searchChange = new EventEmitter<string>();
+  @Input() translations: { [key: string]: string } = {};
   
   search(): void {
     this.searchChange.emit(this.searchTerm);

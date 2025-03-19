@@ -10,12 +10,13 @@ export class LoadTranslationsUseCase {
   constructor(
     private readonly _I18nTranslateService: I18nTranslatorService,
     private readonly _store: ProductStoreService,
-    private readonly _errorHandler: ErrorHandlingService,
+    private readonly _errorHandler: ErrorHandlingService
   ) {}
 
-  execute(): void {
-    this._I18nTranslateService.loadTranslations().subscribe({
+  execute(language: string): void {
+    this._I18nTranslateService.loadTranslations(language).subscribe({
       next: (response: TranslationMapItem) => {
+        this._store.setCurrentLanguage(language);
         this._store.setLoading(true);
         this._store.setTranslations(response);
       },
@@ -25,7 +26,7 @@ export class LoadTranslationsUseCase {
       },
       complete: () => {
         this._store.setLoading(false);
-      }
+      },
     });
   }
 }

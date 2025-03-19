@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { RootsharedComponent } from 'shared';
 import { GetAllProductsUseCase } from '../../../../application/get.products.use.case';
 import { LoadTranslationsUseCase } from '../../../../application/translate.use.case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ProductQuery } from '../../../../domain/state/product.query';
 import { ButtonBankComponent } from '../../components/button.Bank/button.component';
-import { ModalBankComponent } from '../../components/createBank/create-bank.component';
+import { BankComponent } from '../../components/createBank/create-bank.component';
 import { InputBankComponent } from '../../components/input-bank/input-bank.component';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { tableBankComponent } from '../../components/tableBank/tableBank.component';
@@ -15,25 +15,29 @@ import { ITableBankAction } from '../../interfaces/ITableBankAction';
 
 @Component({
   selector: 'lib-design.one.container',
+  standalone: true,
   imports: [
     InputBankComponent,
     tableBankComponent,
     PaginationComponent,
     ButtonBankComponent,
-    ModalBankComponent,
-    RootsharedComponent
+    BankComponent,
+    RootsharedComponent,
   ],
   templateUrl: './design.one.container.component.html',
   styleUrl: './design.one.container.component.css',
 })
 export class DesignOneContainerComponent implements OnInit {
+  currentLanguage: string;
+  
   private readonly _getProductsUseCase = inject(GetAllProductsUseCase);
-  private readonly _getAllProducts = inject(ProductQuery);
+  private readonly _queries = inject(ProductQuery);
   private readonly _route = inject(ActivatedRoute);
   private readonly _subscription = new Subscription();
   private readonly _router = inject(Router);
-  private readonly _loadTranslationsUseCase = inject(LoadTranslationsUseCase)
+  private readonly _loadTranslationsUseCase = inject(LoadTranslationsUseCase);
 
+  translations: { [key: string]: string } = {};
   data: IProduct[] = [];
   filteredData: IProduct[] = [];
   paginatedData: IProduct[] = [];
@@ -45,9 +49,10 @@ export class DesignOneContainerComponent implements OnInit {
   itemsPerPage: number = 5;
   isModalOpen: boolean = false;
 
-  constructor(
-  ) {
-    this._loadTranslationsUseCase.execute();
+  constructor() {
+    this._queries.selectCurrentLanguage().subscribe((currentLanguage) => {
+      this._loadTranslationsUseCase.execute(currentLanguage);
+    });
     this._getProductsUseCase.execute();
   }
 
@@ -58,11 +63,11 @@ export class DesignOneContainerComponent implements OnInit {
     });
 
     this.headers = [
-      'Logo',
-      'Nombre Producto',
-      'Descripción',
-      'Fecha de Liberación',
-      'Fecha de Reestructuración',
+      'logo',
+      'name',
+      'description',
+      'date_release',
+      'date_revision',
     ];
 
     this.actions = [
@@ -73,25 +78,26 @@ export class DesignOneContainerComponent implements OnInit {
       },
       {
         label: 'Editar',
-        icon: '', 
+        icon: '',
         onClick: undefined,
       },
     ];
 
     this._subscription.add(
-      this._getAllProducts.selectAll().subscribe((products) => {
+      combineLatest([
+        this._queries.selectAll(),
+        this._queries.selectTranslations(),
+      ]).subscribe(([products, translations]) => {
         this.data = products;
         this.filteredData = [...this.data];
         this.paginatedData = this.filteredData;
+        this.translations = translations;
         this.updatePagination();
       })
     );
 
     this.updatePagination();
   }
-  
-  
-
   onClick(id: number) {
     console.log(id);
   }
@@ -123,14 +129,13 @@ export class DesignOneContainerComponent implements OnInit {
     this.paginatedData = this.filteredData;
     this.updatePagination();
   }
-
   private getPropertyKeyFromHeader(header: string): string | null {
     const headerMap: { [key: string]: string } = {
-      Logo: 'logo',
-      'Nombre Producto': 'name',
-      "Descripción": 'description',
-      'Fecha de Liberación': 'date_release',
-      'Fecha de Reestructuración': 'date_revision',
+      logo: 'logo',
+      name: 'name',
+      description: 'description',
+      date_release: 'date_release',
+      date_revision: 'date_revision',
     };
 
     return headerMap[header] || null;
@@ -147,12 +152,18 @@ export class DesignOneContainerComponent implements OnInit {
     this.updatePagination();
   }
 
+  toggleLanguage(): void {
+    const newLanguage = this.currentLanguage === 'es' ? 'en' : 'es';
+    //this._productStoreService.setCurrentLanguage(newLanguage); 
+    this.currentLanguage = newLanguage;
+    this._loadTranslationsUseCase.execute(newLanguage);  
+  }
+
   updatePagination() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.paginatedData = this.filteredData.slice(start, end);
   }
-
   showCreateModal() {
     this._router.navigate(['/create']);
   }
@@ -164,5 +175,4 @@ export class DesignOneContainerComponent implements OnInit {
   ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
-  
 }

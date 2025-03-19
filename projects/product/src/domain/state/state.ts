@@ -1,4 +1,4 @@
-import { IProductState } from "../model/iProductState";
+import { IProductState } from "../model/IProductState";
 
 export function createInitialState(): IProductState {
     return {
@@ -6,6 +6,7 @@ export function createInitialState(): IProductState {
       selectedProduct: null,
       loading: false,
       error: null,
+      currentLanguage:'en', //variable de entorno - gitactions
       translations: {},
     };
   }

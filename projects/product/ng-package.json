@@ -5,7 +5,7 @@
     "entryFile": "src/public-api.ts"
   },
   "allowedNonPeerDependencies": [
-      "@datorama/akita",
+    "@datorama/akita",
     "@datorama/akita-ngdevtools"
   ]
 }

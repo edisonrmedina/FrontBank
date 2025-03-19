@@ -4,12 +4,12 @@ import { SelectProductCase } from '../../../../application/select-product-use-ca
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
 import { LogoUrlPipe } from "../../pipes/logo.url.pipe";
-import { ModalBankComponent } from '../createBank/create-bank.component';
+import { BankComponent } from '../createBank/create-bank.component';
 import { ModalDeleteBankComponent } from '../modal.delete.bank/modal.delete.bank.component';
 
 @Component({
   selector: 'lib-table',
-  imports: [ModalDeleteBankComponent, ModalBankComponent, LogoUrlPipe],
+  imports: [ModalDeleteBankComponent, BankComponent, LogoUrlPipe],
   templateUrl: './tableBank.component.html',
   styleUrl: './tableBank.component.css',
 })
@@ -17,6 +17,7 @@ export class tableBankComponent {
   @Input() headers: string[] = [];
   @Input() data: IProduct[] = [];
   @Input() actions: ITableBankAction[] = [];
+  @Input() translations: { [key: string]: string } = {};
   @Output() modalItem = new EventEmitter<IProduct>();
 
   private readonly _router = inject(Router);
@@ -26,11 +27,11 @@ export class tableBankComponent {
   modalIsVisible: boolean = false;
   dropdownStates: { [itemId: string]: boolean } = {};
   headerKeyMap: { [key: string]: string } = {
-    Logo: 'logo',
-    'Nombre Producto': 'name',
-    Descripción: 'description',
-    'Fecha de Liberación': 'date_release',
-    'Fecha de Reestructuración': 'date_revision',
+    'logo': 'logo',
+    'name': 'name',
+    'description': 'description',
+    'date_release': 'date_release',
+    'date_revision': 'date_revision',
   };
 
   selectedItem: IProduct;
@@ -74,4 +75,5 @@ export class tableBankComponent {
 
     return `${day}/${month}/${year}`;
   }
+  
 }

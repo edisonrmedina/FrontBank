@@ -45,5 +45,9 @@ export class ProductStoreService {
   setTranslations(translations:{ [key: string]: string }): void {
     this.productStore.update({ translations });
   }
+
+  setCurrentLanguage(language: string): void {
+    this.productStore.update({ currentLanguage: language });
+  }
   
 }

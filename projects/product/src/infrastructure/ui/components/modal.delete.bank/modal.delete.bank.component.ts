@@ -15,6 +15,7 @@ export class ModalDeleteBankComponent implements OnInit {
   @Input() isVisible: boolean = false;
   @Output() cancel = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<void>();
+  @Input() translations: { [key: string]: string } = {};
 
   private readonly _getSelectedProduct = inject(GetSelectedProductCase)
   productToDelete : IProduct;

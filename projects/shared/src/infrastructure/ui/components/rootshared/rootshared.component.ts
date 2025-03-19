@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { LANGUAGE } from '../../../../app.config';
 import { I18nTranslatorService } from '../../../services/I18nTranslator.service';
-import { TranslationStrategy } from '../../../strategies/translation';
 import { LocalTranslationStrategy } from '../../../strategies/i18n-strategy/local-translation-strategy';
+import { TranslationStrategy } from '../../../strategies/translation';
 
 @Component({
   selector: 'lib-rootshared',
@@ -22,13 +22,12 @@ import { LocalTranslationStrategy } from '../../../strategies/i18n-strategy/loca
     }
   ],
 })
-export class RootsharedComponent implements OnInit {
+
+export class RootsharedComponent {
   constructor(
     private readonly _i18nTranslatorService: I18nTranslatorService,
     @Inject(LANGUAGE) private language: string
-  ) {}
-  ngOnInit(): void {
-    debugger;
+  ) {
     this._i18nTranslatorService.loadTranslations(this.language);
   }
 }

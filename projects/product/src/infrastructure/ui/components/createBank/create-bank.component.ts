@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -8,21 +17,30 @@ import {
   FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, map, Observable, of, Subject, takeUntil } from 'rxjs';
+import {
+  catchError,
+  map,
+  Observable,
+  of,
+  Subject,
+  Subscription,
+  takeUntil,
+} from 'rxjs';
 import { CreateProductUseCase } from '../../../../application/create.product.use.case';
 import { GetSelectedProductCase } from '../../../../application/getSelectedProductCase';
 import { ProductExistsUseCase } from '../../../../application/product.exists.use.case';
 import { UpdateProductUseCase } from '../../../../application/update.product.use.case';
 import { IProduct } from '../../../../domain/model/IProduct';
+import { ProductQuery } from '../../../../domain/state/product.query';
 import { ButtonBankComponent } from '../button.Bank/button.component';
 import { InputBankComponent } from '../input-bank/input-bank.component';
 
 @Component({
   selector: 'lib-modal-bank',
-  standalone:true,
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -31,9 +49,9 @@ import { InputBankComponent } from '../input-bank/input-bank.component';
     ButtonBankComponent,
   ],
   templateUrl: './create-bank.component.html',
-  styleUrl: './create-bank.component.css',
+  styleUrls: ['./create-bank.component.css'],
 })
-export class ModalBankComponent {
+export class BankComponent implements OnDestroy, OnInit {
   @Output() closeModal = new EventEmitter<void>();
   @Output() submit = new EventEmitter<any>();
   @Input() productToEdit: IProduct | null = null;
@@ -47,14 +65,26 @@ export class ModalBankComponent {
   private readonly _router = inject(Router);
   private readonly _route = inject(ActivatedRoute);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly _queries = inject(ProductQuery);
+  private readonly _subscription = new Subscription();
+  translations: { [key: string]: string } = {};
 
   productForm!: FormGroup;
-  today: string = '';
+  today = new Date().toISOString().split('T')[0];
   isEditMode: boolean = false;
+
+  constructor() {
+    this._subscription.add(
+      this._queries.selectTranslations().subscribe((translations) => {
+        this.translations = translations;
+        console.log('translations', translations);
+      })
+    );
+  }
 
   ngOnInit(): void {
     this.initForm();
-    this.today = new Date().toISOString().split('T')[0];
+    debugger;
 
     this._route.queryParams.subscribe((params) => {
       const isEditMode = params['mode'] === 'edit';
@@ -87,7 +117,6 @@ export class ModalBankComponent {
       date_release: this.formatDateForInput(this.productToEdit.date_release),
       date_revision: this.formatDateForInput(this.productToEdit.date_revision),
     });
-
   }
 
   private formatDateForInput(dateString: string): string {
@@ -123,8 +152,11 @@ export class ModalBankComponent {
         ],
       ],
       logo: ['', Validators.required],
-      date_release: ['', [Validators.required, this.validateReleaseDate]],
-      date_revision: [{ value: '', disabled: true }, [Validators.required] ],
+      date_release: [
+        this.today,
+        [Validators.required, this.validateReleaseDate],
+      ],
+      date_revision: [{ value: '', disabled: true }, [Validators.required]],
     });
 
     this.productForm.controls['date_release'].valueChanges.subscribe(
@@ -147,7 +179,6 @@ export class ModalBankComponent {
 
   submitForm(): void {
     if (this.productForm.valid) {
-      
       this.productForm.controls['date_revision'].enable();
       const productData = this.productForm.value;
 
@@ -192,21 +223,20 @@ export class ModalBankComponent {
     } else {
       this.productForm.reset();
     }
-    
   }
 
   validateIdExistAsync(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
-    console.log("validateIdExistAsync is running!");
+    console.log('validateIdExistAsync is running!');
     if (!control.value) return of(null);
-  
+
     return this._validateIdUseCase.execute(control.value).pipe(
       takeUntil(this._destroy$),
       map((exists: boolean) => {
-        console.log("validateIdExistAsync - Response from use case:", exists);
+        console.log('validateIdExistAsync - Response from use case:', exists);
         const result = exists ? { idExists: true } : null;
-        console.log("validateIdExistAsync - Result:", result); // Agrega esta línea
+        console.log('validateIdExistAsync - Result:', result); // Agrega esta línea
         this.cdr.detectChanges();
         return result;
       }),
@@ -219,5 +249,11 @@ export class ModalBankComponent {
 
   closeModalBank() {
     this.closeModal.emit();
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }
