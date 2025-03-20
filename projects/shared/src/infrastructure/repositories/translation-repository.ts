@@ -13,4 +13,5 @@ export class TranslationRepository {
   getTranslations(language: string): Observable<TranslationMapItem> {
     return this.strategy.getTranslations(language);
   }
+  
 }

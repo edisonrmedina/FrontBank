@@ -1,32 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { IUpdateProductRequest } from '../domain/model/IUpdateProductRequest';
 import { IUpdateProductResponse } from '../domain/model/IUpdateProductResponse';
+import { IUseCase } from '../domain/model/IUseCase';
 import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../infrastructure/services/product.service';
 import { ProductStoreService } from '../infrastructure/services/product.store.service';
 
+interface UpdateProductInput {
+  id: string;
+  product: IUpdateProductRequest;
+}
+
 @Injectable({
   providedIn: 'root',
 })
-export class UpdateProductUseCase {
+export class UpdateProductUseCase implements IUseCase<UpdateProductInput, IUpdateProductResponse> {
   constructor(
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
     private readonly _errorHandler: ErrorHandlingService,
   ) {}
 
-
-  execute(id: string, product: IUpdateProductRequest): Observable<IUpdateProductResponse> {
+  execute(input: UpdateProductInput): Observable<IUpdateProductResponse> {
     this._store.setLoading(true);
-    return this._service.updateProduct(id, product).pipe(
+    return this._service.updateProduct(input.id, input.product).pipe(
       tap(response => {
-        this._store.updateProduct(id, response.data);
+        this._store.updateProduct(input.id, response.data);
       }),
       catchError((error) => {
-        console.error(`Error updating product with ID ${id}:`, error);
-        return this._errorHandler.handleError(error, `Error updating product with ID ${id}`);
+        console.error(`Error updating product with ID ${input.id}:`, error);
+        this._errorHandler.handleError(error, `Error updating product with ID ${input.id}`);
+        return throwError(() => error); // Re-lanzar el error
       }),
       finalize(() => {
         this._store.setLoading(false);

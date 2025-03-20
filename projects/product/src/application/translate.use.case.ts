@@ -6,7 +6,7 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
 @Injectable({
   providedIn: 'root',
 })
-export class LoadTranslationsUseCase {
+export class LoadTranslationsUseCase  {
   constructor(
     private readonly _I18nTranslateService: I18nTranslatorService,
     private readonly _store: ProductStoreService,

@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { SelectProductCase } from '../../../../application/select-product-use-case';
 import { IProduct } from '../../../../domain/model/IProduct';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
-import { ModalBankComponent } from '../createBank/create-bank.component';
 import { ModalDeleteBankComponent } from '../modal.delete.bank/modal.delete.bank.component';
 import { tableBankComponent } from './tableBank.component';
 

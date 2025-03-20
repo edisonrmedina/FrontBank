@@ -184,9 +184,9 @@ export class BankComponent implements OnDestroy, OnInit {
 
       if (this.isEditMode) {
         this.productForm.get('id')?.enable();
-
+        const updateProductData = { ...productData, id: this.productForm.get('id').value };
         this._editProductUseCase
-          .execute(this.productForm.get('id').value, productData)
+          .execute(updateProductData)
           .pipe(takeUntil(this._destroy$))
           .subscribe({
             next: (response) => {

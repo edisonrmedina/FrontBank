@@ -1,6 +1,8 @@
-import { inject, Injectable } from '@angular/core';
-import { catchError, finalize, tap } from 'rxjs';
-import { ProductQuery } from '../domain/state/product.query';
+import { Injectable } from '@angular/core';
+import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { IProduct } from '../domain/model/IProduct'; // Asegúrate de tener esta interfaz
+import { IUseCase } from '../domain/model/IUseCase';
 import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../infrastructure/services/product.service';
 import { ProductStoreService } from '../infrastructure/services/product.store.service';
@@ -8,26 +10,29 @@ import { ProductStoreService } from '../infrastructure/services/product.store.se
 @Injectable({
   providedIn: 'root',
 })
-export class GetAllProductsUseCase {
+export class GetAllProductsUseCase implements IUseCase<void, IProduct[]> {
   constructor(
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
     private readonly _errorHandler: ErrorHandlingService,
   ) {}
-  execute(): void {
-    this._store.setLoading(true); 
 
-    this._service.getAllProducts().pipe(
-      tap(response => {
-        this._store.setProducts(response.data);
+  execute(): Observable<IProduct[]> {
+    this._store.setLoading(true);
+
+    return this._service.getAllProducts().pipe(
+      map(response => response.data), // Extrae los datos
+      tap(products => {
+        this._store.setProducts(products);
       }),
       catchError((error) => {
         console.error('Error al obtener los productos:', error);
-        return this._errorHandler.handleError(error, 'Error fetching all products');
+        this._errorHandler.handleError(error, 'Error fetching all products');
+        return throwError(() => error); // Re-lanza el error
       }),
       finalize(() => {
         this._store.setLoading(false);
       })
-    ).subscribe();
+    );
   }
 }
