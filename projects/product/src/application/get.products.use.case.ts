@@ -19,9 +19,12 @@ export class GetAllProductsUseCase implements IUseCase<void, IProduct[]> {
 
   execute(): Observable<IProduct[]> {
     this._store.setLoading(true);
-
+    debugger;
     return this._service.getAllProducts().pipe(
-      map(response => response.data), // Extrae los datos
+      map((response) => {
+        console.log('Productos:', response);
+        return response.data;
+      }), // Extrae los datos
       tap(products => {
         this._store.setProducts(products);
       }),

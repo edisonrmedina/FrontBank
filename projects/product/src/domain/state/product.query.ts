@@ -24,4 +24,9 @@ export class ProductQuery extends Query<IProductState> {
   selectCurrentLanguage()  {
     return this.select(state => state.currentLanguage);
   }
+
+  selectCurrentStateLoading() {
+    return this.select((state) => state.loading);
+  }
+  
 }

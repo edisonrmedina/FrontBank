@@ -17,7 +17,7 @@ export class ProductExistsUseCase implements IUseCase<string, boolean> {
   ) {}
 
   execute(id: string): Observable<boolean> {
-    this._store.setLoading(true);
+    //this._store.setLoading(true);
     return this._service.productExists(id).pipe(
       catchError((error) => {
         console.error('Error checking if product exists:', error);

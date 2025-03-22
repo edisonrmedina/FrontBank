@@ -18,7 +18,7 @@ export class GetSelectedProductCase implements IUseCase<void, IProduct | null> {
   ) {}
 
   execute(): Observable<IProduct | null> {
-    this._store.setLoading(true);
+    //this._store.setLoading(true);
     return this._query.selectSelectedProduct().pipe(
       catchError((err) => {
         console.error("Error getting selected product:", err);

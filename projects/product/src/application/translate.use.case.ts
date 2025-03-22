@@ -14,10 +14,10 @@ export class LoadTranslationsUseCase  {
   ) {}
 
   execute(language: string): void {
+    this._store.setLoading(true);
     this._I18nTranslateService.loadTranslations(language).subscribe({
       next: (response: TranslationMapItem) => {
         this._store.setCurrentLanguage(language);
-        this._store.setLoading(true);
         this._store.setTranslations(response);
       },
       error: (error) => {

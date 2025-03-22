@@ -7,6 +7,7 @@ import { createInitialState, } from './state';
 @StoreConfig({ name: 'product' })
 export class ProductStore extends Store<IProductState> {
   constructor() {
+    debugger;
     super(createInitialState());
   }
 }

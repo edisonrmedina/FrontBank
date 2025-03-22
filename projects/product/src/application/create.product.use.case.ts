@@ -18,7 +18,7 @@ export class CreateProductUseCase implements IUseCase<ICreateProductRequest,ICre
   ) {}
 
   execute(product: ICreateProductRequest): Observable<ICreateProductResponse> {
-    this._store.setLoading(true);
+    //this._store.setLoading(true);
     return this._service.createProduct(product).pipe(
       tap((response) => this._store.addProduct(response.data)),
       catchError((error) =>

@@ -53,7 +53,6 @@ export class DesignOneContainerComponent implements OnInit {
     this._queries.selectCurrentLanguage().subscribe((currentLanguage) => {
       this._loadTranslationsUseCase.execute(currentLanguage);
     });
-    this._getProductsUseCase.execute();
   }
 
   ngOnInit(): void {
@@ -85,9 +84,10 @@ export class DesignOneContainerComponent implements OnInit {
 
     this._subscription.add(
       combineLatest([
+        this._getProductsUseCase.execute(),
         this._queries.selectAll(),
         this._queries.selectTranslations(),
-      ]).subscribe(([products, translations]) => {
+      ]).subscribe(([_,products, translations]) => {
         this.data = products;
         this.filteredData = [...this.data];
         this.paginatedData = this.filteredData;

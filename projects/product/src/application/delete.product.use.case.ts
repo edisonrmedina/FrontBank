@@ -18,7 +18,7 @@ export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResp
   ) {}
 
   execute(id: string): Observable<IDeleteProductResponse> {
-    this._store.setLoading(true);
+    //this._store.setLoading(true);
 
     return this._service.deleteProduct(id).pipe(
       tap(() => {
