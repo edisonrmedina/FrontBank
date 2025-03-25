@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
+import { IProduct } from 'shared';
 import { SelectProductCase } from '../../../../application/select-product-use-case';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
 import { LogoUrlPipe } from "../../pipes/logo.url.pipe";

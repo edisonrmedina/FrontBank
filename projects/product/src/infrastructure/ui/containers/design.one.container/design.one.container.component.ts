@@ -1,11 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
-import { RootsharedComponent } from 'shared';
-import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
+import { IProduct, ProductQuery, RootsharedComponent } from 'shared';
 import { GetAllProductsUseCase } from '../../../../application/get.products.use.case';
 import { LoadTranslationsUseCase } from '../../../../application/translate.use.case';
-import { ProductQuery } from '../../../../domain/state/product.query';
 import { ButtonBankComponent } from '../../components/button.Bank/button.component';
 import { BankComponent } from '../../components/createBank/create-bank.component';
 import { InputBankComponent } from '../../components/input-bank/input-bank.component';
