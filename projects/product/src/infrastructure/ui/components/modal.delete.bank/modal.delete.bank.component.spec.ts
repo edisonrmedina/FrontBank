@@ -1,8 +1,8 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
+import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
 import { DeleteProductUseCase } from '../../../../application/delete.product.use.case';
-import { IProduct } from '../../../../domain/model/IProduct';
 import { ModalDeleteBankComponent } from './modal.delete.bank.component';
 
 describe('ModalDeleteBankComponent', () => {

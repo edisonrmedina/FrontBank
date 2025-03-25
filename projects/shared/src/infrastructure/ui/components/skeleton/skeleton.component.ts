@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ProductQuery } from 'product';
 import { Subscription } from 'rxjs';
+import { ProductQuery } from '../../../../domain/state/product.query';
 
 @Component({
   selector: 'lib-skeleton',

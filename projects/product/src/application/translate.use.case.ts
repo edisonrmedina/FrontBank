@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { I18nTranslatorService, TranslationMapItem } from 'shared';
-import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
-import { ProductStoreService } from '../infrastructure/services/product.store.service';
+import { ErrorHandlingService, I18nTranslatorService, ProductStoreService, TranslationMapItem } from 'shared';
 
 @Injectable({
   providedIn: 'root',

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
 import { DeleteProductUseCase } from '../../../../application/delete.product.use.case';
 import { GetSelectedProductCase } from '../../../../application/getSelectedProductCase';
-import { IProduct } from '../../../../domain/model/IProduct';
 
 @Component({
   selector: 'lib-delete-bank',

@@ -1,39 +1,39 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators,
+    AbstractControl,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    ValidationErrors,
+    Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  catchError,
-  map,
-  Observable,
-  of,
-  Subject,
-  Subscription,
-  takeUntil,
+    catchError,
+    map,
+    Observable,
+    of,
+    Subject,
+    Subscription,
+    takeUntil,
 } from 'rxjs';
+import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
 import { CreateProductUseCase } from '../../../../application/create.product.use.case';
 import { GetSelectedProductCase } from '../../../../application/getSelectedProductCase';
 import { ProductExistsUseCase } from '../../../../application/product.exists.use.case';
 import { UpdateProductUseCase } from '../../../../application/update.product.use.case';
-import { IProduct } from '../../../../domain/model/IProduct';
 import { ProductQuery } from '../../../../domain/state/product.query';
 import { ButtonBankComponent } from '../button.Bank/button.component';
 import { InputBankComponent } from '../input-bank/input-bank.component';

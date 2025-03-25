@@ -1,14 +1,14 @@
 import {
-  HttpClientTestingModule,
-  HttpTestingController,
+    HttpClientTestingModule,
+    HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ICreateProductRequest } from '../../../domain/model/ICreateProductRequest';
-import { ICreateProductResponse } from '../../../domain/model/ICreateProductResponse';
-import { IDeleteProductResponse } from '../../../domain/model/IDeleteProductResponse';
-import { IGetProductsResponse } from '../../../domain/model/IGetProductsResponse';
-import { IUpdateProductRequest } from '../../../domain/model/IUpdateProductRequest';
-import { IUpdateProductResponse } from '../../../domain/model/IUpdateProductResponse';
+import { ICreateProductRequest } from '../../../../../shared/src/domain/model/ICreateProductRequest';
+import { ICreateProductResponse } from '../../../../../shared/src/domain/model/ICreateProductResponse';
+import { IDeleteProductResponse } from '../../../../../shared/src/domain/model/IDeleteProductResponse';
+import { IGetProductsResponse } from '../../../../../shared/src/domain/model/IGetProductsResponse';
+import { IUpdateProductRequest } from '../../../../../shared/src/domain/model/IUpdateProductRequest';
+import { IUpdateProductResponse } from '../../../../../shared/src/domain/model/IUpdateProductResponse';
 import { ProductApiService } from '../product.service';
 
 describe('ProductApiService', () => {

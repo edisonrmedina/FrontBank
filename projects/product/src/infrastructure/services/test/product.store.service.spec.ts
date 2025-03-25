@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { IProduct } from '../../../domain/model/IProduct';
+import { IProduct } from '../../../../../shared/src/domain/model/IProduct';
 import { ProductStore } from '../../../domain/state/product.store';
 import { ProductStoreService } from '../product.store.service';
 

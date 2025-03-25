@@ -3,12 +3,12 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
+import { IUpdateProductResponse } from '../../../../../../shared/src/domain/model/IUpdateProductResponse';
 import { CreateProductUseCase } from '../../../../application/create.product.use.case';
 import { GetSelectedProductCase } from '../../../../application/getSelectedProductCase';
 import { ProductExistsUseCase } from '../../../../application/product.exists.use.case';
 import { UpdateProductUseCase } from '../../../../application/update.product.use.case';
-import { IProduct } from '../../../../domain/model/IProduct';
-import { IUpdateProductResponse } from '../../../../domain/model/IUpdateProductResponse';
 import { ModalBankComponent } from './create-bank.component';
 
 describe('ModalBankComponent', () => {

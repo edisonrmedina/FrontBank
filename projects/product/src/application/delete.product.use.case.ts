@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
-import { IDeleteProductResponse } from '../domain/model/IDeleteProductResponse';
-import { IUseCase } from '../domain/model/IUseCase';
-import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
+import { ErrorHandlingService, IDeleteProductResponse, IUseCase, ProductStoreService } from 'shared';
 import { ProductApiService } from '../infrastructure/services/product.service';
-import { ProductStoreService } from '../infrastructure/services/product.store.service';
 
 @Injectable({
   providedIn: 'root',

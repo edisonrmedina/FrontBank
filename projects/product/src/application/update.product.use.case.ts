@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
-import { IUpdateProductRequest } from '../domain/model/IUpdateProductRequest';
-import { IUpdateProductResponse } from '../domain/model/IUpdateProductResponse';
-import { IUseCase } from '../domain/model/IUseCase';
-import { ErrorHandlingService } from '../infrastructure/services/error.handle.service';
+import { ErrorHandlingService, IUseCase, ProductStoreService } from 'shared';
+import { IUpdateProductRequest } from '../../../shared/src/domain/model/IUpdateProductRequest';
+import { IUpdateProductResponse } from '../../../shared/src/domain/model/IUpdateProductResponse';
 import { ProductApiService } from '../infrastructure/services/product.service';
-import { ProductStoreService } from '../infrastructure/services/product.store.service';
 
 interface UpdateProductInput {
   id: string;

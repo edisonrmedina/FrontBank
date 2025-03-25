@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { IProduct } from '../../domain/model/IProduct';
+import { IProduct } from '../../../../shared/src/domain/model/IProduct';
 import { ProductQuery } from '../../domain/state/product.query';
 import { ErrorHandlingService } from '../../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../../infrastructure/services/product.service';

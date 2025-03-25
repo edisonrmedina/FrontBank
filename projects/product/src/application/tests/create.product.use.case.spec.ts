@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { ICreateProductRequest } from '../../domain/model/ICreateProductRequest';
-import { ICreateProductResponse } from '../../domain/model/ICreateProductResponse';
+import { ICreateProductRequest } from '../../../../shared/src/domain/model/ICreateProductRequest';
+import { ICreateProductResponse } from '../../../../shared/src/domain/model/ICreateProductResponse';
 import { ErrorHandlingService } from '../../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../../infrastructure/services/product.service';
 import { ProductStoreService } from '../../infrastructure/services/product.store.service';

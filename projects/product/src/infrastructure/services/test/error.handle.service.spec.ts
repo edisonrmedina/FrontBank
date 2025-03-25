@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { IErrorMessage } from '../../../domain/model/error.mesage';
+import { IErrorMessage } from '../../../../../shared/src/domain/model/error.mesage';
 import { ErrorHandlingService } from '../error.handle.service';
 import { ProductStoreService } from '../product.store.service';
 

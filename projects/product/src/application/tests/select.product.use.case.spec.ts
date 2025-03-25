@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { throwError } from 'rxjs';
-import { IProduct } from '../../domain/model/IProduct';
+import { IProduct } from '../../../../shared/src/domain/model/IProduct';
 import { ErrorHandlingService } from '../../infrastructure/services/error.handle.service';
 import { ProductApiService } from '../../infrastructure/services/product.service';
 import { ProductStoreService } from '../../infrastructure/services/product.store.service';

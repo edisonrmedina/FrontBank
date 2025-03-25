@@ -1,7 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
 import { SelectProductCase } from '../../../../application/select-product-use-case';
-import { IProduct } from '../../../../domain/model/IProduct';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
 import { LogoUrlPipe } from "../../pipes/logo.url.pipe";
 import { BankComponent } from '../createBank/create-bank.component';
