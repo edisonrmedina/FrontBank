@@ -1,12 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICreateProductRequest } from '../../../../shared/src/domain/model/ICreateProductRequest';
-import { ICreateProductResponse } from '../../../../shared/src/domain/model/ICreateProductResponse';
-import { IDeleteProductResponse } from '../../../../shared/src/domain/model/IDeleteProductResponse';
-import { IGetProductsResponse } from '../../../../shared/src/domain/model/IGetProductsResponse';
-import { IUpdateProductRequest } from '../../../../shared/src/domain/model/IUpdateProductRequest';
-import { IUpdateProductResponse } from '../../../../shared/src/domain/model/IUpdateProductResponse';
+import { ICreateProductRequest, ICreateProductResponse, IDeleteProductResponse, IGetProductsResponse, IUpdateProductRequest, IUpdateProductResponse } from 'shared';
 
 @Injectable({
   providedIn: 'root',

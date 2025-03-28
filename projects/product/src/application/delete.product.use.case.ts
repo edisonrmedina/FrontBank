@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
-import { ErrorHandlingService, IDeleteProductResponse, IUseCase, ProductStoreService } from 'shared';
+import { ErrorHandlingService, IDeleteProductResponse, IUseCase, ProductStoreService, ToastService } from 'shared';
 import { ProductApiService } from '../infrastructure/services/product.service';
 
 @Injectable({
@@ -11,16 +11,19 @@ export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResp
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
     private readonly _errorHandler: ErrorHandlingService,
-    // private readonly _alertService: AlertService // Opcional
+    private readonly _toastService: ToastService
   ) {}
 
   execute(id: string): Observable<IDeleteProductResponse> {
-    //this._store.setLoading(true);
-
+    this._store.setLoading(true);
     return this._service.deleteProduct(id).pipe(
       tap(() => {
         this._store.deleteProduct(id); // Eliminar del store solo si la API confirma el éxito
-        // this._alertService.success(`Product with ID ${id} deleted successfully!`); // Opcional
+        this._toastService.showToast(
+          'Operación Exitosa',
+          `Producto eliminado correctamente`,
+          'success'
+        );
       }),
       catchError((error) => {
         this._errorHandler.handleError(error, `Product deletion failed: ${id}`);

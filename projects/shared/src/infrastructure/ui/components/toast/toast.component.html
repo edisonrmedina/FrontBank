@@ -1,0 +1,51 @@
+@if (toastService.isToastVisible()) {
+  <div 
+    #toastContainer
+    class="toast {{ toastService.currentToast().type === 'error' ? 'toast-error' : 
+                   toastService.currentToast().type === 'success' ? 'toast-success' : 
+                   toastService.currentToast().type === 'warning' ? 'toast-warning' : 'toast-default' }}" 
+    role="alert"
+  >
+    <div class="toast-icon">
+      @switch (toastService.currentToast().type) {
+        @case ('success') {
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.5 9.5 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+          </svg>
+        }
+        @case ('error') {
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.5 9.5 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+          </svg>
+        }
+        @case ('warning') {
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.5 9.5 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+          </svg>
+        }
+        @default {
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.5 9.5 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+          </svg>
+        }
+      }
+    </div>
+    
+    <div class="toast-content">
+      <h3 class="toast-title">{{ toastService.currentToast().title }}</h3>
+      <p class="toast-message">{{ toastService.currentToast().message }}</p>
+    </div>
+    
+    <button 
+      (click)="toastService.dismissToast()"
+      type="button" 
+      class="toast-close"
+      aria-label="Close"
+    >
+      <span class="sr-only">Close</span>
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+      </svg>
+    </button>
+  </div>
+}

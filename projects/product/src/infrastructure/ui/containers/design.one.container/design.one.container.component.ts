@@ -101,7 +101,6 @@ export class DesignOneContainerComponent implements OnInit {
   }
 
   searchChange(searchTerm: string) {
-    debugger;
     if (!searchTerm.trim()) {
       this.filteredData = [...this.data];
       this.paginatedData = this.filteredData;

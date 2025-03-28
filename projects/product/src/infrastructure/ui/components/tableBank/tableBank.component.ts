@@ -39,7 +39,6 @@ export class tableBankComponent {
   constructor() {}
 
   showModal(action: ITableBankAction, item: IProduct) {
-    debugger;
     this.selectedItem = item;
     this._setSelectProductCase.execute(item);
     if (action.label.toLowerCase() === 'editar') {

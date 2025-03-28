@@ -17,6 +17,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,8 +30,7 @@ import {
   Subscription,
   takeUntil,
 } from 'rxjs';
-import { ProductQuery } from 'shared';
-import { IProduct } from '../../../../../../shared/src/domain/model/IProduct';
+import { IProduct, IUpdateProductInput, ProductQuery } from 'shared';
 import { CreateProductUseCase } from '../../../../application/create.product.use.case';
 import { GetSelectedProductCase } from '../../../../application/getSelectedProductCase';
 import { ProductExistsUseCase } from '../../../../application/product.exists.use.case';
@@ -72,6 +72,7 @@ export class BankComponent implements OnDestroy, OnInit {
   productForm!: FormGroup;
   today = new Date().toISOString().split('T')[0];
   isEditMode: boolean = false;
+  updateProductData:IUpdateProductInput;
 
   constructor() {
     this._subscription.add(
@@ -84,8 +85,6 @@ export class BankComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    debugger;
-
     this._route.queryParams.subscribe((params) => {
       const isEditMode = params['mode'] === 'edit';
 
@@ -151,7 +150,7 @@ export class BankComponent implements OnDestroy, OnInit {
           Validators.maxLength(200),
         ],
       ],
-      logo: ['', Validators.required],
+      logo: ['',this.urlValidator ],
       date_release: [
         this.today,
         [Validators.required, this.validateReleaseDate],
@@ -177,16 +176,25 @@ export class BankComponent implements OnDestroy, OnInit {
     return control.value >= today ? null : { invalidDate: true };
   }
 
+  validateUrl(control: FormControl) {
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    return urlPattern.test(control.value) ? null : { invalidUrl: true };
+  }
+
   submitForm(): void {
     if (this.productForm.valid) {
       this.productForm.controls['date_revision'].enable();
       const productData = this.productForm.value;
 
       if (this.isEditMode) {
+        debugger;
         this.productForm.get('id')?.enable();
-        const updateProductData = { ...productData, id: this.productForm.get('id').value };
+        this.updateProductData = {
+          id:this.productForm.get('id').value,
+          product : { ...productData, id: this.productForm.get('id').value }
+        };
         this._editProductUseCase
-          .execute(updateProductData)
+          .execute(this.updateProductData)
           .pipe(takeUntil(this._destroy$))
           .subscribe({
             next: (response) => {
@@ -194,7 +202,7 @@ export class BankComponent implements OnDestroy, OnInit {
               this.closeModal.emit();
             },
             error: (error) => {
-              console.error('Error al editar el producto', error);
+              
             },
           });
       } else {
@@ -208,7 +216,7 @@ export class BankComponent implements OnDestroy, OnInit {
               this.closeModal.emit();
             },
             error: (error) => {
-              console.error('Error al crear el producto', error);
+              
             },
           });
       }
@@ -234,9 +242,7 @@ export class BankComponent implements OnDestroy, OnInit {
     return this._validateIdUseCase.execute(control.value).pipe(
       takeUntil(this._destroy$),
       map((exists: boolean) => {
-        console.log('validateIdExistAsync - Response from use case:', exists);
         const result = exists ? { idExists: true } : null;
-        console.log('validateIdExistAsync - Result:', result); // Agrega esta línea
         this.cdr.detectChanges();
         return result;
       }),
@@ -246,7 +252,7 @@ export class BankComponent implements OnDestroy, OnInit {
       })
     );
   }
-
+  
   closeModalBank() {
     this.closeModal.emit();
   }
@@ -256,4 +262,16 @@ export class BankComponent implements OnDestroy, OnInit {
     this._destroy$.next();
     this._destroy$.complete();
   }
+
+  urlValidator(): ValidatorFn{
+    const urlPattern = /^(https?:\/\/[^\s$.?#].[^\s]*)$/i; // Expresión regular para una URL válida
+  
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value && !urlPattern.test(control.value)) {
+        return { invalidUrl: true }; 
+      }
+      return null;
+    };
+  }
+
 }

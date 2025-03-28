@@ -21,3 +21,4 @@ export const productRoutes: Routes = [
     redirectTo: 'design/1', 
   },
 ];
+ 

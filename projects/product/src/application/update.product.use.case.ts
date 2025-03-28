@@ -1,31 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
-import { ErrorHandlingService, IUseCase, ProductStoreService } from 'shared';
-import { IUpdateProductRequest } from '../../../shared/src/domain/model/IUpdateProductRequest';
-import { IUpdateProductResponse } from '../../../shared/src/domain/model/IUpdateProductResponse';
+import { ErrorHandlingService, IUpdateProductInput, IUpdateProductResponse, IUseCase, ProductStoreService, ToastService } from 'shared';
 import { ProductApiService } from '../infrastructure/services/product.service';
 
-interface UpdateProductInput {
-  id: string;
-  product: IUpdateProductRequest;
-}
 
 @Injectable({
   providedIn: 'root',
 })
-export class UpdateProductUseCase implements IUseCase<UpdateProductInput, IUpdateProductResponse> {
+export class UpdateProductUseCase implements IUseCase<IUpdateProductInput, IUpdateProductResponse> {
   constructor(
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
     private readonly _errorHandler: ErrorHandlingService,
+    private readonly _toastService: ToastService
   ) {}
 
-  execute(input: UpdateProductInput): Observable<IUpdateProductResponse> {
-    //this._store.setLoading(true);
+  execute(input: IUpdateProductInput): Observable<IUpdateProductResponse> {
+    debugger;
+    this._store.setLoading(true);
     return this._service.updateProduct(input.id, input.product).pipe(
       tap(response => {
         this._store.updateProduct(input.id, response.data);
+        this._toastService.showToast(
+          'Operación Exitosa',
+          `Producto "${input.product.name}" actualizado correctamente`,
+          'success'
+        );
       }),
       catchError((error) => {
         console.error(`Error updating product with ID ${input.id}:`, error);
