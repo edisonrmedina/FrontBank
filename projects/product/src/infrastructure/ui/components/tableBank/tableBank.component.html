@@ -30,25 +30,25 @@
     
     <tbody>
       @for (item of data; track item) {
-      <tr>
+      <tr  class="">
         @for (header of headers; track header) {
   
           @if (header === 'logo') {
-            <td>
+            <td (click)="showModal(null,item)">
               <img [src]="item[headerKeyMap[header]] | logoUrl" class="logo-img" alt="Logo" />
             </td>
           } @else {
             @if (header === 'Fecha de Liberación' || header === 'Fecha de Reestructuración') {
-              <td>{{ formatDate(item[headerKeyMap[header]]) }}</td>
+              <td (click)="showModal(null,item)">{{ formatDate(item[headerKeyMap[header]]) }}</td>
             } @else {
-              <td>{{ item[headerKeyMap[header]] }}</td>
+              <td (click)="showModal(null,item)">{{ item[headerKeyMap[header]] }}</td>
             }
           }
           
         }
   
         @if (actions && actions.length > 0) {
-          <td>
+          <td (click)="toggleVisibility(item)">
             <div class="dropdown">
               <div class="dropdown-container">
                 <button class="dropdown-toggle-btn" (click)="toggleVisibility(item)">

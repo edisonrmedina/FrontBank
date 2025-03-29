@@ -82,6 +82,8 @@
           <div class="error">
             @if (productForm.controls['logo'].errors?.['required']) {
               <span>{{ translations['error.required'].replace("{{field}}", translations['form.logo']) }}</span>
+            } @else if (productForm.controls['logo'].errors?.['invalidUrl']) {
+              <span>{{ translations['error.invalidUrl'].replace("{{field}}", translations['form.logo']) }}</span>
             }
           </div>
         }
@@ -94,9 +96,8 @@
           <div class="error">
             @if (productForm.controls['date_release'].errors?.['required']) {
               <span>{{ translations['error.required'].replace("{{field}}", translations['form.date_release']) }}</span>
-            }
-            @if (productForm.controls['date_release'].errors?.['invalidDate']) {
-              <span>{{ translations['error.invalidDate'].replace(" {{field}}", translations['form.date_release']) }}</span>
+            } @else if (productForm.controls['date_release'].errors?.['invalidDate']) {
+              <span>{{ translations['error.invalidDate'].replace("{{field}}", translations['form.date_release']) }}</span>
             }
           </div>
         }

@@ -17,8 +17,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
-  ValidatorFn,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -52,6 +51,7 @@ import { InputBankComponent } from '../input-bank/input-bank.component';
   styleUrls: ['./create-bank.component.css'],
 })
 export class BankComponent implements OnDestroy, OnInit {
+  
   @Output() closeModal = new EventEmitter<void>();
   @Output() submit = new EventEmitter<any>();
   @Input() productToEdit: IProduct | null = null;
@@ -71,8 +71,12 @@ export class BankComponent implements OnDestroy, OnInit {
 
   productForm!: FormGroup;
   today = new Date().toISOString().split('T')[0];
+  nextYear = new Date(this.today)
+    .setFullYear(new Date().getFullYear() + 1)
+    .toString();
+
   isEditMode: boolean = false;
-  updateProductData:IUpdateProductInput;
+  updateProductData: IUpdateProductInput;
 
   constructor() {
     this._subscription.add(
@@ -150,12 +154,12 @@ export class BankComponent implements OnDestroy, OnInit {
           Validators.maxLength(200),
         ],
       ],
-      logo: ['',this.urlValidator ],
+      logo: ['', [Validators.required, this.validateUrl]],
       date_release: [
         this.today,
         [Validators.required, this.validateReleaseDate],
       ],
-      date_revision: [{ value: '', disabled: true }, [Validators.required]],
+      date_revision: [{ value: new Date(new Date(this.today).setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0], disabled: true }, [Validators.required]],
     });
 
     this.productForm.controls['date_release'].valueChanges.subscribe(
@@ -178,7 +182,10 @@ export class BankComponent implements OnDestroy, OnInit {
 
   validateUrl(control: FormControl) {
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-    return urlPattern.test(control.value) ? null : { invalidUrl: true };
+    if (urlPattern.test(control.value)) {
+      return null;
+    }
+    return { invalidUrl: true };
   }
 
   submitForm(): void {
@@ -190,8 +197,8 @@ export class BankComponent implements OnDestroy, OnInit {
         debugger;
         this.productForm.get('id')?.enable();
         this.updateProductData = {
-          id:this.productForm.get('id').value,
-          product : { ...productData, id: this.productForm.get('id').value }
+          id: this.productForm.get('id').value,
+          product: { ...productData, id: this.productForm.get('id').value },
         };
         this._editProductUseCase
           .execute(this.updateProductData)
@@ -201,9 +208,7 @@ export class BankComponent implements OnDestroy, OnInit {
               this.resetForm();
               this.closeModal.emit();
             },
-            error: (error) => {
-              
-            },
+            error: (error) => {},
           });
       } else {
         this._createProductUseCase
@@ -215,9 +220,7 @@ export class BankComponent implements OnDestroy, OnInit {
               this.resetForm();
               this.closeModal.emit();
             },
-            error: (error) => {
-              
-            },
+            error: (error) => {},
           });
       }
     } else {
@@ -252,7 +255,7 @@ export class BankComponent implements OnDestroy, OnInit {
       })
     );
   }
-  
+
   closeModalBank() {
     this.closeModal.emit();
   }
@@ -262,16 +265,4 @@ export class BankComponent implements OnDestroy, OnInit {
     this._destroy$.next();
     this._destroy$.complete();
   }
-
-  urlValidator(): ValidatorFn{
-    const urlPattern = /^(https?:\/\/[^\s$.?#].[^\s]*)$/i; // Expresión regular para una URL válida
-  
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value && !urlPattern.test(control.value)) {
-        return { invalidUrl: true }; 
-      }
-      return null;
-    };
-  }
-
 }

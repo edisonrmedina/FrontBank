@@ -41,10 +41,14 @@ export class tableBankComponent {
   showModal(action: ITableBankAction, item: IProduct) {
     this.selectedItem = item;
     this._setSelectProductCase.execute(item);
-    if (action.label.toLowerCase() === 'editar') {
+    if (action) {
+      if (action.label.toLowerCase() === 'editar') {
+        this._router.navigate(['/create'], { queryParams: { mode: 'edit' } });
+      } else {
+        this.modalIsVisible = true;
+      }
+    }else{
       this._router.navigate(['/create'], { queryParams: { mode: 'edit' } });
-    } else {
-      this.modalIsVisible = true;
     }
   }
 

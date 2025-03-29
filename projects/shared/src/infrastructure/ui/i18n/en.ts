@@ -30,6 +30,7 @@ export const es = {
     'El campo {{field}} no puede exceder los {{max}} caracteres',
   'error.idExists': 'Este ID ya existe',
   'error.invalidDate': 'La fecha debe ser hoy o posterior',
+  'error.invalidUrl': 'El logo debe ser una URL válida',
 
   'button.cancel': 'Cancelar',
   'button.reset': 'Reiniciar',

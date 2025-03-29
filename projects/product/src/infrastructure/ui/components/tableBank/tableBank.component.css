@@ -31,6 +31,11 @@ tr {
   border-bottom: 1px solid #efe9e9;
 }
 
+tr:hover{
+  background-color: #4848480b;
+  cursor: pointer;
+}
+
 td {
   padding: 15px 20px;
   font-size: 14px;

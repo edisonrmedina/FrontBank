@@ -33,6 +33,7 @@ export const en = {
   'error.maxlength': '{{field}} cannot exceed {{max}} characters',
   'error.idExists': 'This ID already exists',
   'error.invalidDate': 'The date must be today or later',
+  'error.invalidUrl': 'The logo must be a valid URL',
 
   // Buttons
   'button.cancel': 'Cancel',
