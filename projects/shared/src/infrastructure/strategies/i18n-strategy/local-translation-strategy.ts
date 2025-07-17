@@ -15,5 +15,5 @@ export class LocalTranslationStrategy implements ITranslationsStrategy  {
   getTranslations(language: string): Observable<TranslationMapItem> {
     const normalizedLanguage = language.split('-')[0];
     return of(this.translationsMap[normalizedLanguage] || this.translationsMap['es']);
-  }
+  } 
 }

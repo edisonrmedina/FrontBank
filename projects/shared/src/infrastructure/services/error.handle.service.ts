@@ -21,7 +21,6 @@ export class ErrorHandlingService {
   ): Observable<never> {
     let errorMessage: IErrorMessage;
 
-    // Determinar el tipo de error
     if (error.error instanceof ProgressEvent) {
       errorMessage = this.handleProgressEventError(error, operation);
       this.showToastForError(errorMessage, 'error');
