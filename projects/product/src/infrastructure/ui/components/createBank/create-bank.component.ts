@@ -82,7 +82,6 @@ export class BankComponent implements OnDestroy, OnInit {
     this._subscription.add(
       this._queries.selectTranslations().subscribe((translations) => {
         this.translations = translations;
-        console.log('translations', translations);
       })
     );
   }
@@ -104,6 +103,7 @@ export class BankComponent implements OnDestroy, OnInit {
           console.warn('No hay producto seleccionado en el store para editar.');
         }
       }
+      
     });
   }
 

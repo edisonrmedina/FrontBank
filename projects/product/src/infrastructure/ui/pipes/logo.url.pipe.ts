@@ -12,10 +12,10 @@ export class LogoUrlPipe implements PipeTransform {
     }
 
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:image')) {
-      return url; // Valid URL - return it
+      return url;
     }
 
-    return 'product.png'; // Default logo path for invalid URLs
+    return 'product.png'; 
   }
 
 }

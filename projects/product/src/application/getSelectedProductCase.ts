@@ -19,7 +19,7 @@ export class GetSelectedProductCase implements IUseCase<void, IProduct | null> {
       catchError((err) => {
         console.error("Error getting selected product:", err);
         this._errorHandler.handleError(err, "Error getting selected product");
-        return throwError(() => err); // Re-lanzamiento del error
+        return throwError(() => err);
       }),
       finalize(() => {
         this._store.setLoading(false);

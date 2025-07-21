@@ -59,6 +59,7 @@ export class tableBankComponent {
   toggleVisibility(item: IProduct): void {
     this.dropdownStates[item.id] = !this.dropdownStates[item.id];
   }
+  
   getDropdownState(item: IProduct): boolean {
     return this.dropdownStates[item.id] || false;
   }

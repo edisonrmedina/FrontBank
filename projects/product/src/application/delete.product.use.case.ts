@@ -18,7 +18,7 @@ export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResp
     this._store.setLoading(true);
     return this._service.deleteProduct(id).pipe(
       tap(() => {
-        this._store.deleteProduct(id); // Eliminar del store solo si la API confirma el éxito
+        this._store.deleteProduct(id);
         this._toastService.showToast(
           'Operación Exitosa',
           `Producto eliminado correctamente`,
@@ -27,7 +27,7 @@ export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResp
       }),
       catchError((error) => {
         this._errorHandler.handleError(error, `Product deletion failed: ${id}`);
-        return throwError(() => error); // Re-lanzar el error
+        return throwError(() => error);
       }),
       finalize(() => this._store.setLoading(false))
     );

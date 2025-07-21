@@ -1,15 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICreateProductRequest, ICreateProductResponse, IDeleteProductResponse, IGetProductsResponse, IUpdateProductRequest, IUpdateProductResponse } from 'shared';
+import { environment, ICreateProductRequest, ICreateProductResponse, IDeleteProductResponse, IGetProductsResponse, IUpdateProductRequest, IUpdateProductResponse } from 'shared';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductApiService {
-  private readonly apiUrl = 'http://localhost:3002/bp/products';
 
   constructor(private http: HttpClient) {}
+
+  private readonly apiUrl = environment.apiUrl + '/products';
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({

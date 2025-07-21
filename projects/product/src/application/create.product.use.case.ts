@@ -3,10 +3,13 @@ import { catchError, finalize, Observable, tap } from 'rxjs';
 import { ErrorHandlingService, ICreateProductRequest, ICreateProductResponse, IUseCase, ProductStoreService, ToastService } from 'shared';
 import { ProductApiService } from '../infrastructure/services/product.service';
 
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class CreateProductUseCase implements IUseCase<ICreateProductRequest, ICreateProductResponse> {
+  
   constructor(
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
@@ -15,7 +18,6 @@ export class CreateProductUseCase implements IUseCase<ICreateProductRequest, ICr
   ) {}
 
   execute(product: ICreateProductRequest): Observable<ICreateProductResponse> {
-    debugger;
     this._store.setLoading(true);
     return this._service.createProduct(product).pipe(
       tap((response) => {

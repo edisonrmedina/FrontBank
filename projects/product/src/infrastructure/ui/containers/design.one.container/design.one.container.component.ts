@@ -96,10 +96,7 @@ export class DesignOneContainerComponent implements OnInit {
 
     this.updatePagination();
   }
-  onClick(id: number) {
-    console.log(id);
-  }
-
+  
   searchChange(searchTerm: string) {
     if (!searchTerm.trim()) {
       this.filteredData = [...this.data];

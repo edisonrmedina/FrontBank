@@ -16,7 +16,6 @@ export * from './domain/model/IUpdateProductRequest';
 export * from './domain/model/IUpdateProductResponse';
 export * from './domain/model/IUseCase';
 export * from './domain/state/product.query';
-export * from './infrastructure/environments/environment.dev';
 export * from './infrastructure/services/error.handle.service';
 export * from './infrastructure/services/I18nTranslator.service';
 export * from './infrastructure/services/product.store.service';
@@ -27,4 +26,4 @@ export * from './infrastructure/ui/components/toast/toast.component';
 export * from './infrastructure/ui/interfaces/error-messages';
 export * from './infrastructure/ui/interfaces/TranslationMapItem';
 export * from './infrastructure/ui/interfaces/translationsMap';
-
+export * from './infrastructure/environments/environment.dev';

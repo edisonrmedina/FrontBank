@@ -5,11 +5,11 @@ import { DesignOneContainerComponent } from '../containers/design.one.container/
 export const productRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'design/2', 
+    redirectTo: 'home', 
     pathMatch: 'full',
   },
   {
-    path: 'design/:id',
+    path: 'home',
     component: DesignOneContainerComponent,
   },
   {
@@ -18,7 +18,7 @@ export const productRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'design/1', 
+    redirectTo: 'home', 
   },
 ];
  

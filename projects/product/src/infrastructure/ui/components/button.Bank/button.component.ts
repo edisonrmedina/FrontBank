@@ -16,4 +16,5 @@ export class ButtonBankComponent {
   onClick() {
     this.buttonClick.emit();
   }
+  
 }

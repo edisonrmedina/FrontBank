@@ -20,7 +20,7 @@
       <div>
         <label for="id">{{ translations['form.id'] }}</label>
         <br>
-        <input id="id" type="text" formControlName="id">
+        <input id="id" type="text" formControlName="id" [maxlength]="20" >
         @if (productForm.controls['id'].invalid && productForm.controls['id'].touched) {
           <div class="error">
             @if (productForm.controls['id'].errors?.['required']) {
@@ -41,7 +41,7 @@
     
       <div>
         <label for="name">{{ translations['form.name'] }}</label>
-        <input id="name" type="text" formControlName="name">
+        <input id="name" type="text" formControlName="name" [maxlength]="120" >
         @if (productForm.controls['name'].invalid && productForm.controls['name'].touched) {
           <div class="error">
             @if (productForm.controls['name'].errors?.['required']) {
@@ -59,7 +59,7 @@
     
       <div>
         <label for="description">{{ translations['form.description'] }}</label>
-        <input id="description" formControlName="description">
+        <input id="description" formControlName="description" [maxlength]="220">
         @if (productForm.controls['description'].invalid && productForm.controls['description'].touched) {
           <div class="error">
             @if (productForm.controls['description'].errors?.['required']) {
