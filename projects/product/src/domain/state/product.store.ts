@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 import { createInitialState,  } from './state';
-import { IProductState } from '../model/iProductState';
+import { IProductState } from "../model/IProductState";
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'product' })

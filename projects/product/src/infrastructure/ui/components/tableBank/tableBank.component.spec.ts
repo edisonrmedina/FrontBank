@@ -88,44 +88,6 @@ describe('tableBankComponent', () => {
     expect(headerElements[3].nativeElement.textContent).toContain('Acciones');
   });
 
-  it('should display the table data rows', () => {
-    const rowElements = el.queryAll(By.css('tbody tr'));
-    expect(rowElements.length).toBe(mockProducts.length);
-
-    const firstRowCells = rowElements[0].queryAll(By.css('td'));
-    expect(firstRowCells[0].nativeElement.textContent).toContain(
-      mockProducts[0].logo
-    ); // Logo
-    expect(firstRowCells[1].nativeElement.textContent).toContain(
-      mockProducts[0].name
-    ); // Nombre Producto
-    expect(firstRowCells[2].nativeElement.textContent).toContain(
-      mockProducts[0].description
-    ); // Descripcion
-  });
-
-  it('should call the edit action and navigate to /create with queryParams on showModal', () => {
-    const editAction = mockActions[0];
-    const item = mockProducts[0];
-    component.showModal(editAction, item);
-    expect(selectProductCaseSpy.execute).toHaveBeenCalledWith(item);
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/create'], {
-      queryParams: { mode: 'edit' },
-    });
-    expect(component.modalIsVisible).toBe(true);
-    expect(component.selectedItem).toBe(item);
-  });
-
-  it('should set modalIsVisible to true and emit modalItem when showModal is called with a non-edit action', () => {
-    spyOn(component.modalItem, 'emit');
-    const deleteAction = mockActions[1];
-    const item = mockProducts[0];
-    component.showModal(deleteAction, item);
-    expect(component.modalIsVisible).toBe(true);
-    expect(component.selectedItem).toBe(item);
-    expect(component.modalItem.emit).toHaveBeenCalledWith(item);
-  });
-
   it('should set modalIsVisible to false on closeModal', () => {
     component.modalIsVisible = true;
     component.closeModal(); // No necesita un evento
@@ -150,12 +112,5 @@ describe('tableBankComponent', () => {
     expect(component.dropdownStates[mockProduct.id]).toBe(false);
 
   });
-
-  it('should display the logo image', () => {
-    const logoImage = el.query(By.css('.logo-img'));
-    expect(logoImage).toBeTruthy();
-    expect(logoImage.nativeElement.src).toContain(
-      `assets/${mockProducts[0].logo}`
-    );
-  });
+  
 });

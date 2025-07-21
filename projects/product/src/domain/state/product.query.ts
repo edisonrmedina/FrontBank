@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { IProductState } from '../model/iProductState';
+import { IProductState } from "../model/IProductState";
 import { ProductStore } from './product.store';
 
 

@@ -27,7 +27,7 @@ export class ModalDeleteBankComponent implements OnInit {
     });
   }
 
-  deleteItem(item: IProduct): void {
+  deleteItem(): void {
     this._deleteProductUseCase.execute(this.productToDelete.id)
     .pipe(takeUntil(this._destroy$))
     .subscribe({
@@ -48,8 +48,7 @@ export class ModalDeleteBankComponent implements OnInit {
   }
 
   onConfirm(): void {
-    this.deleteItem(this.item);
-    this.isVisible = false;
+    this.deleteItem();
     this.confirm.emit();
   }
 
