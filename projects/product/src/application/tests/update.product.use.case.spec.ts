@@ -50,7 +50,7 @@ describe('UpdateProductUseCase', () => {
     productApiServiceSpy.updateProduct.and.callFake(() => { callOrder.push('updateProduct'); return of(mockResponse); });
     productStoreServiceSpy.updateProduct.and.callFake(() => callOrder.push('storeUpdateProduct'));
 
-     
+    // Act
     useCase.execute(productId, mockRequest).subscribe(() => {
        
       expect(callOrder).toEqual([
@@ -83,7 +83,7 @@ describe('UpdateProductUseCase', () => {
     productApiServiceSpy.updateProduct.and.callFake(() => { callOrder.push('updateProduct'); return throwError(() => mockError); });
     
 
-     
+    // Act
     useCase.execute(productId, mockRequest).subscribe({
       next: () => {
         fail('Expected an error, but got a value');

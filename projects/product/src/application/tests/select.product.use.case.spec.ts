@@ -38,7 +38,7 @@ describe('SelectProductCase', () => {
      
     const mockProduct: IProduct = { id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' };
 
-     
+    // Act
     useCase.execute(mockProduct).subscribe(result => {
        
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
@@ -60,7 +60,7 @@ describe('SelectProductCase', () => {
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
     productStoreServiceSpy.setSelectedProduct.and.throwError(mockError); // Simulate error when setting selected product
 
-     
+    // Act
     useCase.execute(mockProduct).subscribe({
       next: () => {
         fail('Expected an error, but got a value');

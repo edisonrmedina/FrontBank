@@ -43,7 +43,7 @@ describe('GetSelectedProductCase', () => {
     const mockProduct: IProduct = { id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' };
     productQuerySpy.selectSelectedProduct.and.returnValue(of(mockProduct));
 
-     
+    // Act
     useCase.execute().subscribe(product => {
        
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
@@ -63,7 +63,7 @@ describe('GetSelectedProductCase', () => {
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
     productQuerySpy.selectSelectedProduct.and.returnValue(throwError(() => mockError));
 
-     
+    // Act
     useCase.execute().subscribe({
         next: () => {
           fail('Expected an error, but got a value');

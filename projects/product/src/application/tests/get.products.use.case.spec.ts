@@ -49,7 +49,7 @@ describe('GetAllProductsUseCase', () => {
     const mockProducts: IProduct[] = [{ id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' }, { id: '2', name: 'Product 2', description: 'Description 2', logo: 'logo2', date_release: '2024-02-01', date_revision: '2025-02-01' }];
     productQuerySpy.selectAll.and.returnValue(of(mockProducts));
 
-     
+    // Act
     useCase.products$().subscribe(products => {
        
       expect(products).toEqual(mockProducts);
@@ -62,7 +62,7 @@ describe('GetAllProductsUseCase', () => {
     const mockResponse = { data: mockProducts };
     productApiServiceSpy.getAllProducts.and.returnValue(of(mockResponse));
 
-     
+    // Act
     useCase.execute();
 
      

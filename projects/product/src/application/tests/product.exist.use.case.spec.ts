@@ -44,7 +44,7 @@ describe('ProductExistsUseCase', () => {
     const mockResponse: boolean = true;
     productApiServiceSpy.productExists.and.returnValue(of(mockResponse));
 
-     
+    // Act
     useCase.execute(productId).subscribe(response => {
        
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
@@ -60,7 +60,7 @@ describe('ProductExistsUseCase', () => {
     const mockResponse: boolean = true;
     productApiServiceSpy.productExists.and.returnValue(of(mockResponse));
 
-     
+    // Act
     useCase.execute(productId).subscribe(response => {
        
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
@@ -81,7 +81,7 @@ describe('ProductExistsUseCase', () => {
     productApiServiceSpy.productExists.and.returnValue(throwError(() => mockError));
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
 
-     
+    // Act
     useCase.execute(productId).subscribe({
       next: () => {
         fail('Expected an error, but got a value');
