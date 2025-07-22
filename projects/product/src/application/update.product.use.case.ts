@@ -31,7 +31,7 @@ export class UpdateProductUseCase implements IUseCase<IUpdateProductInput, IUpda
       catchError((error) => {
         console.error(`Error updating product with ID ${input.id}:`, error);
         this._errorHandler.handleError(error, `Error updating product with ID ${input.id}`);
-        return throwError(() => error); // Re-lanzar el error
+        return throwError(() => error);
       }),
       finalize(() => {
         this._store.setLoading(false);

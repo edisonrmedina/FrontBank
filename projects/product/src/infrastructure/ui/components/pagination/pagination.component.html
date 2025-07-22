@@ -12,7 +12,7 @@
 </div>
 
 <div class="pagination-controls">
-  <button (click)="previousPage()" [disabled]="currentPage === 1">⭠</button>
+  <button (click)="previousPage()" [disabled]="currentPage === 1"><-</button>
   <span>{{ totalItems === 0 ? '0 / 0' : currentPage + ' / ' + totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">⭢</button>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">-></button>
 </div>

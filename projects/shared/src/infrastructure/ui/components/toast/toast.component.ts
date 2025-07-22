@@ -12,7 +12,5 @@ export class ToastComponent {
   constructor(public toastService: ToastService) {}
 
   @ViewChild('toastContainer') toastContainer!: ElementRef;
-
-  ngAfterViewInit() {
-  }
+  
 }

@@ -5,9 +5,10 @@
             d="M45 18H43V16A3 3 0 0 0 40 13H38V11A3 3 0 0 0 35 8H3A3 3 0 0 0 0 11V27A3 3 0 0 0 3 30H5V32A3 3 0 0 0 8 35H10V37A3 3 0 0 0 13 40H45A3 3 0 0 0 48 37V21A3 3 0 0 0 45 18ZM41.09 38H16.91A6 6 0 0 0 12 33.09V24.91A6 6 0 0 0 16.91 20H41.09A6 6 0 0 0 46 24.91V33.09A6 6 0 0 0 41.09 38ZM12 22.86V21A1 1 0 0 1 13 20H14.86A4 4 0 0 1 12 22.86ZM46 21V22.86A4 4 0 0 1 43.14 20H45A1 1 0 0 1 46 21ZM3 28A1 1 0 0 1 2 27V11A1 1 0 0 1 3 10H35A1 1 0 0 1 36 11V13H8A3 3 0 0 0 5 16V28ZM7 32V16A1 1 0 0 1 8 15H40A1 1 0 0 1 41 16V18H13A3 3 0 0 0 10 21V33H8A1 1 0 0 1 7 32ZM13 37V35.14A4 4 0 0 1 14.86 38H13A1 1 0 0 1 12 37ZM45 37H43.14A4 4 0 0 1 46 35.14V37A1 1 0 0 1 45 37ZM29 26H31A1 1 0 0 0 31 24H30A1 1 0 1 0 29 24A3 3 0 0 0 29 30A1 1 0 0 1 29 32H27A1 1 0 0 0 27 34H29A1 1 0 1 0 31 33.82A3 3 0 0 0 29 28A1 1 0 0 1 27 26ZM22 28H18A1 1 0 0 0 18 30H22A1 1 0 0 0 22 28ZM40 28H36A1 1 0 0 0 36 30H40A1 1 0 0 0 40 28Z"fill="#0A126D" />
     </svg>
     <span>{{ translations['bank.title'] }}</span>
-    <button (click)="toggleLanguage()">
-        {{ currentLanguage === 'es' ? 'English' : 'Español' }}
+    <button class="small-button" (click)="toggleLanguage()">
+        {{ currentLanguage === 'es' ? 'Español' : 'English' }}
     </button>
+    
 </div>
 
 <div class="main-container">

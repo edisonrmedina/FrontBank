@@ -36,11 +36,9 @@ export class ErrorHandlingService {
       this.showToastForError(errorMessage, this.determineToastType(error.status));
     }
 
-    // Caso de uso de manejo de estado
     this.productStoreService.setError(errorMessage.message);
     this.productStoreService.setLoading(false);
 
-    // Registro de error en consola
     console.error(`${operation} failed:`, errorMessage);
 
     return throwError(() => errorMessage);
@@ -55,7 +53,6 @@ export class ErrorHandlingService {
     );
   }
 
-  // Determinar el tipo de toast según el código de estado
   private determineToastType(statusCode: number): 'success' | 'error' | 'warning' {
     switch (true) {
       case statusCode >= 200 && statusCode < 300:
@@ -69,7 +66,7 @@ export class ErrorHandlingService {
     }
   }
 
-  // Obtener título del error según el tipo
+  
   private getErrorTitle(type: 'success' | 'error' | 'warning'): string {
     const titles = {
       'success': 'Operación Exitosa',

@@ -7,6 +7,7 @@ import { ProductApiService } from '../infrastructure/services/product.service';
   providedIn: 'root',
 })
 export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResponse> {
+
   constructor(
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
@@ -32,4 +33,5 @@ export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResp
       finalize(() => this._store.setLoading(false))
     );
   }
+  
 }

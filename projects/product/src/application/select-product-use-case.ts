@@ -12,7 +12,6 @@ export class SelectProductCase implements IUseCase<IProduct, boolean> {
     private readonly _errorHandler: ErrorHandlingService
   ) {}
   execute(product: IProduct): Observable<boolean> {
-    //this._store.setLoading(true);
     return of(this._store.setSelectedProduct(product)).pipe(
       map(() => true),
       catchError((error) => {

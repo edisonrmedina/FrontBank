@@ -6,7 +6,7 @@ export function createInitialState(): IProductState {
       selectedProduct: null,
       loading: false,
       error: null,
-      currentLanguage:'en', //variable de entorno - gitactions
+      currentLanguage:'en',
       translations: {},
     };
-  }
+}

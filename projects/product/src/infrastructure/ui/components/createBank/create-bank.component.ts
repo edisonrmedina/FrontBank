@@ -120,6 +120,7 @@ export class BankComponent implements OnDestroy, OnInit {
       date_release: this.formatDateForInput(this.productToEdit.date_release),
       date_revision: this.formatDateForInput(this.productToEdit.date_revision),
     });
+
   }
 
   private formatDateForInput(dateString: string): string {
@@ -164,7 +165,7 @@ export class BankComponent implements OnDestroy, OnInit {
 
     this.productForm.controls['date_release'].valueChanges.subscribe(
       (value) => {
-        if (value) {
+        if (value && value.length > 2) {
           const releaseDate = new Date(value);
           releaseDate.setFullYear(releaseDate.getFullYear() + 1);
           this.productForm.controls['date_revision'].setValue(
@@ -194,7 +195,6 @@ export class BankComponent implements OnDestroy, OnInit {
       const productData = this.productForm.value;
 
       if (this.isEditMode) {
-        debugger;
         this.productForm.get('id')?.enable();
         this.updateProductData = {
           id: this.productForm.get('id').value,
@@ -216,7 +216,7 @@ export class BankComponent implements OnDestroy, OnInit {
           .pipe(takeUntil(this._destroy$))
           .subscribe({
             next: (response) => {
-              this._router.navigate(['/design/2']);
+              this._router.navigate(['/home']);
               this.resetForm();
               this.closeModal.emit();
             },

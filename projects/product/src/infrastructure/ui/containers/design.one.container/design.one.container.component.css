@@ -59,3 +59,29 @@ lib-modal-bank {
     width: 100%;
   }
 }
+
+.small-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-weight: bolder;
+    font: var(--font-family);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    display: inline-block;
+    font-size: 14px;
+}
+
+
+@media (max-width: 768px) {
+    .small-button {
+        width: auto; 
+        text-align: center;
+        margin: 5px; 
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 12px; 
+    }
+}
