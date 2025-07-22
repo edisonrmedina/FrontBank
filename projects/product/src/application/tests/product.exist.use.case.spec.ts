@@ -39,14 +39,14 @@ describe('ProductExistsUseCase', () => {
   });
 
   it('should set loading to true and return true when product exists', (done) => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     const mockResponse: boolean = true;
     productApiServiceSpy.productExists.and.returnValue(of(mockResponse));
 
-    // Act
+     
     useCase.execute(productId).subscribe(response => {
-      // Assert
+       
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
       expect(productApiServiceSpy.productExists).toHaveBeenCalledWith(productId);
       expect(response).toEqual(mockResponse);
@@ -55,14 +55,14 @@ describe('ProductExistsUseCase', () => {
   });
 
   it('should set loading to true and return false when product does not exist', (done) => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     const mockResponse: boolean = true;
     productApiServiceSpy.productExists.and.returnValue(of(mockResponse));
 
-    // Act
+     
     useCase.execute(productId).subscribe(response => {
-      // Assert
+       
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
       expect(productApiServiceSpy.productExists).toHaveBeenCalledWith(productId);
       expect(response).toEqual(mockResponse);
@@ -71,7 +71,7 @@ describe('ProductExistsUseCase', () => {
   });
 
   it('should handle error when API call fails and set loading to false', (done) => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     const mockError = new HttpErrorResponse({
       error: 'API Error',
@@ -81,7 +81,7 @@ describe('ProductExistsUseCase', () => {
     productApiServiceSpy.productExists.and.returnValue(throwError(() => mockError));
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
 
-    // Act
+     
     useCase.execute(productId).subscribe({
       next: () => {
         fail('Expected an error, but got a value');

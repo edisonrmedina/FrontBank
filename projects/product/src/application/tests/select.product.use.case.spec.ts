@@ -35,12 +35,12 @@ describe('SelectProductCase', () => {
   });
 
   it('should set loading to true, set the selected product in the store, and set loading to false on success', (done) => {
-    // Arrange
+     
     const mockProduct: IProduct = { id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' };
 
-    // Act
+     
     useCase.execute(mockProduct).subscribe(result => {
-      // Assert
+       
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
       expect(productStoreServiceSpy.setSelectedProduct).toHaveBeenCalledWith(mockProduct);
       expect(result).toBe(true);
@@ -50,7 +50,7 @@ describe('SelectProductCase', () => {
   });
 
   it('should handle error and set loading to false', (done) => {
-    // Arrange
+     
     const mockProduct: IProduct = { id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' };
     const mockError = new HttpErrorResponse({
       error: 'Store Error',
@@ -60,7 +60,7 @@ describe('SelectProductCase', () => {
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
     productStoreServiceSpy.setSelectedProduct.and.throwError(mockError); // Simulate error when setting selected product
 
-    // Act
+     
     useCase.execute(mockProduct).subscribe({
       next: () => {
         fail('Expected an error, but got a value');

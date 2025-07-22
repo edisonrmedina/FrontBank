@@ -15,7 +15,7 @@ describe('DeleteProductUseCase', () => {
   let errorHandlingServiceSpy: jasmine.SpyObj<ErrorHandlingService>;
 
   beforeEach(() => {
-    // Create spy objects for all dependencies
+    
     const apiSpy = jasmine.createSpyObj('ProductApiService', ['deleteProduct']);
     const storeSpy = jasmine.createSpyObj('ProductStoreService', ['setLoading', 'deleteProduct']); 
     const errorSpy = jasmine.createSpyObj('ErrorHandlingService', ['handleError']);
@@ -29,7 +29,6 @@ describe('DeleteProductUseCase', () => {
       ]
     });
 
-    // Get the use case and spy objects
     useCase = TestBed.inject(DeleteProductUseCase);
     productApiServiceSpy = TestBed.inject(ProductApiService) as jasmine.SpyObj<ProductApiService>;
     productStoreServiceSpy = TestBed.inject(ProductStoreService) as jasmine.SpyObj<ProductStoreService>;
@@ -41,21 +40,19 @@ describe('DeleteProductUseCase', () => {
   });
 
   it('should set loading to true and delete product from store before making API call', () => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
-    productApiServiceSpy.deleteProduct.and.returnValue(of({} as IDeleteProductResponse)); // Simula una respuesta vacía exitosa
+    productApiServiceSpy.deleteProduct.and.returnValue(of({} as IDeleteProductResponse)); 
 
-    // Act
     useCase.execute(productId).subscribe();
 
-    // Assert
     expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
     expect(productStoreServiceSpy.deleteProduct).toHaveBeenCalledWith(productId);
     expect(productApiServiceSpy.deleteProduct).toHaveBeenCalledWith(productId);
   });
 
   it('should handle error when API call fails', () => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     const mockError = new HttpErrorResponse({
       error: 'API Error',
@@ -63,7 +60,7 @@ describe('DeleteProductUseCase', () => {
       statusText: 'Internal Server Error'
     });
   
-    const mockErrorMessage: any = { // Define mockErrorMessage
+    const mockErrorMessage: any = { 
       code: 'SERVER_ERROR_500',
       message: 'Server error. Please try again later.',
       details: 'API Error',
@@ -76,12 +73,12 @@ describe('DeleteProductUseCase', () => {
     // Act
     useCase.execute(productId).subscribe({
       error: (error) => {
-        // Assert
+         
         expect(error).toEqual(mockErrorMessage); // Check against mockErrorMessage
       }
     });
   
-    // Assert
+     
     expect(errorHandlingServiceSpy.handleError).toHaveBeenCalledWith(
       mockError,
       `Product deletion failed: OPP-QQ`
@@ -89,19 +86,19 @@ describe('DeleteProductUseCase', () => {
   });
 
   it('should set loading to false after API call completes (success case)', () => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     productApiServiceSpy.deleteProduct.and.returnValue(of({} as IDeleteProductResponse)); // Simula una respuesta vacía exitosa
 
     // Act
     useCase.execute(productId).subscribe();
 
-    // Assert
+     
     expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(false);
   });
 
   it('should set loading to false after API call completes (error case)', () => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     const mockError = new HttpErrorResponse({
       error: 'API Error',
@@ -118,7 +115,7 @@ describe('DeleteProductUseCase', () => {
       }
     });
 
-    // Assert
+     
     expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(false);
   });
 });

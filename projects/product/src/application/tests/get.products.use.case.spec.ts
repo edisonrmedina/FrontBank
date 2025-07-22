@@ -45,27 +45,27 @@ describe('GetAllProductsUseCase', () => {
   });
 
   it('should return products from the query', () => {
-    // Arrange
+     
     const mockProducts: IProduct[] = [{ id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' }, { id: '2', name: 'Product 2', description: 'Description 2', logo: 'logo2', date_release: '2024-02-01', date_revision: '2025-02-01' }];
     productQuerySpy.selectAll.and.returnValue(of(mockProducts));
 
-    // Act
+     
     useCase.products$().subscribe(products => {
-      // Assert
+       
       expect(products).toEqual(mockProducts);
     });
   });
 
   it('should set loading to true, get products from API, set products in store, and set loading to false on success', () => {
-    // Arrange
+     
     const mockProducts: IProduct[] = [{ id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' }, { id: '2', name: 'Product 2', description: 'Description 2', logo: 'logo2', date_release: '2024-02-01', date_revision: '2025-02-01' }];
     const mockResponse = { data: mockProducts };
     productApiServiceSpy.getAllProducts.and.returnValue(of(mockResponse));
 
-    // Act
+     
     useCase.execute();
 
-    // Assert
+     
     expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
     expect(productApiServiceSpy.getAllProducts).toHaveBeenCalled();
     expect(productStoreServiceSpy.setProducts).toHaveBeenCalledWith(mockProducts);

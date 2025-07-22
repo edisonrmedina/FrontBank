@@ -39,13 +39,13 @@ describe('GetSelectedProductCase', () => {
   });
 
   it('should set loading to true and return the selected product from the query', (done) => {
-    // Arrange
+     
     const mockProduct: IProduct = { id: '1', name: 'Product 1', description: 'Description 1', logo: 'logo1', date_release: '2024-01-01', date_revision: '2025-01-01' };
     productQuerySpy.selectSelectedProduct.and.returnValue(of(mockProduct));
 
-    // Act
+     
     useCase.execute().subscribe(product => {
-      // Assert
+       
       expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
       expect(productQuerySpy.selectSelectedProduct).toHaveBeenCalled();
       expect(product).toEqual(mockProduct);
@@ -54,7 +54,7 @@ describe('GetSelectedProductCase', () => {
   });
 
   it('should handle error when the query fails and set loading to false', (done) => {
-    // Arrange
+     
     const mockError = new HttpErrorResponse({ // Usa HttpErrorResponse
       error: 'Query Error',
       status: 500,
@@ -63,7 +63,7 @@ describe('GetSelectedProductCase', () => {
     errorHandlingServiceSpy.handleError.and.returnValue(throwError(() => mockError));
     productQuerySpy.selectSelectedProduct.and.returnValue(throwError(() => mockError));
 
-    // Act
+     
     useCase.execute().subscribe({
         next: () => {
           fail('Expected an error, but got a value');

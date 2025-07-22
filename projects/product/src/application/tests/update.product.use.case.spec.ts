@@ -39,7 +39,7 @@ describe('UpdateProductUseCase', () => {
   });
 
   it('should set loading to true, update the product, update it in the store, and set loading to false on success', (done) => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     const mockRequest: IUpdateProductRequest = { name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' };
     const mockResponse: IUpdateProductResponse = { data: { id: productId, name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' }, message: 'Product updated successfully' };
@@ -50,9 +50,9 @@ describe('UpdateProductUseCase', () => {
     productApiServiceSpy.updateProduct.and.callFake(() => { callOrder.push('updateProduct'); return of(mockResponse); });
     productStoreServiceSpy.updateProduct.and.callFake(() => callOrder.push('storeUpdateProduct'));
 
-    // Act
+     
     useCase.execute(productId, mockRequest).subscribe(() => {
-      // Assert
+       
       expect(callOrder).toEqual([
         'setLoading(true)',
         'updateProduct',
@@ -64,7 +64,7 @@ describe('UpdateProductUseCase', () => {
   });
 
   it('should handle error when API call fails and set loading to false', (done) => {
-    // Arrange
+     
     const productId = 'OPP-QQ';
     const mockRequest: IUpdateProductRequest = { name: 'Updated Product', description: 'Updated description', logo: 'Updated Logo', date_release: '2024-02-02', date_revision: '2025-02-02' };
     const mockError = new HttpErrorResponse({
@@ -83,7 +83,7 @@ describe('UpdateProductUseCase', () => {
     productApiServiceSpy.updateProduct.and.callFake(() => { callOrder.push('updateProduct'); return throwError(() => mockError); });
     
 
-    // Act
+     
     useCase.execute(productId, mockRequest).subscribe({
       next: () => {
         fail('Expected an error, but got a value');
