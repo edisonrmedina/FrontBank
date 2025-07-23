@@ -6,7 +6,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
-      schemas: [NO_ERRORS_SCHEMA], // ← evita errores por templates
+      schemas: [NO_ERRORS_SCHEMA], // Ignora componentes no declarados en template
     }).compileComponents();
   });
 
