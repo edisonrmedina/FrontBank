@@ -7,7 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "builds": "ng build shared --watch"
+    "builds": "ng build shared --watch",
+    "tests": "npm run test-jest",
+    "test-jest": "jest --config jest.config.ts",
+    "test-watch": "jest --watch --config jest.config.ts",
+    "test-watchAll": "jest --watchAll --config jest.config.ts",
+    "test:coverage": "jest --coverage --config jest.config.ts"
   },
   "private": true,
   "dependencies": {
@@ -31,14 +36,12 @@
     "@angular/compiler-cli": "^19.2.1",
     "@datorama/akita-ngdevtools": "^7.0.0",
     "@types/jasmine": "~5.1.0",
+    "@types/jest": "^30.0.0",
     "cypress": "^14.2.0",
-    "jasmine-core": "~5.5.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "jest": "^30.0.5",
+    "jest-preset-angular": "^15.0.0",
     "ng-packagr": "^19.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.7.2"
   }
 }
