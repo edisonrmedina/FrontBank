@@ -1,0 +1,22 @@
+@if (isVisible) {
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>{{ title }}</h3>
+        <button class="close-btn" (click)="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>{{ description }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="button-primario" (click)="closeModal()">
+          @if (translations['close']) {
+            {{ translations['close'] }}
+          } @else {
+            Cerrar
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -2,6 +2,7 @@ export const en = {
   'bank.title': 'Bank',
   'button.add': 'Add',
   search: 'Search',
+  close: 'Close',
 
   // Table headers
   logo: 'Product Logo',
@@ -43,4 +44,8 @@ export const en = {
 
   //delete
   'confirm.deleteProduct': 'Are you sure you want to delete the product?',
+
+  'tooltip.description': 'Detailed description of the product',
+  'tooltip.date_release': 'The date when the product will be released',
+  'tooltip.date_revision': 'The date for product revision/restructuring'
 };

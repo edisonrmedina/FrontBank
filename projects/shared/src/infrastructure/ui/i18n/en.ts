@@ -2,6 +2,7 @@ export const es = {
   'bank.title': 'Banco',
   'button.add': 'Agregar',
   search: 'Buscar',
+  close: 'Cerrar',
 
   logo: 'Logo',
   name: 'Nombre Producto',
@@ -38,4 +39,9 @@ export const es = {
   'button.update': 'Actualizar',
 
   'confirm.deleteProduct': '¿Estás seguro de eliminar el producto?',
+
+  'tooltip.description': 'Descripción detallada del producto',
+  'tooltip.date_release': 'La fecha cuando el producto será liberado',
+  'tooltip.date_revision': 'La fecha para revisión/reestructuración del producto'
+  
 };

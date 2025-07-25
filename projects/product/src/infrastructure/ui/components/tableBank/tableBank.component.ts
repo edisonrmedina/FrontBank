@@ -6,10 +6,11 @@ import { ITableBankAction } from '../../interfaces/ITableBankAction';
 import { LogoUrlPipe } from "../../pipes/logo.url.pipe";
 import { BankComponent } from '../createBank/create-bank.component';
 import { ModalDeleteBankComponent } from '../modal.delete.bank/modal.delete.bank.component';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
 
 @Component({
   selector: 'lib-table',
-  imports: [ModalDeleteBankComponent, BankComponent, LogoUrlPipe],
+  imports: [ModalDeleteBankComponent, BankComponent, LogoUrlPipe, ModalInfoComponent],
   templateUrl: './tableBank.component.html',
   styleUrl: './tableBank.component.css',
 })
@@ -33,8 +34,20 @@ export class tableBankComponent {
     'date_release': 'date_release',
     'date_revision': 'date_revision',
   };
-
+  infoModalIsVisible = false;
+  infoModalTitle = '';
+  infoModalDescription = '';
   selectedItem: IProduct;
+
+  showInfoModal(title: string, description: string): void {
+  this.infoModalTitle = title;
+  this.infoModalDescription = description;
+  this.infoModalIsVisible = true;
+  }
+
+  closeInfoModal(): void {
+    this.infoModalIsVisible = false;
+  }
 
   constructor() {}
 
@@ -63,6 +76,8 @@ export class tableBankComponent {
   getDropdownState(item: IProduct): boolean {
     return this.dropdownStates[item.id] || false;
   }
+
+  
 
   formatDate(dateString: string | null | undefined): string {
     if (!dateString) {

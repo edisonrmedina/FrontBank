@@ -5,19 +5,37 @@
       <tr>
         @for (header of headers; track header) {
           @if (header === 'description') {
-            <th>
+           <th> 
               {{ translations[header] }}
-              <img src="info.svg" alt="Descripción" class="header-icon">
+              @if (translations['tooltip.' + header]) {
+                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
+                    (click)="showInfoModal(translations[header], translations['tooltip.' + header])">
+              } @else {
+                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
+                    (click)="showInfoModal(translations[header], 'No description available')">
+              }
             </th>
           } @else if (header === 'date_release') {
-            <th>
+            <th> 
               {{ translations[header] }}
-              <img src="info.svg" alt="Fecha de Liberación" class="header-icon">
+              @if (translations['tooltip.' + header]) {
+                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
+                    (click)="showInfoModal(translations[header], translations['tooltip.' + header])">
+              } @else {
+                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
+                    (click)="showInfoModal(translations[header], 'No description available')">
+              }
             </th>
           } @else if (header === 'date_revision') {
-            <th>
+            <th> 
               {{ translations[header] }}
-              <img src="info.svg" alt="Fecha de Reestructuración" class="header-icon">
+              @if (translations['tooltip.' + header]) {
+                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
+                    (click)="showInfoModal(translations[header], translations['tooltip.' + header])">
+              } @else {
+                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
+                    (click)="showInfoModal(translations[header], 'No description available')">
+              }
             </th>
           } @else {
             <th>{{ translations[header] }}</th>
@@ -31,6 +49,7 @@
     </thead>
     
     <tbody>
+      
       @for (item of data; track item) {
       <tr  class="">
         @for (header of headers; track header) {
@@ -75,7 +94,7 @@
             </div>
           </td>
         }
-  
+
       </tr>
       }
     </tbody>
@@ -85,9 +104,18 @@
 </div>
 
 <lib-delete-bank
-    [isVisible]="modalIsVisible"
-    [item]="selectedItem"
-    (confirm)="closeModal()"
-    (cancel)="closeModal()"
-    [translations]="translations"
-  ></lib-delete-bank>
+  [isVisible]="modalIsVisible"
+  [item]="selectedItem"
+  (confirm)="closeModal()"
+  (cancel)="closeModal()"
+  [translations]="translations"
+></lib-delete-bank>
+
+
+<lib-modal-info
+  [isVisible]="infoModalIsVisible"
+  [title]="infoModalTitle"
+  [description]="infoModalDescription"
+  [translations]="translations"
+  (closed)="closeInfoModal()">
+></lib-modal-info>

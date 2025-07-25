@@ -3,8 +3,6 @@ import { Observable } from 'rxjs';
 import { TranslationRepository } from '../repositories/translation-repository';
 import { TranslationMapItem } from '../ui/interfaces/TranslationMapItem';
 
-
-
 @Injectable({
   providedIn: 'root',
 })
