@@ -1,7 +1,3 @@
-/*
- * Public API Surface of shared
- */
-
 export * from './domain/model/error.mesage';
 export * from './domain/model/ICreateProductRequest';
 export * from './domain/model/ICreateProductResponse';

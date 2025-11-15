@@ -17,7 +17,6 @@ export class UpdateProductUseCase implements IUseCase<IUpdateProductInput, IUpda
   ) {}
 
   execute(input: IUpdateProductInput): Observable<IUpdateProductResponse> {
-    debugger;
     this._store.setLoading(true);
     return this._service.updateProduct(input.id, input.product).pipe(
       tap(response => {

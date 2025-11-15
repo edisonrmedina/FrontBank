@@ -24,7 +24,6 @@ const providers = [
   { provide: 'persistStorage', useValue: persistStorage }
 ];
 
-// Add DevTools only in development mode
 if (isDevMode()) {
   providers.push(importProvidersFrom(AkitaNgDevtools.forRoot()));
 }

@@ -7,7 +7,6 @@ import { ProductApiService } from '../infrastructure/services/product.service';
 @Injectable({
   providedIn: 'root',
 })
-
 export class CreateProductUseCase implements IUseCase<ICreateProductRequest, ICreateProductResponse> {
   
   constructor(

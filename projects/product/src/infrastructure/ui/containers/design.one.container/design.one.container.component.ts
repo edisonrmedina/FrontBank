@@ -26,14 +26,19 @@ import { ITableBankAction } from '../../interfaces/ITableBankAction';
   styleUrl: './design.one.container.component.css',
 })
 export class DesignOneContainerComponent implements OnInit {
-  currentLanguage: string;
-  
-  private readonly _getProductsUseCase = inject(GetAllProductsUseCase);
-  private readonly _queries = inject(ProductQuery);
-  private readonly _route = inject(ActivatedRoute);
+
+  currentLanguage: string;  
   private readonly _subscription = new Subscription();
-  private readonly _router = inject(Router);
-  private readonly _loadTranslationsUseCase = inject(LoadTranslationsUseCase);
+
+  constructor(private readonly _getProductsUseCase: GetAllProductsUseCase,
+    private readonly _queries: ProductQuery,
+    private readonly _route: ActivatedRoute,
+    private readonly _router: Router,
+    private readonly _loadTranslationsUseCase: LoadTranslationsUseCase) {
+    this._queries.selectCurrentLanguage().subscribe((currentLanguage) => {
+      this._loadTranslationsUseCase.execute(currentLanguage);
+    });
+  }
 
   translations: { [key: string]: string } = {};
   data: IProduct[] = [];
@@ -47,11 +52,7 @@ export class DesignOneContainerComponent implements OnInit {
   itemsPerPage: number = 5;
   isModalOpen: boolean = false;
 
-  constructor() {
-    this._queries.selectCurrentLanguage().subscribe((currentLanguage) => {
-      this._loadTranslationsUseCase.execute(currentLanguage);
-    });
-  }
+  
 
   ngOnInit(): void {
     this._route.paramMap.subscribe((params) => {
