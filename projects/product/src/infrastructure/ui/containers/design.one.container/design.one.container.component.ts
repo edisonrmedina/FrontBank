@@ -26,15 +26,16 @@ import { ITableBankAction } from '../../interfaces/ITableBankAction';
   styleUrl: './design.one.container.component.css',
 })
 export class DesignOneContainerComponent implements OnInit {
-
-  currentLanguage: string;  
+  currentLanguage: string;
   private readonly _subscription = new Subscription();
 
-  constructor(private readonly _getProductsUseCase: GetAllProductsUseCase,
+  constructor(
+    private readonly _getProductsUseCase: GetAllProductsUseCase,
     private readonly _queries: ProductQuery,
     private readonly _route: ActivatedRoute,
     private readonly _router: Router,
-    private readonly _loadTranslationsUseCase: LoadTranslationsUseCase) {
+    private readonly _loadTranslationsUseCase: LoadTranslationsUseCase
+  ) {
     this._queries.selectCurrentLanguage().subscribe((currentLanguage) => {
       this._loadTranslationsUseCase.execute(currentLanguage);
     });
@@ -51,8 +52,6 @@ export class DesignOneContainerComponent implements OnInit {
   actions: ITableBankAction[];
   itemsPerPage: number = 5;
   isModalOpen: boolean = false;
-
-  
 
   ngOnInit(): void {
     this._route.paramMap.subscribe((params) => {
@@ -86,7 +85,7 @@ export class DesignOneContainerComponent implements OnInit {
         this._getProductsUseCase.execute(),
         this._queries.selectAll(),
         this._queries.selectTranslations(),
-      ]).subscribe(([_,products, translations]) => {
+      ]).subscribe(([_, products, translations]) => {
         this.data = products;
         this.filteredData = [...this.data];
         this.paginatedData = this.filteredData;
@@ -97,7 +96,7 @@ export class DesignOneContainerComponent implements OnInit {
 
     this.updatePagination();
   }
-  
+
   searchChange(searchTerm: string) {
     if (!searchTerm.trim()) {
       this.filteredData = [...this.data];
@@ -149,9 +148,9 @@ export class DesignOneContainerComponent implements OnInit {
 
   toggleLanguage(): void {
     const newLanguage = this.currentLanguage === 'es' ? 'en' : 'es';
-    //this._productStoreService.setCurrentLanguage(newLanguage); 
+    //this._productStoreService.setCurrentLanguage(newLanguage);
     this.currentLanguage = newLanguage;
-    this._loadTranslationsUseCase.execute(newLanguage);  
+    this._loadTranslationsUseCase.execute(newLanguage);
   }
 
   updatePagination() {
@@ -159,6 +158,7 @@ export class DesignOneContainerComponent implements OnInit {
     const end = start + this.itemsPerPage;
     this.paginatedData = this.filteredData.slice(start, end);
   }
+
   showCreateModal() {
     this._router.navigate(['/create']);
   }

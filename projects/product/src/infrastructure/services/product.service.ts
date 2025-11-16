@@ -1,13 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment, ICreateProductRequest, ICreateProductResponse, IDeleteProductResponse, IGetProductsResponse, IUpdateProductRequest, IUpdateProductResponse } from 'shared';
+import {
+  environment,
+  ICreateProductRequest,
+  ICreateProductResponse,
+  IDeleteProductResponse,
+  IGetProductsResponse,
+  IUpdateProductRequest,
+  IUpdateProductResponse,
+} from 'shared';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductApiService {
-
   constructor(private http: HttpClient) {}
 
   private readonly apiUrl = environment.apiUrl + '/products';
@@ -53,12 +60,8 @@ export class ProductApiService {
   }
 
   productExists(id: string): Observable<boolean> {
-    return this.http.get<boolean>(
-      `${this.apiUrl}/verification/${id}`,
-      {
-        headers: this.getHeaders(),
-      }
-    );
+    return this.http.get<boolean>(`${this.apiUrl}/verification/${id}`, {
+      headers: this.getHeaders(),
+    });
   }
-  
 }
