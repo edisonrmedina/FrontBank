@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ErrorHandlingService, IProduct, IUseCase, ProductStoreService, ToastService } from 'shared';
+import {
+  ErrorHandlingService,
+  IProduct,
+  IUseCase,
+  ProductStoreService,
+  ToastService,
+} from 'shared';
 import { ProductApiService } from '../infrastructure/services/product.service';
 
 @Injectable({
@@ -20,7 +26,11 @@ export class GetAllProductsUseCase implements IUseCase<void, IProduct[]> {
     return this._service.getAllProducts().pipe(
       map((response) => {
         if (response.data.length === 0) {
-          this._toastService.showToast('Advertencia','No se encontraron productos', 'warning',);
+          this._toastService.showToast(
+            'Advertencia',
+            'No se encontraron productos',
+            'warning'
+          );
         }
         return response.data;
       }), // Extrae los datos

@@ -4,7 +4,7 @@ import { ProductStore } from '../../domain/state/product.store';
 
 @Injectable({ providedIn: 'root' })
 export class ProductStoreService {
-  private productStore = inject(ProductStore);
+  constructor(private readonly productStore: ProductStore) {}
 
   setProducts(products: IProduct[]): void {
     this.productStore.update({ products });
@@ -15,22 +15,22 @@ export class ProductStoreService {
   }
 
   addProduct(product: IProduct): void {
-    this.productStore.update(state => ({
-      products: [...state.products, product]
+    this.productStore.update((state) => ({
+      products: [...state.products, product],
     }));
   }
 
   updateProduct(id: string, updatedProduct: IProduct): void {
-    this.productStore.update(state => ({
-      products: state.products.map(product =>
+    this.productStore.update((state) => ({
+      products: state.products.map((product) =>
         product.id === id ? updatedProduct : product
-      )
+      ),
     }));
   }
 
   deleteProduct(id: string): void {
-    this.productStore.update(state => ({
-      products: state.products.filter(product => product.id !== id)
+    this.productStore.update((state) => ({
+      products: state.products.filter((product) => product.id !== id),
     }));
   }
 
@@ -42,12 +42,11 @@ export class ProductStoreService {
     this.productStore.update({ loading });
   }
 
-  setTranslations(translations:{ [key: string]: string }): void {
+  setTranslations(translations: { [key: string]: string }): void {
     this.productStore.update({ translations });
   }
 
   setCurrentLanguage(language: string): void {
     this.productStore.update({ currentLanguage: language });
   }
-  
 }

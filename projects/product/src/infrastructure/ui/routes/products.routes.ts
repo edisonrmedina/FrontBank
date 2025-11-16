@@ -5,7 +5,7 @@ import { DesignOneContainerComponent } from '../containers/design.one.container/
 export const productRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'home', 
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -14,11 +14,10 @@ export const productRoutes: Routes = [
   },
   {
     path: 'create',
-    component:BankComponent 
+    component: BankComponent,
   },
   {
     path: '**',
-    redirectTo: 'home', 
+    redirectTo: 'home',
   },
 ];
- 

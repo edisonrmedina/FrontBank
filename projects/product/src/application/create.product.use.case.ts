@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { catchError, finalize, Observable, tap } from 'rxjs';
-import { ErrorHandlingService, ICreateProductRequest, ICreateProductResponse, IUseCase, ProductStoreService, ToastService } from 'shared';
+import {
+  ErrorHandlingService,
+  ICreateProductRequest,
+  ICreateProductResponse,
+  IUseCase,
+  ProductStoreService,
+  ToastService,
+} from 'shared';
 import { ProductApiService } from '../infrastructure/services/product.service';
-
 
 @Injectable({
   providedIn: 'root',
 })
-export class CreateProductUseCase implements IUseCase<ICreateProductRequest, ICreateProductResponse> {
-  
+export class CreateProductUseCase
+  implements IUseCase<ICreateProductRequest, ICreateProductResponse>
+{
   constructor(
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
@@ -23,7 +30,7 @@ export class CreateProductUseCase implements IUseCase<ICreateProductRequest, ICr
         this._store.addProduct(response.data);
         this._toastService.showToast(
           'Operación Exitosa',
-          `Product "${product.name}" created successfully`, 
+          `Product "${product.name}" created successfully`,
           'success'
         );
       }),
@@ -36,7 +43,4 @@ export class CreateProductUseCase implements IUseCase<ICreateProductRequest, ICr
       finalize(() => this._store.setLoading(false))
     );
   }
-
 }
-
-

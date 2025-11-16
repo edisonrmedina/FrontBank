@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TranslationMapItem } from '../../ui/interfaces/TranslationMapItem';
+import { TranslationMapItem } from '../../../domain/model/TranslationMapItem';
 import { ITranslationsStrategy } from './translation-strategy';
 
 @Injectable({

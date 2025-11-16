@@ -1,6 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ProductQuery } from '../../../../domain/state/product.query';
+import { ProductQuery } from 'shared';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'lib-skeleton',
@@ -8,19 +9,10 @@ import { ProductQuery } from '../../../../domain/state/product.query';
   templateUrl: './skeleton.component.html',
   styleUrl: './skeleton.component.css',
 })
-export class SkeletonComponent implements OnDestroy {
-  private readonly _subscription = new Subscription();
-  public loading = false;
-  constructor(private _productQuery: ProductQuery) {
-    this._subscription.add(
-      this._productQuery.selectCurrentStateLoading().subscribe((loading) => {
-        this.loading = loading;
-      })
-    );
-  }
+export class SkeletonComponent {
+  private readonly _productQuery = inject(ProductQuery);
 
-  ngOnDestroy(): void {
-    this._subscription.unsubscribe();
-  }
-
+  loading = toSignal(this._productQuery.selectCurrentStateLoading(), {
+    initialValue: false,
+  });
 }

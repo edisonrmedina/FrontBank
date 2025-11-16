@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ErrorHandlingService, I18nTranslatorService, ProductStoreService, TranslationMapItem } from 'shared';
+import {
+  ErrorHandlingService,
+  I18nTranslatorService,
+  ProductStoreService,
+  TranslationMapItem,
+} from 'shared';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LoadTranslationsUseCase  {
+export class LoadTranslationsUseCase {
   constructor(
     private readonly _I18nTranslateService: I18nTranslatorService,
     private readonly _store: ProductStoreService,

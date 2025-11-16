@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IErrorMessage } from '../../domain/model/error.mesage';
-import { errorMessages } from '../ui/interfaces/error-messages';
+import { errorMessages } from '../../domain/model/error-messages';
 import { ProductStoreService } from './product.store.service';
 import { ToastService } from './toast.service';
 
@@ -33,7 +33,10 @@ export class ErrorHandlingService {
       this.showToastForError(errorMessage, 'error');
     } else {
       errorMessage = this.mapServerError(error, operation);
-      this.showToastForError(errorMessage, this.determineToastType(error.status));
+      this.showToastForError(
+        errorMessage,
+        this.determineToastType(error.status)
+      );
     }
 
     this.productStoreService.setError(errorMessage.message);
@@ -45,15 +48,20 @@ export class ErrorHandlingService {
   }
 
   // Método privado para mostrar toast
-  private showToastForError(errorMessage: IErrorMessage, type: 'success' | 'error' | 'warning') {
+  private showToastForError(
+    errorMessage: IErrorMessage,
+    type: 'success' | 'error' | 'warning'
+  ) {
     this.toastService.showToast(
-      this.getErrorTitle(type), 
-      errorMessage.message, 
+      this.getErrorTitle(type),
+      errorMessage.message,
       type
     );
   }
 
-  private determineToastType(statusCode: number): 'success' | 'error' | 'warning' {
+  private determineToastType(
+    statusCode: number
+  ): 'success' | 'error' | 'warning' {
     switch (true) {
       case statusCode >= 200 && statusCode < 300:
         return 'success';
@@ -66,12 +74,11 @@ export class ErrorHandlingService {
     }
   }
 
-  
   private getErrorTitle(type: 'success' | 'error' | 'warning'): string {
     const titles = {
-      'success': 'Operación Exitosa',
-      'error': 'Error del Sistema',
-      'warning': 'Advertencia'
+      success: 'Operación Exitosa',
+      error: 'Error del Sistema',
+      warning: 'Advertencia',
     };
     return titles[type];
   }
