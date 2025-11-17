@@ -55,7 +55,7 @@
 //   it('should call deleteProductUseCase.execute with item id on deleteItem', () => {
 //     deleteProductUseCaseSpy.execute.and.returnValue(of({
 //       message: 'Product deleted successfully',
-//     })); 
+//     }));
 //     component.deleteItem(mockProduct);
 //     expect(deleteProductUseCaseSpy.execute).toHaveBeenCalledWith(mockProduct.id);
 //   });
@@ -63,12 +63,12 @@
 //   it('should set isVisible to false and emit cancel event on deleteItem success', fakeAsync(() => {
 //     deleteProductUseCaseSpy.execute.and.returnValue(of({
 //       message: 'Product deleted successfully',
-//     })); 
+//     }));
 //     spyOn(component.cancel, 'emit');
 //     component.isVisible = true;
 
 //     component.deleteItem(mockProduct);
-//     fixture.detectChanges(); 
+//     fixture.detectChanges();
 
 //     tick();
 //     fixture.detectChanges();
@@ -93,4 +93,3 @@
 //   });
 
 // });
-
