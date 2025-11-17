@@ -17,7 +17,13 @@ const config: Config = {
 
   moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
 
+  transformIgnorePatterns: ['node_modules/(?!@datorama/akita)'],
+
   moduleNameMapper: {
+    '^shared$': '<rootDir>/projects/shared/src/public-api',
+    '^product$': '<rootDir>/projects/product/src/public-api',
+    '^app-bancaria$': '<rootDir>/projects/app-bancaria/src/public-api',
+
     '^@app/(.*)$': '<rootDir>/projects/app-bancaria/src/app/$1',
     '^@product/(.*)$': '<rootDir>/projects/product/src/app/$1',
     '^@shared/(.*)$': '<rootDir>/projects/shared/src/app/$1',
