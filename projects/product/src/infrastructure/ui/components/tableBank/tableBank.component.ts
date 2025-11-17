@@ -3,16 +3,22 @@ import { Router } from '@angular/router';
 import { IProduct } from 'shared';
 import { SelectProductCase } from '../../../../application/select-product-use-case';
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
-import { LogoUrlPipe } from "../../pipes/logo.url.pipe";
+import { LogoUrlPipe } from '../../pipes/logo.url.pipe';
 import { BankComponent } from '../createBank/create-bank.component';
 import { ModalDeleteBankComponent } from '../modal.delete.bank/modal.delete.bank.component';
 import { ModalInfoComponent } from '../modal-info/modal-info.component';
 
 @Component({
   selector: 'lib-table',
-  imports: [ModalDeleteBankComponent, BankComponent, LogoUrlPipe, ModalInfoComponent],
+  imports: [
+    ModalDeleteBankComponent,
+    BankComponent,
+    LogoUrlPipe,
+    ModalInfoComponent,
+  ],
   templateUrl: './tableBank.component.html',
   styleUrl: './tableBank.component.css',
+  standalone: true,
 })
 export class tableBankComponent {
   @Input() headers: string[] = [];
@@ -28,11 +34,11 @@ export class tableBankComponent {
   modalIsVisible: boolean = false;
   dropdownStates: { [itemId: string]: boolean } = {};
   headerKeyMap: { [key: string]: string } = {
-    'logo': 'logo',
-    'name': 'name',
-    'description': 'description',
-    'date_release': 'date_release',
-    'date_revision': 'date_revision',
+    logo: 'logo',
+    name: 'name',
+    description: 'description',
+    date_release: 'date_release',
+    date_revision: 'date_revision',
   };
   infoModalIsVisible = false;
   infoModalTitle = '';
@@ -40,9 +46,9 @@ export class tableBankComponent {
   selectedItem: IProduct;
 
   showInfoModal(title: string, description: string): void {
-  this.infoModalTitle = title;
-  this.infoModalDescription = description;
-  this.infoModalIsVisible = true;
+    this.infoModalTitle = title;
+    this.infoModalDescription = description;
+    this.infoModalIsVisible = true;
   }
 
   closeInfoModal(): void {
@@ -60,7 +66,7 @@ export class tableBankComponent {
       } else {
         this.modalIsVisible = true;
       }
-    }else{
+    } else {
       this._router.navigate(['/create'], { queryParams: { mode: 'edit' } });
     }
   }
@@ -72,21 +78,19 @@ export class tableBankComponent {
   toggleVisibility(item: IProduct): void {
     this.dropdownStates[item.id] = !this.dropdownStates[item.id];
   }
-  
+
   getDropdownState(item: IProduct): boolean {
     return this.dropdownStates[item.id] || false;
   }
 
-  
-
   formatDate(dateString: string | null | undefined): string {
     if (!dateString) {
-      return ''; 
+      return '';
     }
 
     const dateParts = dateString.split('-');
     if (dateParts.length !== 3) {
-      return dateString; 
+      return dateString;
     }
 
     const year = dateParts[0];
@@ -95,5 +99,4 @@ export class tableBankComponent {
 
     return `${day}/${month}/${year}`;
   }
-  
 }

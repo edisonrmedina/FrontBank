@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-input-bank',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './input-bank.component.html',
-  styleUrl: './input-bank.component.css'
+  styleUrl: './input-bank.component.css',
+  standalone: true,
 })
 export class InputBankComponent {
   searchTerm: string = '';
-  
+
   @Output() searchChange = new EventEmitter<string>();
   @Input() translations: { [key: string]: string } = {};
-  
+
   search(): void {
     this.searchChange.emit(this.searchTerm);
   }
-
 }

@@ -60,15 +60,18 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/app-bancaria/public"
+                "input": "projects/app-bancaria/public",
+                "output": "/"
               },
               {
                 "glob": "**/*",
-                "input": "projects/product/public"
+                "input": "projects/product/public",
+                "output": "/assets/product/"
               },
               {
                 "glob": "**/*",
-                "input": "projects/shared/public"
+                "input": "projects/shared/public",
+                "output": "/assets/shared/"
               }
             ],
             "styles": ["projects/app-bancaria/src/styles.css"],

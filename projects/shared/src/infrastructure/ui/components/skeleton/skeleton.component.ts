@@ -7,6 +7,7 @@ import { ProductQuery } from '../../../../domain/state/product.query';
   imports: [],
   templateUrl: './skeleton.component.html',
   styleUrl: './skeleton.component.css',
+  standalone: true,
 })
 export class SkeletonComponent implements OnDestroy {
   private readonly _subscription = new Subscription();

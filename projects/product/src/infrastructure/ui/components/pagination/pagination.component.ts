@@ -5,6 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   imports: [],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
+  standalone: true,
 })
 export class PaginationComponent {
   @Input() totalItems: number = 0;
@@ -36,8 +37,7 @@ export class PaginationComponent {
   onPageSizeChange() {
     const target = event.target as HTMLSelectElement;
     this.itemsPerPage = Number(target.value);
-    this.currentPage = 1; 
-    this.itemsPerPageChange.emit(this.itemsPerPage); 
+    this.currentPage = 1;
+    this.itemsPerPageChange.emit(this.itemsPerPage);
   }
-
 }
