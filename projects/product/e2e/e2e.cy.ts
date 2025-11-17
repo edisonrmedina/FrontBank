@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 const BASE_URL = 'http://localhost:4200';
 
-describe('🏦 Product App - Smoke Tests', () => {
+describe('Product App - Smoke Tests', () => {
   it('debería cargar la aplicación', () => {
     cy.visit(BASE_URL);
     cy.contains('Bank'); // texto que tu app muestra

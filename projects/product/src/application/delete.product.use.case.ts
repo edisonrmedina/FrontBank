@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
-import { ErrorHandlingService, IDeleteProductResponse, IUseCase, ProductStoreService, ToastService } from 'shared';
+import {
+  ErrorHandlingService,
+  IDeleteProductResponse,
+  IUseCase,
+  ProductStoreService,
+  ToastService,
+} from 'shared';
 import { ProductApiService } from '../infrastructure/services/product.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResponse> {
-
+export class DeleteProductUseCase
+  implements IUseCase<string, IDeleteProductResponse>
+{
   constructor(
     private readonly _service: ProductApiService,
     private readonly _store: ProductStoreService,
@@ -33,5 +40,4 @@ export class DeleteProductUseCase implements IUseCase<string, IDeleteProductResp
       finalize(() => this._store.setLoading(false))
     );
   }
-  
 }

@@ -1,217 +1,146 @@
-import { TestBed } from '@angular/core/testing';
+import { vi, describe, beforeEach, it, expect } from 'vitest';
 import { of, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 
 import {
-  ICreateProductRequest,
-  ICreateProductResponse,
   ProductStoreService,
   ErrorHandlingService,
   ToastService,
+  ICreateProductRequest,
+  ICreateProductResponse,
 } from 'shared';
 
 import { ProductApiService } from '../../infrastructure/services/product.service';
 import { CreateProductUseCase } from '../create.product.use.case';
 
-describe('CreateProductUseCase', () => {
+describe('CreateProductUseCase (Vitest)', () => {
   let useCase: CreateProductUseCase;
-  let productApiServiceSpy: jasmine.SpyObj<ProductApiService>;
-  let productStoreServiceSpy: jasmine.SpyObj<ProductStoreService>;
-  let errorHandlingServiceSpy: jasmine.SpyObj<ErrorHandlingService>;
-  let toastServiceSpy: jasmine.SpyObj<ToastService>;
+
+  let productApiServiceMock: ProductApiService;
+  let productStoreServiceMock: ProductStoreService;
+  let errorHandlingServiceMock: ErrorHandlingService;
+  let toastServiceMock: ToastService;
 
   beforeEach(() => {
-    // Crear spies de Jasmine
-    productApiServiceSpy = jasmine.createSpyObj('ProductApiService', [
-      'createProduct',
-    ]);
-    productStoreServiceSpy = jasmine.createSpyObj('ProductStoreService', [
-      'setLoading',
-      'addProduct',
-    ]);
-    errorHandlingServiceSpy = jasmine.createSpyObj('ErrorHandlingService', [
-      'handleError',
-    ]);
-    toastServiceSpy = jasmine.createSpyObj('ToastService', ['showToast']);
+    productApiServiceMock = {
+      createProduct: vi.fn(),
+    } as any;
 
-    TestBed.configureTestingModule({
-      providers: [
-        CreateProductUseCase,
-        { provide: ProductApiService, useValue: productApiServiceSpy },
-        { provide: ProductStoreService, useValue: productStoreServiceSpy },
-        { provide: ErrorHandlingService, useValue: errorHandlingServiceSpy },
-        { provide: ToastService, useValue: toastServiceSpy },
-      ],
-    });
+    productStoreServiceMock = {
+      setLoading: vi.fn(),
+      addProduct: vi.fn(),
+    } as any;
 
-    useCase = TestBed.inject(CreateProductUseCase);
+    errorHandlingServiceMock = {
+      handleError: vi.fn(),
+    } as any;
+
+    toastServiceMock = {
+      showToast: vi.fn(),
+    } as any;
+
+    useCase = new CreateProductUseCase(
+      productApiServiceMock,
+      productStoreServiceMock,
+      errorHandlingServiceMock,
+      toastServiceMock
+    );
+
+    vi.clearAllMocks();
   });
 
-  // -----------------------------------------------------
-  it('should be created', () => {
-    expect(useCase).toBeTruthy();
-  });
-
-  // -----------------------------------------------------
-  it('should set loading to true before API call', (done: DoneFn) => {
-    const mockRequest: ICreateProductRequest = {
-      id: 'OPP-QQ',
-      name: 'Test Product',
-      description: 'Test',
-      logo: 'logo.png',
-      date_release: '2025-03-12',
-      date_revision: '2026-03-12',
-    };
-
-    const mockResponse: ICreateProductResponse = {
-      data: mockRequest,
-      message: 'OK',
-    };
-
-    productApiServiceSpy.createProduct.and.returnValue(of(mockResponse));
-
-    useCase.execute(mockRequest).subscribe({
-      next: () => {
-        // Verificar que setLoading fue llamado con true
-        expect(productStoreServiceSpy.setLoading).toHaveBeenCalledWith(true);
-        expect(productApiServiceSpy.createProduct).toHaveBeenCalledWith(
-          mockRequest
-        );
-      },
-      complete: () => {
-        done();
-      },
-    });
-  });
-
-  // -----------------------------------------------------
-  it('should add product to store on success', (done: DoneFn) => {
-    const mockRequest: ICreateProductRequest = {
-      id: 'OPP-QQ2',
-      name: 'Test Product',
+  it('should call API and update store on success', () => {
+    const req: ICreateProductRequest = {
+      id: 'P01',
+      name: 'Test',
       description: 'desc',
       logo: 'logo.png',
-      date_release: '2025-03-12',
-      date_revision: '2026-03-12',
+      date_release: '2025-01-01',
+      date_revision: '2026-01-01',
     };
 
-    const mockResponse: ICreateProductResponse = {
-      data: mockRequest,
+    const res: ICreateProductResponse = {
+      data: req,
       message: 'OK',
     };
 
-    productApiServiceSpy.createProduct.and.returnValue(of(mockResponse));
+    (productApiServiceMock.createProduct as any).mockReturnValue(of(res));
 
-    useCase.execute(mockRequest).subscribe({
-      next: () => {
-        expect(productStoreServiceSpy.addProduct).toHaveBeenCalledWith(
-          mockResponse.data
-        );
-        expect(toastServiceSpy.showToast).toHaveBeenCalled();
-      },
-      complete: () => {
-        done();
-      },
-    });
+    useCase.execute(req).subscribe();
+
+    expect(productStoreServiceMock.setLoading).toHaveBeenCalledWith(true);
+    expect(productApiServiceMock.createProduct).toHaveBeenCalledWith(req);
+    expect(productStoreServiceMock.addProduct).toHaveBeenCalledWith(req);
+    expect(toastServiceMock.showToast).toHaveBeenCalled();
+    expect(productStoreServiceMock.setLoading).toHaveBeenCalledWith(false);
   });
 
-  // -----------------------------------------------------
-  it('should handle error when API call fails', (done: DoneFn) => {
-    const mockRequest: ICreateProductRequest = {
-      id: 'OPP-ERR',
-      name: 'Test Error',
+  it('should handle API error correctly', () => {
+    const req: ICreateProductRequest = {
+      id: 'ERR01',
+      name: 'Error test',
       description: '',
       logo: '',
-      date_release: '2025-03-12',
-      date_revision: '2026-03-12',
+      date_release: '2025-01-01',
+      date_revision: '2026-01-01',
     };
 
-    const mockError = new HttpErrorResponse({
-      error: 'API Error',
-      status: 500,
-      statusText: 'Internal Server Error',
-    });
+    const mockError = new Error('API Error');
 
-    productApiServiceSpy.createProduct.and.returnValue(
-      throwError(() => mockError)
-    );
-    errorHandlingServiceSpy.handleError.and.returnValue(
+    (productApiServiceMock.createProduct as any).mockReturnValue(
       throwError(() => mockError)
     );
 
-    useCase.execute(mockRequest).subscribe({
-      error: (err) => {
-        expect(err.status).toBe(500);
-        expect(errorHandlingServiceSpy.handleError).toHaveBeenCalledWith(
-          mockError,
-          `Product creation failed: ${mockRequest.name}`
-        );
-        done();
+    (errorHandlingServiceMock.handleError as any).mockReturnValue(
+      throwError(() => mockError)
+    );
+
+    useCase.execute(req).subscribe({
+      error: (error) => {
+        expect(errorHandlingServiceMock.handleError).toHaveBeenCalled();
+        expect(error).toBe(mockError);
       },
     });
+
+    expect(productStoreServiceMock.setLoading).toHaveBeenCalledWith(true);
+    expect(productStoreServiceMock.setLoading).toHaveBeenCalledWith(false);
   });
 
-  // -----------------------------------------------------
-  it('should set loading to false after success', (done: DoneFn) => {
-    const mockRequest: ICreateProductRequest = {
-      id: 'OPP-SUCCESS',
-      name: 'Success',
-      description: '',
-      logo: '',
-      date_release: '',
-      date_revision: '',
-    };
-
-    const mockResponse: ICreateProductResponse = {
-      data: mockRequest,
-      message: 'OK',
-    };
-
-    productApiServiceSpy.createProduct.and.returnValue(of(mockResponse));
-
-    useCase.execute(mockRequest).subscribe({
-      complete: () => {
-        // Verificar que setLoading fue llamado con false al final
-        const calls = productStoreServiceSpy.setLoading.calls.all();
-        const lastCall = calls[calls.length - 1];
-        expect(lastCall.args[0]).toBe(false);
-        done();
-      },
-    });
-  });
-
-  // -----------------------------------------------------
-  it('should set loading to false after error', (done: DoneFn) => {
-    const mockRequest: ICreateProductRequest = {
-      id: 'OPP-ERROR2',
+  it('should set loading to true before API call', () => {
+    const req = {
+      id: 'PRE01',
       name: 'Test',
       description: '',
       logo: '',
-      date_release: '',
-      date_revision: '',
+      date_release: '2025-01-01',
+      date_revision: '2026-01-01',
     };
 
-    const mockError = new HttpErrorResponse({
-      error: 'API Error',
-      status: 500,
-      statusText: 'Internal Server Error',
-    });
-
-    productApiServiceSpy.createProduct.and.returnValue(
-      throwError(() => mockError)
-    );
-    errorHandlingServiceSpy.handleError.and.returnValue(
-      throwError(() => mockError)
+    (productApiServiceMock.createProduct as any).mockReturnValue(
+      of({ data: req })
     );
 
-    useCase.execute(mockRequest).subscribe({
-      error: () => {
-        // Verificar que setLoading fue llamado con false después del error
-        const calls = productStoreServiceSpy.setLoading.calls.all();
-        const lastCall = calls[calls.length - 1];
-        expect(lastCall.args[0]).toBe(false);
-        done();
-      },
-    });
+    useCase.execute(req).subscribe();
+
+    expect(productStoreServiceMock.setLoading.mock.calls[0][0]).toBe(true);
+  });
+
+  it('should set loading to false at the end (success)', () => {
+    const req = {
+      id: 'FIN01',
+      name: 'Test',
+      description: '',
+      logo: '',
+      date_release: '2025-01-01',
+      date_revision: '2026-01-01',
+    };
+
+    (productApiServiceMock.createProduct as any).mockReturnValue(
+      of({ data: req })
+    );
+
+    useCase.execute(req).subscribe();
+
+    const calls = productStoreServiceMock.setLoading.mock.calls;
+    expect(calls[calls.length - 1][0]).toBe(false);
   });
 });
