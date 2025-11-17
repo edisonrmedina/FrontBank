@@ -1,0 +1,141 @@
+table,lib-table {
+  width: 100%;
+  padding: 1%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 2px;
+  z-index: 10000;
+}
+
+.table-bank-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  
+}
+
+thead,
+thead tr {
+  background-color: #eef1f4;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  text-align: center;
+  padding: 15px 20px;
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+}
+
+tr {
+  border-bottom: 1px solid #efe9e9;
+}
+
+tr:hover{
+  background-color: #4848480b;
+  cursor: pointer;
+}
+
+td {
+  padding: 15px 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+td:first-child,
+th:first-child {
+  width: 80px;
+}
+
+.logo-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 12px;
+}
+
+tbody {
+  padding: 20px;
+}
+
+.action-cell {
+  position: relative;
+}
+/* Dropdown styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-toggle-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 5px 0;
+  list-style: none;
+  margin: 0;
+  right: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none; /*  HIDE THE MENU BY DEFAULT */
+  z-index: 1000; /* Ensure dropdown appears above other elements */
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 15px;
+  text-decoration: none;
+  color: #333;
+  white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f5f5f5;
+}
+
+/* Show the menu when the 'show' class is added */
+.dropdown-menu.show {
+  display: block; /* SHOW WHEN .show IS PRESENT */
+}
+/* Adjust icon spacing (if you have icons) */
+.dropdown-menu li a i {
+  margin-right: 5px;
+}
+
+.logo-img {
+  display: block;
+  max-width: 150px;
+  height: auto;
+  border-radius: 0px;
+  object-fit: contain;
+  width: 100%;
+  max-width: 150px;
+}
+
+.header-icon {
+  max-width: 15px;
+  height: auto;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+th {
+  white-space: nowrap;
+}
+

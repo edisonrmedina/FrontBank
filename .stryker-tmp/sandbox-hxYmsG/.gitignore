@@ -1,0 +1,25 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Angular / build
+dist/
+.out/
+.tmp/
+.angular/
+
+# IDEs / sistema
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env files (opcional)
+.env
+.env.*.local
+
+# Otros
+coverage/

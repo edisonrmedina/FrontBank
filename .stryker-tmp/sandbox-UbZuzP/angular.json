@@ -1,0 +1,147 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+
+  "projects": {
+    "product": {
+      "projectType": "library",
+      "root": "projects/product",
+      "sourceRoot": "projects/product/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/product/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/product/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/product/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    },
+
+    "app-bancaria": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/app-bancaria",
+      "sourceRoot": "projects/app-bancaria/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/app-bancaria",
+            "index": "projects/app-bancaria/src/index.html",
+            "browser": "projects/app-bancaria/src/main.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/app-bancaria/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/app-bancaria/public",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/product/public",
+                "output": "/assets/product/"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/shared/public",
+                "output": "/assets/shared/"
+              }
+            ],
+            "styles": ["projects/app-bancaria/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "app-bancaria:build:production"
+            },
+            "development": {
+              "buildTarget": "app-bancaria:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:unit-test",
+          "options": {
+            "browser": "projects/app-bancaria/src/test.ts",
+            "tsConfig": "projects/app-bancaria/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+
+    "shared": {
+      "projectType": "library",
+      "root": "projects/shared",
+      "sourceRoot": "projects/shared/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/shared/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    }
+  },
+
+  "cli": {
+    "analytics": false
+  }
+}

@@ -1,0 +1,21 @@
+
+
+:root {
+  /* Colors */
+  --primary-color:#f7b306;
+  --secondary-color: #000000; 
+  --background-color: #eef1f4; 
+  --text-color: #2c333a;
+  /* Typography */
+  --font-family: "preloslab-book", sans-serif; 
+}
+
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0; 
+  font-family: var(--font-family);
+  
+  color: var(--text-color);
+}

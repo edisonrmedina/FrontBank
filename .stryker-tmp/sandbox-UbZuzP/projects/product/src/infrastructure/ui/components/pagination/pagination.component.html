@@ -1,0 +1,46 @@
+<div class="pagination-container">
+  <span class="total-items">{{ totalItems }} Resultados</span>
+  <select class="page-size-selector" (change)="onPageSizeChange()">
+    <option value="5" selected>5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+  </select>
+</div>
+
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage === 1" class="pagination-btn">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <span>
+    {{ totalItems === 0 ? "0 / 0" : currentPage + " / " + totalPages }}
+  </span>
+
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="pagination-btn">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="9 6 15 12 9 18"></polyline>
+    </svg>
+  </button>
+</div>
+

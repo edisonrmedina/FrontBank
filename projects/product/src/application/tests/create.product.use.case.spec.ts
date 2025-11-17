@@ -143,4 +143,30 @@ describe('CreateProductUseCase (Vitest)', () => {
     const calls = productStoreServiceMock.setLoading.mock.calls;
     expect(calls[calls.length - 1][0]).toBe(false);
   });
+
+  it('should call showToast with correct success message', () => {
+    const req: ICreateProductRequest = {
+      id: 'P01',
+      name: 'TestProduct',
+      description: 'desc',
+      logo: 'logo.png',
+      date_release: '2025-01-01',
+      date_revision: '2026-01-01',
+    };
+
+    const res: ICreateProductResponse = {
+      data: req,
+      message: 'OK',
+    };
+
+    (productApiServiceMock.createProduct as any).mockReturnValue(of(res));
+
+    useCase.execute(req).subscribe();
+
+    expect(toastServiceMock.showToast).toHaveBeenCalledWith(
+      'Operación Exitosa',
+      `Product "TestProduct" created successfully`,
+      'success'
+    );
+  });
 });

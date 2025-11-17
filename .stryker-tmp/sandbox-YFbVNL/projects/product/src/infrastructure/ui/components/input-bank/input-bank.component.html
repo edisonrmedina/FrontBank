@@ -1,0 +1,9 @@
+<div class="search">
+    <input 
+      type="text" 
+      class="form-control" 
+      [placeholder]= "translations['search']"
+      [(ngModel)]="searchTerm" 
+      (input)="search()"
+    >
+  </div>

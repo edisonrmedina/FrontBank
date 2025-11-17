@@ -1,0 +1,21 @@
+input[type="text"], lib-input-bank {
+    width: 200px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(25, 25, 26, 0.1);
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(64, 66, 68, 0.1);
+  }
+
+  @media (max-width: 768px) { 
+    input[type="text"] {
+      width: 96%;
+    }
+  }

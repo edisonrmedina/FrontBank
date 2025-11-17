@@ -1,0 +1,30 @@
+lib-button,
+button.create-button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-weight: bolder;
+  font: var(--font-family);
+  border: none;
+  padding: 17px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .create-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 10px 20px;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: var(--font-family);
+    border: none;
+  }
+}

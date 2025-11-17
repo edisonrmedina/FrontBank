@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/lib",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": [],
+    "lib": ["dom", "es2022"]
+  },
+  "exclude": ["src/test.ts", "**/*.spec.ts", "**/*.stories.ts"],
+  "include": ["src/**/*.ts", "**/*.d.ts"]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "product",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.1.0",
+    "@angular/core": "^19.1.0"
+  },
+  "dependencies": {
+    "@datorama/akita": "^8.0.1",
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@datorama/akita-ngdevtools": "^7.0.0"
+  }
+}

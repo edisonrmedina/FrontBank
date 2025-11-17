@@ -1,0 +1,223 @@
+<div class="table-bank-scroll">
+  <table>
+    
+    <thead>
+      <tr>
+  @for (header of headers; track header) {
+    @if (header === 'description') {
+          <th>
+            {{ translations[header] }}
+            @if (translations['tooltip.' + header]) {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], translations?.['tooltip.' + header])"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            } @else {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], 'No description available')"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            }
+          </th>
+        } @else if (header === 'date_release') {
+          <th>
+            {{ translations[header] }}
+            @if (translations['tooltip.' + header]) {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], translations['tooltip.' + header])"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            } @else {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], 'No description available')"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            }
+          </th>
+        } @else if (header === 'date_revision') {
+          <th>
+            {{ translations[header] }}
+            @if (translations['tooltip.' + header]) {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], translations['tooltip.' + header])"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            } @else {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], 'No description available')"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            }
+          </th>
+        } @else {
+          <th>{{ translations[header] }}</th>
+        }
+      }
+
+      @if (actions && actions.length > 0) {
+        <th>{{ translations['actions'] }}</th>
+      }
+    </tr>
+    </thead>
+    
+    <tbody>
+      
+      @for (item of data; track item) {
+      <tr  class="">
+        @for (header of headers; track header) {
+  
+          @if (header === 'logo') {
+            <td (click)="showModal(null,item)">
+              <img [src]="item[headerKeyMap[header]] | logoUrl" class="logo-img" alt="Logo" />
+            </td>
+          } @else {
+            @if (header === 'Fecha de Liberación' || header === 'Fecha de Reestructuración') {
+              <td (click)="showModal(null,item)">{{ formatDate(item[headerKeyMap[header]]) }}</td>
+            } @else {
+              <td (click)="showModal(null,item)">{{ item[headerKeyMap[header]] }}</td>
+            }
+          }
+          
+        }
+  
+        @if (actions && actions.length > 0) {
+          <td (click)="toggleVisibility(item)">
+            <div class="dropdown">
+              <div class="dropdown-container">
+                <button class="dropdown-toggle-btn" (click)="toggleVisibility(item)">
+                  ⋮
+                </button>
+                <ul class="dropdown-menu" [class.show]="getDropdownState(item)">
+                  @for (action of actions; track action) {
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        (click)="showModal(action,item); $event.preventDefault()"
+                      >
+                        @if (action.icon) {
+                          <i class="{{ action.icon }}"></i>
+                        }
+                        {{ action.label }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </td>
+        }
+
+      </tr>
+      }
+    </tbody>
+
+  </table>
+  
+</div>
+
+<lib-delete-bank
+  [isVisible]="modalIsVisible"
+  [item]="selectedItem"
+  (confirm)="closeModal()"
+  (cancel)="closeModal()"
+  [translations]="translations"
+></lib-delete-bank>
+
+
+<lib-modal-info
+  [isVisible]="infoModalIsVisible"
+  [title]="infoModalTitle"
+  [description]="infoModalDescription"
+  [translations]="translations"
+  (closed)="closeInfoModal()">
+></lib-modal-info>
