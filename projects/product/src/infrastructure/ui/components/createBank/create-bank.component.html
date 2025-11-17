@@ -1,5 +1,4 @@
 <!-- prettier-ignore -->
-
 <div class="bank-header">
   <svg
     width="26"
@@ -13,7 +12,7 @@
       fill="#0A126D"
     />
   </svg>
-  <span>{{ translations["bank.title"] }}</span>
+  <span style="cursor: pointer;" (click)="goHome()" >{{ translations["bank.title"] }}</span>
 </div>
 
 <div class="modal-container">
@@ -181,14 +180,14 @@
 
     <div class="buttons">
       <button class="button-primario" type="button" (click)="resetForm()">
-        {{ isEditMode ? "Cancelar" : "Reiniciar" }}
+        {{ isEditMode ? translations["button.cancel"] : translations["button.reset"] }}
       </button>
       <button
         class="button-secundario"
         type="button-secondario"
         (click)="submitForm()"
       >
-        {{ isEditMode ? "Actualizar" : "Enviar" }}
+        {{ isEditMode ? translations["button.update"] : translations["button.submit"] }}
       </button>
     </div>
   </form>

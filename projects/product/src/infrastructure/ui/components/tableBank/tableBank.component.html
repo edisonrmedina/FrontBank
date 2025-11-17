@@ -3,49 +3,151 @@
     
     <thead>
       <tr>
-        @for (header of headers; track header) {
-          @if (header === 'description') {
-           <th> 
-              {{ translations[header] }}
-              @if (translations['tooltip.' + header]) {
-                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
-                    (click)="showInfoModal(translations[header], translations['tooltip.' + header])">
-              } @else {
-                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
-                    (click)="showInfoModal(translations[header], 'No description available')">
-              }
-            </th>
-          } @else if (header === 'date_release') {
-            <th> 
-              {{ translations[header] }}
-              @if (translations['tooltip.' + header]) {
-                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
-                    (click)="showInfoModal(translations[header], translations['tooltip.' + header])">
-              } @else {
-                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
-                    (click)="showInfoModal(translations[header], 'No description available')">
-              }
-            </th>
-          } @else if (header === 'date_revision') {
-            <th> 
-              {{ translations[header] }}
-              @if (translations['tooltip.' + header]) {
-                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
-                    (click)="showInfoModal(translations[header], translations['tooltip.' + header])">
-              } @else {
-                <img src="info.svg" alt="{{ translations[header] }}" class="header-icon" 
-                    (click)="showInfoModal(translations[header], 'No description available')">
-              }
-            </th>
-          } @else {
-            <th>{{ translations[header] }}</th>
-          }
-        }
-        @if (actions && actions.length > 0) {
-          <th>{{ translations['actions'] }}</th>
-        }
+  @for (header of headers; track header) {
+    @if (header === 'description') {
+          <th>
+            {{ translations[header] }}
+            @if (translations['tooltip.' + header]) {
 
-      </tr>
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], translations?.['tooltip.' + header])"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            } @else {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], 'No description available')"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            }
+          </th>
+        } @else if (header === 'date_release') {
+          <th>
+            {{ translations[header] }}
+            @if (translations['tooltip.' + header]) {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], translations['tooltip.' + header])"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            } @else {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], 'No description available')"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            }
+          </th>
+        } @else if (header === 'date_revision') {
+          <th>
+            {{ translations[header] }}
+            @if (translations['tooltip.' + header]) {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], translations['tooltip.' + header])"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            } @else {
+
+              <svg 
+                class="header-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="cursor:pointer"
+                (click)="showInfoModal(translations[header], 'No description available')"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+              </svg>
+
+            }
+          </th>
+        } @else {
+          <th>{{ translations[header] }}</th>
+        }
+      }
+
+      @if (actions && actions.length > 0) {
+        <th>{{ translations['actions'] }}</th>
+      }
+    </tr>
     </thead>
     
     <tbody>

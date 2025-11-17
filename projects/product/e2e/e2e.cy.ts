@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 const BASE_URL = 'http://localhost:4200';
 
 describe('🏦 Product App - Smoke Tests', () => {
@@ -128,7 +129,7 @@ describe('Validaciones del formulario', () => {
   });
 });
 
-describe.only('Validar cálculo automático de date_revision', () => {
+describe('Validar cálculo automático de date_revision', () => {
   it('debería autocalcular date_revision +1 año', () => {
     cy.visit(BASE_URL);
     cy.wait(1000);

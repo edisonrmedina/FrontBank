@@ -9,15 +9,15 @@ import { ModalDeleteBankComponent } from '../modal.delete.bank/modal.delete.bank
 import { ModalInfoComponent } from '../modal-info/modal-info.component';
 
 @Component({
-    selector: 'lib-table',
-    imports: [
-        ModalDeleteBankComponent,
-        BankComponent,
-        LogoUrlPipe,
-        ModalInfoComponent,
-    ],
-    templateUrl: './tableBank.component.html',
-    styleUrl: './tableBank.component.css'
+  selector: 'lib-table',
+  imports: [
+    ModalDeleteBankComponent,
+    BankComponent,
+    LogoUrlPipe,
+    ModalInfoComponent,
+  ],
+  templateUrl: './tableBank.component.html',
+  styleUrl: './tableBank.component.css',
 })
 export class tableBankComponent {
   @Input() headers: string[] = [];

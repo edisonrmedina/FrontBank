@@ -16,7 +16,7 @@ export class LogoUrlPipe implements PipeTransform {
 
   transform(url: string): string {
     if (!url || typeof url !== 'string') {
-      return 'product.png';
+      return 'https://portalbb-multimedia.bolivariano.com/images/default-source/general/bankard/bk-visa-signature.png';
     }
 
     const isValidUrl =
@@ -25,13 +25,13 @@ export class LogoUrlPipe implements PipeTransform {
       url.startsWith('data:image');
 
     if (!isValidUrl) {
-      return 'product.png';
+      return 'https://portalbb-multimedia.bolivariano.com/images/default-source/general/bankard/bk-visa-signature.png';
     }
 
     // Validar extensión
     const extension = this.extractExtension(url);
     if (!extension || !this.validExtensions.includes(extension.toLowerCase())) {
-      return 'product.png';
+      return 'https://portalbb-multimedia.bolivariano.com/images/default-source/general/bankard/bk-visa-signature.png';
     }
 
     return url;

@@ -17,7 +17,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -38,19 +38,18 @@ import { ButtonBankComponent } from '../button.Bank/button.component';
 import { InputBankComponent } from '../input-bank/input-bank.component';
 
 @Component({
-    selector: 'lib-modal-bank',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        InputBankComponent,
-        ButtonBankComponent,
-    ],
-    templateUrl: './create-bank.component.html',
-    styleUrls: ['./create-bank.component.css']
+  selector: 'lib-modal-bank',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    InputBankComponent,
+    ButtonBankComponent,
+  ],
+  templateUrl: './create-bank.component.html',
+  styleUrls: ['./create-bank.component.css'],
 })
 export class BankComponent implements OnDestroy, OnInit {
-  
   @Output() closeModal = new EventEmitter<void>();
   @Output() submit = new EventEmitter<any>();
   @Input() productToEdit: IProduct | null = null;
@@ -102,7 +101,6 @@ export class BankComponent implements OnDestroy, OnInit {
           console.warn('No hay producto seleccionado en el store para editar.');
         }
       }
-      
     });
   }
 
@@ -119,7 +117,6 @@ export class BankComponent implements OnDestroy, OnInit {
       date_release: this.formatDateForInput(this.productToEdit.date_release),
       date_revision: this.formatDateForInput(this.productToEdit.date_revision),
     });
-
   }
 
   private formatDateForInput(dateString: string): string {
@@ -159,7 +156,17 @@ export class BankComponent implements OnDestroy, OnInit {
         this.today,
         [Validators.required, this.validateReleaseDate],
       ],
-      date_revision: [{ value: new Date(new Date(this.today).setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0], disabled: true }, [Validators.required]],
+      date_revision: [
+        {
+          value: new Date(
+            new Date(this.today).setFullYear(new Date().getFullYear() + 1)
+          )
+            .toISOString()
+            .split('T')[0],
+          disabled: true,
+        },
+        [Validators.required],
+      ],
     });
 
     this.productForm.controls['date_release'].valueChanges.subscribe(
@@ -253,6 +260,10 @@ export class BankComponent implements OnDestroy, OnInit {
         return of(null);
       })
     );
+  }
+
+  goHome() {
+    this._router.navigate(['/']);
   }
 
   closeModalBank() {

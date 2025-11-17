@@ -42,6 +42,6 @@ export const es = {
 
   'tooltip.description': 'Descripción detallada del producto',
   'tooltip.date_release': 'La fecha cuando el producto será liberado',
-  'tooltip.date_revision': 'La fecha para revisión/reestructuración del producto'
-  
+  'tooltip.date_revision':
+    'La fecha para revisión/reestructuración del producto',
 };
