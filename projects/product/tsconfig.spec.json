@@ -1,18 +1,14 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/spec",
-    "types": [
-      "jest","node"
-    ],
-    "esModuleInterop": true
-  },"files": [
-    "src/test.ts" 
-  ],
-  "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ]
+    "outDir": "./out-tsc/spec",
+    "types": ["jasmine", "node"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "es2020",
+    "lib": ["es2020", "dom"]
+  },
+  "files": ["src/test.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/**/*.d.ts"],
+  "exclude": ["src/**/*.e2e-spec.ts"]
 }
