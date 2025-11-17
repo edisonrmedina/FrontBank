@@ -11,7 +11,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular/build:ng-packagr",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "project": "projects/product/ng-package.json"
           },
@@ -25,10 +25,14 @@
           },
           "defaultConfiguration": "production"
         },
+
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "configPath": "jest.config.ts"
+            "main": "projects/product/src/test.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/product/tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
@@ -110,23 +114,16 @@
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js"],
-            "configPath": "jest.config.ts",
+            "main": "projects/app-bancaria/src/test.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/app-bancaria/tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/app-bancaria/public"
-              },
-              {
-                "glob": "**/*",
-                "input": "projects/product/public"
-              },
-              {
-                "glob": "**/*",
-                "input": "projects/shared/public"
               }
             ],
             "styles": ["projects/app-bancaria/src/styles.css"],
@@ -143,7 +140,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular/build:ng-packagr",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "project": "projects/shared/ng-package.json"
           },
@@ -158,9 +155,12 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "configPath": "jest.config.ts"
+            "main": "projects/shared/src/test.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/shared/tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js"
           }
         }
       }

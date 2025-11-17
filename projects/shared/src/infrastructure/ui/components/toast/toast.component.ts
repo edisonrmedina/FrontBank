@@ -6,11 +6,10 @@ import { ToastService } from '../../../services/toast.service';
   standalone: true,
   imports: [],
   templateUrl: './toast.component.html',
-  styleUrl: './toast.component.css',
+  styleUrls: ['./toast.component.css'],
 })
 export class ToastComponent {
   constructor(public toastService: ToastService) {}
 
   @ViewChild('toastContainer') toastContainer!: ElementRef;
-  
 }
