@@ -6,6 +6,13 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./setup-vitest.ts'],
+    exclude: [
+      'node_modules',
+      '**/node_modules/**',
+      '.stryker-tmp',
+      '**/.stryker-tmp/**',
+      'dist',
+    ],
   },
   resolve: {
     alias: {

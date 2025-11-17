@@ -23,3 +23,15 @@ Thumbs.db
 
 # Otros
 coverage/
+
+# Stryker mutation testing temp folder
+.stryker-tmp/
+reports/
+stryker.log
+mutation.html
+
+# Vitest coverage
+coverage/
+
+# Node
+node_modules/

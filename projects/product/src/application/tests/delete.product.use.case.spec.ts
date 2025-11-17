@@ -137,4 +137,70 @@ describe('DeleteProductUseCase (Vitest)', () => {
     const calls = productStoreServiceMock.setLoading.mock.calls;
     expect(calls[calls.length - 1][0]).toBe(false);
   });
+
+  it('should handle API success even if response message is empty', () => {
+    const id = 'NO-MSG';
+
+    (productApiServiceMock.deleteProduct as any).mockReturnValue(
+      of({ message: '' })
+    );
+
+    useCase.execute(id).subscribe();
+
+    expect(productStoreServiceMock.deleteProduct).toHaveBeenCalledWith(id);
+    expect(toastServiceMock.showToast).toHaveBeenCalled();
+  });
+  it('should handle null response gracefully', () => {
+    const id = 'NULL-API';
+
+    (productApiServiceMock.deleteProduct as any).mockReturnValue(
+      of(null as any)
+    );
+
+    useCase.execute(id).subscribe();
+
+    expect(productStoreServiceMock.deleteProduct).toHaveBeenCalledWith(id);
+    expect(toastServiceMock.showToast).toHaveBeenCalled();
+  });
+
+  it('should show success toast with correct values', () => {
+    const id = '123';
+    const mockResponse = { data: true, message: 'OK' };
+
+    (productApiServiceMock.deleteProduct as any).mockReturnValue(
+      of(mockResponse)
+    );
+
+    useCase.execute(id).subscribe();
+
+    expect(toastServiceMock.showToast).toHaveBeenCalledWith(
+      'Operación Exitosa',
+      'Producto eliminado correctamente',
+      'success'
+    );
+  });
+
+  it('should handle error with correct message and rethrow same error', () => {
+    const id = 'ERR';
+    const mockError = new Error('Delete failed');
+
+    (productApiServiceMock.deleteProduct as any).mockReturnValue(
+      throwError(() => mockError)
+    );
+
+    (errorHandlingServiceMock.handleError as any).mockReturnValue(
+      throwError(() => mockError)
+    );
+
+    useCase.execute(id).subscribe({
+      error: (err) => {
+        expect(errorHandlingServiceMock.handleError).toHaveBeenCalledWith(
+          mockError,
+          `Product deletion failed: ${id}`
+        );
+
+        expect(err).toBe(mockError);
+      },
+    });
+  });
 });
