@@ -38,17 +38,16 @@ import { ButtonBankComponent } from '../button.Bank/button.component';
 import { InputBankComponent } from '../input-bank/input-bank.component';
 
 @Component({
-  selector: 'lib-modal-bank',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    InputBankComponent,
-    ButtonBankComponent,
-  ],
-  templateUrl: './create-bank.component.html',
-  styleUrls: ['./create-bank.component.css'],
+    selector: 'lib-modal-bank',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        InputBankComponent,
+        ButtonBankComponent,
+    ],
+    templateUrl: './create-bank.component.html',
+    styleUrls: ['./create-bank.component.css']
 })
 export class BankComponent implements OnDestroy, OnInit {
   

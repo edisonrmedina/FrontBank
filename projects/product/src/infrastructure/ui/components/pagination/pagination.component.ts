@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'lib-pagination',
-  imports: [],
-  templateUrl: './pagination.component.html',
-  styleUrl: './pagination.component.css',
-  standalone: true,
+    selector: 'lib-pagination',
+    imports: [],
+    templateUrl: './pagination.component.html',
+    styleUrl: './pagination.component.css'
 })
 export class PaginationComponent {
   @Input() totalItems: number = 0;

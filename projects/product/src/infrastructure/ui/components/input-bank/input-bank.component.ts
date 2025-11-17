@@ -3,11 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'lib-input-bank',
-  imports: [CommonModule, FormsModule],
-  templateUrl: './input-bank.component.html',
-  styleUrl: './input-bank.component.css',
-  standalone: true,
+    selector: 'lib-input-bank',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './input-bank.component.html',
+    styleUrl: './input-bank.component.css'
 })
 export class InputBankComponent {
   searchTerm: string = '';

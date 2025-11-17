@@ -12,18 +12,17 @@ import { tableBankComponent } from '../../components/tableBank/tableBank.compone
 import { ITableBankAction } from '../../interfaces/ITableBankAction';
 
 @Component({
-  selector: 'lib-design.one.container',
-  standalone: true,
-  imports: [
-    InputBankComponent,
-    tableBankComponent,
-    PaginationComponent,
-    ButtonBankComponent,
-    BankComponent,
-    RootsharedComponent,
-  ],
-  templateUrl: './design.one.container.component.html',
-  styleUrl: './design.one.container.component.css',
+    selector: 'lib-design.one.container',
+    imports: [
+        InputBankComponent,
+        tableBankComponent,
+        PaginationComponent,
+        ButtonBankComponent,
+        BankComponent,
+        RootsharedComponent,
+    ],
+    templateUrl: './design.one.container.component.html',
+    styleUrl: './design.one.container.component.css'
 })
 export class DesignOneContainerComponent implements OnInit {
   currentLanguage: string;

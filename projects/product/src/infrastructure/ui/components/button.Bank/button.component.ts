@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'lib-button',
-  standalone: true,
-  imports: [],
-  templateUrl: './buttonBank.component.html',
-  styleUrl: './buttonBank.component.css',
+    selector: 'lib-button',
+    imports: [],
+    templateUrl: './buttonBank.component.html',
+    styleUrl: './buttonBank.component.css'
 })
 export class ButtonBankComponent {
   @Input() label: string = '';

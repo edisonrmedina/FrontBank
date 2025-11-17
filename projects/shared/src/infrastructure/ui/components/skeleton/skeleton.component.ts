@@ -3,11 +3,10 @@ import { Subscription } from 'rxjs';
 import { ProductQuery } from '../../../../domain/state/product.query';
 
 @Component({
-  selector: 'lib-skeleton',
-  imports: [],
-  templateUrl: './skeleton.component.html',
-  styleUrl: './skeleton.component.css',
-  standalone: true,
+    selector: 'lib-skeleton',
+    imports: [],
+    templateUrl: './skeleton.component.html',
+    styleUrl: './skeleton.component.css'
 })
 export class SkeletonComponent implements OnDestroy {
   private readonly _subscription = new Subscription();

@@ -5,22 +5,21 @@ import { LocalTranslationStrategy } from '../../../strategies/i18n-strategy/loca
 import { TranslationStrategy } from '../../../strategies/translation';
 
 @Component({
-  selector: 'lib-rootshared',
-  standalone: true,
-  imports: [],
-  templateUrl: './rootshared.component.html',
-  styleUrl: './rootshared.component.css',
-  providers: [
-    {
-      provide: LANGUAGE,
-      useFactory: () => {
-        return localStorage.getItem('language') || navigator.language || 'es';
-      },
-    },
-    {
-      provide : TranslationStrategy , useClass: LocalTranslationStrategy
-    }
-  ],
+    selector: 'lib-rootshared',
+    imports: [],
+    templateUrl: './rootshared.component.html',
+    styleUrl: './rootshared.component.css',
+    providers: [
+        {
+            provide: LANGUAGE,
+            useFactory: () => {
+                return localStorage.getItem('language') || navigator.language || 'es';
+            },
+        },
+        {
+            provide: TranslationStrategy, useClass: LocalTranslationStrategy
+        }
+    ]
 })
 
 export class RootsharedComponent {
